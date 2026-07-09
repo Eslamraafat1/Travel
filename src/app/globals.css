@@ -1,0 +1,328 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Cairo:wght@300;400;500;600;700;800;900&display=swap');
+
+/* =============================================
+   CSS VARIABLES - DESIGN TOKENS
+   ============================================= */
+:root {
+  --primary: #ff6b35;
+  --primary-light: #ff8c5a;
+  --primary-dark: #e55520;
+  --secondary: #00d4ff;
+  --secondary-dark: #00a8cc;
+  --accent: #ffd700;
+
+  --bg-main: #0a0a1a;
+  --bg-card: #12122a;
+  --bg-card-hover: #1a1a38;
+  --bg-nav: rgba(10, 10, 26, 0.85);
+  --bg-section: #0e0e22;
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0c0;
+  --text-muted: #6060a0;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 107, 53, 0.4);
+  --glass: rgba(255, 255, 255, 0.04);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --overlay: rgba(0, 0, 0, 0.6);
+
+  --gradient-primary: linear-gradient(135deg, #ff6b35, #ff1493);
+  --gradient-secondary: linear-gradient(135deg, #00d4ff, #0088ff);
+  --gradient-hero: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 50%, #0a1a2e 100%);
+  --gradient-card: linear-gradient(135deg, rgba(255,107,53,0.1), rgba(0,212,255,0.05));
+
+  --max-width: 1280px;
+  --section-padding: 100px 24px;
+  --card-radius: 20px;
+  --btn-radius: 50px;
+
+  --font-en: 'Outfit', sans-serif;
+  --font-ar: 'Cairo', sans-serif;
+
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* =============================================
+   LIGHT THEME
+   ============================================= */
+[data-theme="light"] {
+  --bg-main: #f5f7ff;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f0f2ff;
+  --bg-nav: rgba(245, 247, 255, 0.92);
+  --bg-section: #eef0fb;
+  --text-primary: #0a0a2e;
+  --text-secondary: #4a4a7a;
+  --text-muted: #8080b0;
+  --border: rgba(0, 0, 0, 0.08);
+  --border-hover: rgba(255, 107, 53, 0.4);
+  --glass: rgba(0, 0, 0, 0.03);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --shadow: 0 20px 60px rgba(0, 0, 50, 0.12);
+  --shadow-card: 0 8px 32px rgba(0, 0, 50, 0.1);
+  --overlay: rgba(0, 0, 0, 0.4);
+  --gradient-hero: linear-gradient(135deg, #e8ebff 0%, #f0e8ff 50%, #e8f5ff 100%);
+}
+
+/* =============================================
+   RESET & BASE
+   ============================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+html[dir="rtl"] {
+  direction: rtl;
+}
+
+html[dir="ltr"] {
+  direction: ltr;
+}
+
+body {
+  font-family: var(--font-ar);
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  line-height: 1.6;
+  direction: inherit;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  overflow-x: hidden;
+}
+
+/* Dynamic direction support */
+html[dir="rtl"] body {
+  font-family: var(--font-ar);
+}
+
+html[dir="ltr"] body {
+  font-family: var(--font-en);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+/* =============================================
+   SCROLLBAR
+   ============================================= */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-main); }
+::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+
+/* =============================================
+   UTILITY CLASSES
+   ============================================= */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section { padding: var(--section-padding); }
+.section-alt { background: var(--bg-section); }
+
+.gradient-text {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-blue {
+  background: var(--gradient-secondary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* =============================================
+   BUTTONS
+   ============================================= */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  background: var(--gradient-primary);
+  color: white;
+  border-radius: var(--btn-radius);
+  font-weight: 700;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: var(--transition);
+  box-shadow: 0 4px 20px rgba(255, 107, 53, 0.4);
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(255, 107, 53, 0.6);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  border-radius: var(--btn-radius);
+  font-weight: 700;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: var(--transition);
+  background: transparent;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-outline:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(255, 107, 53, 0.4);
+}
+
+/* =============================================
+   SECTION HEADER
+   ============================================= */
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.section-tag {
+  display: inline-block;
+  padding: 6px 20px;
+  background: var(--gradient-primary);
+  color: white;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  letter-spacing: 1px;
+}
+
+.section-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+/* =============================================
+   CARDS
+   ============================================= */
+.card {
+  background: var(--bg-card);
+  border-radius: var(--card-radius);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: var(--transition);
+  box-shadow: var(--shadow-card);
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  border-color: var(--border-hover);
+  box-shadow: 0 20px 60px rgba(255, 107, 53, 0.2);
+}
+
+/* =============================================
+   BADGE
+   ============================================= */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.badge-primary { background: var(--gradient-primary); color: white; }
+.badge-glass {
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+}
+
+/* =============================================
+   STAR RATING
+   ============================================= */
+.stars { display: flex; gap: 2px; color: var(--accent); }
+
+/* =============================================
+   LOADING SKELETON
+   ============================================= */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--bg-card) 25%, var(--bg-card-hover) 50%, var(--bg-card) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+/* =============================================
+   GRID SYSTEMS
+   ============================================= */
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+@media (max-width: 1024px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  :root { --section-padding: 60px 20px; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .section-title { font-size: 1.8rem; }
+}
+
+@media (max-width: 480px) {
+  .container { padding: 0 16px; }
+  .btn-primary, .btn-outline { padding: 12px 24px; font-size: 0.9rem; }
+}
