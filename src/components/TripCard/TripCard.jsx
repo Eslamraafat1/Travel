@@ -6,18 +6,14 @@ import { useLanguage } from "@/context/LanguageContext";
 import styles from "./TripCard.module.css";
 
 const difficultyColors = {
-  سهل: "#22c55e",
-  متوسط: "#f59e0b",
-  صعب: "#ef4444",
   easy: "#22c55e",
   medium: "#f59e0b",
   hard: "#ef4444",
 };
 
 export default function TripCard({ trip, index = 0 }) {
-  const { t, lang } = useLanguage();
-  const isRtl = lang === "ar";
-  const ArrowIcon = isRtl ? ArrowLeft : ArrowRight;
+  const { t } = useLanguage();
+  const ArrowIcon = ArrowRight;
 
   const seatsPercent = Math.round((trip.availableSeats / trip.totalSeats) * 100);
   const urgency = trip.availableSeats <= 5;

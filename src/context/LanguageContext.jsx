@@ -1,32 +1,35 @@
 "use client";
 import { createContext, useContext, useState, useEffect } from "react";
-import { ar } from "../locales/ar";
 import { en } from "../locales/en";
+import { ar } from "../locales/ar";
 
-const translations = { ar, en };
+const translations = { en, ar };
 const LanguageContext = createContext();
 
-function getInitialLang() {
-  if (typeof window === "undefined") return "ar";
-  return localStorage.getItem("app-lang") || "ar";
-}
-
 export function LanguageProvider({ children }) {
-  const [lang, setLang] = useState(getInitialLang);
+  const [lang, setLang] = useState("ar");
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
-    document.documentElement.lang = lang;
-    // preserve existing data-theme
+    const saved = localStorage.getItem("app-lang") || "ar";
+    setLang(saved);
+    applyLang(saved);
+    setMounted(true);
+  }, []);
+
+  const applyLang = (l) => {
+    document.documentElement.dir = l === "ar" ? "rtl" : "ltr";
+    document.documentElement.lang = l;
     if (!document.documentElement.getAttribute("data-theme")) {
       document.documentElement.setAttribute("data-theme", "dark");
     }
-  }, [lang]);
+  };
 
-  const toggleLanguage = () => {
-    const nextLang = lang === "ar" ? "en" : "ar";
-    setLang(nextLang);
-    localStorage.setItem("app-lang", nextLang);
+  const toggleLang = () => {
+    const newLang = lang === "ar" ? "en" : "ar";
+    setLang(newLang);
+    localStorage.setItem("app-lang", newLang);
+    applyLang(newLang);
   };
 
   const t = (key, params = {}) => {
@@ -45,8 +48,16 @@ export function LanguageProvider({ children }) {
     return value;
   };
 
+  if (!mounted) {
+    return (
+      <LanguageContext.Provider value={{ lang: "ar", t: (k) => k }}>
+        {children}
+      </LanguageContext.Provider>
+    );
+  }
+
   return (
-    <LanguageContext.Provider value={{ lang, toggleLanguage, t }}>
+    <LanguageContext.Provider value={{ lang, t, toggleLang }}>
       {children}
     </LanguageContext.Provider>
   );

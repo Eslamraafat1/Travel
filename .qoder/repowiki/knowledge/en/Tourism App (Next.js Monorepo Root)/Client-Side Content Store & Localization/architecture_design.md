@@ -1,0 +1,6 @@
+Three independent, stateless modules each wrapping a single `localStorage` key with a thin read/write API:
+- `contentStore.js` — keyed by `admin_content`, stores per-language override maps; exposes `getContentOverrides`, `setContentOverrides`, and `getMergedContent(keyPath, localeValue, lang)` which walks a dot-separated path into the overrides and falls back to the supplied default.
+- `adminStore.js` — two keys (`admin_trips`, `admin_packages`) with paired `getStored*` / `setStored*` exports; uses shared `load`/`save` helpers that guard against SSR via `typeof window === 'undefined'`.
+- `localizeContent.js` — pure functions `localizePackage` and `localizeTrip` that pick `*En` fields over Arabic defaults when `lang !== 'ar'`, returning the original object unchanged for Arabic or null input.
+
+Dependency direction is one-way: consumers call these modules; there are no cross-imports between them. All three modules are SSR-safe (guard on `window`) and treat `localStorage` as an opaque best-effort store — parse/save calls are wrapped in try/catch so corrupted storage never crashes rendering.

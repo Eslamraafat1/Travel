@@ -3,13 +3,11 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "@/context/ThemeContext";
-import { useLanguage } from "@/context/LanguageContext";
-import { Sun, Moon, Menu, X, Globe, Phone } from "lucide-react";
+import { Globe, Sun, Moon, Menu, X, Phone } from "lucide-react";
 import styles from "./Navbar.module.css";
 
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
-  const { lang, toggleLanguage, t } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
@@ -23,6 +21,16 @@ export default function Navbar() {
   useEffect(() => {
     setMenuOpen(false);
   }, [pathname]);
+
+  const navLinks = [
+    { href: "/", label: "Home" },
+    { href: "/packages", label: "Packages" },
+    { href: "/explore", label: "Explore" },
+    { href: "/trips", label: "Trips" },
+    { href: "/planner", label: "Planner" },
+    { href: "/about", label: "About" },
+    { href: "/contact", label: "Contact" },
+  ];
 
   return (
     <nav className={`${styles.navbar} ${scrolled ? styles.scrolled : ""}`}>
@@ -39,34 +47,20 @@ export default function Navbar() {
 
         {/* Desktop Nav Links */}
         <div className={styles.navLinks}>
-          <Link href="/" className={styles.navLink}>{t('nav.home')}</Link>
-          <Link href="/packages" className={styles.navLink}>{t('nav.packages')}</Link>
-          <Link href="/trips" className={styles.navLink}>{t('nav.trips')}</Link>
-          <Link href="/planner" className={styles.navLink}>{t('nav.planner')}</Link>
-          <Link href="/about" className={styles.navLink}>{t('nav.about')}</Link>
-          <Link href="/contact" className={styles.navLink}>{t('nav.contact')}</Link>
-          <Link href="/dashboard" className={styles.navLink} style={{ color: "var(--primary)" }}>{t('nav.dashboard')}</Link>
+          {navLinks.map((link) => (
+            <Link key={link.href} href={link.href} className={styles.navLink}>{link.label}</Link>
+          ))}
         </div>
 
         {/* Right Actions */}
         <div className={styles.actions}>
-          {/* Language Toggle */}
-          <button className={styles.langBtn} onClick={toggleLanguage} aria-label={t('nav.langToggle')}>
-            <span className={styles.langIcon}>
-              <Globe size={15} />
-            </span>
-            <span className={styles.langLabel}>
-              {lang === 'ar' ? 'EN' : 'عربي'}
-            </span>
-          </button>
-
           {/* Theme Toggle */}
           <button
             id="theme-toggle"
             onClick={toggleTheme}
             className={styles.themeToggle}
-            aria-label={t('nav.themeToggle')}
-            title={t('nav.themeToggle')}
+            aria-label="Toggle theme"
+            title="Toggle theme"
           >
             <div className={styles.toggleTrack}>
               <span className={styles.toggleIcon}>{theme === "dark" ? <Moon size={14} /> : <Sun size={14} />}</span>
@@ -77,7 +71,7 @@ export default function Navbar() {
           {/* CTA Button */}
           <Link href="/packages" className={styles.ctaBtn}>
             <Phone size={16} />
-            <span>{t('nav.bookNow')}</span>
+            <span>Book Now</span>
           </Link>
 
           {/* Mobile Hamburger */}
@@ -85,7 +79,7 @@ export default function Navbar() {
             id="mobile-menu-btn"
             className={styles.hamburger}
             onClick={() => setMenuOpen(!menuOpen)}
-            aria-label={t('nav.menuToggle')}
+            aria-label="Toggle menu"
           >
             {menuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -95,16 +89,12 @@ export default function Navbar() {
       {/* Mobile Menu */}
       <div className={`${styles.mobileMenu} ${menuOpen ? styles.mobileOpen : ""}`}>
         <div className={styles.mobileLinks}>
-          <Link href="/" className={styles.mobileLink} onClick={() => setMenuOpen(false)}>{t('nav.home')}</Link>
-          <Link href="/packages" className={styles.mobileLink} onClick={() => setMenuOpen(false)}>{t('nav.packages')}</Link>
-          <Link href="/trips" className={styles.mobileLink} onClick={() => setMenuOpen(false)}>{t('nav.trips')}</Link>
-          <Link href="/planner" className={styles.mobileLink} onClick={() => setMenuOpen(false)}>{t('nav.planner')}</Link>
-          <Link href="/about" className={styles.mobileLink} onClick={() => setMenuOpen(false)}>{t('nav.about')}</Link>
-          <Link href="/contact" className={styles.mobileLink} onClick={() => setMenuOpen(false)}>{t('nav.contact')}</Link>
-          <Link href="/dashboard" className={styles.mobileLink} onClick={() => setMenuOpen(false)} style={{ color: "var(--primary)" }}>{t('nav.dashboard')}</Link>
+          {navLinks.map((link) => (
+            <Link key={link.href} href={link.href} className={styles.mobileLink} onClick={() => setMenuOpen(false)}>{link.label}</Link>
+          ))}
         </div>
         <Link href="/packages" className="btn-primary" style={{ margin: "16px 20px 0", justifyContent: "center" }} onClick={() => setMenuOpen(false)}>
-          {t('nav.bookNow')}
+          Book Now
         </Link>
       </div>
     </nav>

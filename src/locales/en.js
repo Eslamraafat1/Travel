@@ -8,8 +8,9 @@ export const en = {
     bookNow: "Book Now",
     planner: "Suggest Me",
     dashboard: "Dashboard",
+    explore: "Explore",
     themeToggle: "Toggle Theme",
-    langToggle: "العربية",
+    langToggle: "Arabic",
     menuToggle: "Menu"
   },
   hero: {
@@ -175,38 +176,32 @@ export const en = {
       storiesTitleAccent: "Real Travelers",
       storiesSubtitle: "Read how our travelers discovered their dream destinations",
 
-      // World Heritage (like "مواقع التراث العالمية")
       heritageTag: "🏛️ World Heritage",
       heritageTitle1: "UNESCO ",
       heritageTitleAccent: "World Wonders",
       heritageSubtitle: "Explore humanity's most extraordinary destinations",
 
-      // Events (like "الفعاليات")
       eventsTag: "🎪 Events & Festivals",
       eventsTitle1: "Plan Around ",
       eventsTitleAccent: "Amazing Events",
       eventsSubtitle: "Experience the world's most exciting festivals and events",
 
-      // Gallery (like "المركز الإعلامي")
       galleryTag: "🎬 Travel Gallery",
       galleryTitle1: "Visual ",
       galleryTitleAccent: "Inspiration",
       gallerySubtitle: "Stunning moments captured by our travelers around the world",
 
-      // FAQ (like "الأسئلة المكررة")
       faqTag: "❓ Travel Help",
       faqTitle1: "Frequently ",
       faqTitleAccent: "Asked Questions",
       faqSubtitle: "Everything you need to know before booking your next trip",
 
-      // Map (like "اكتشف خريطة مصر")
       mapTag: "🗺️ Explore the Map",
       mapTitle1: "Discover ",
       mapTitleAccent: "Interactive Destinations",
       mapSubtitle: "Hover over pins to explore amazing travel destinations around the world",
       mapExplore: "Explore",
 
-      // Hidden Treasures (like "الآثار الغارقة")
       hiddenTag: "💎 Hidden Treasures",
       hiddenTitle1: "Off the ",
       hiddenTitleAccent: "Beaten Path",
@@ -214,7 +209,6 @@ export const en = {
       hiddenVisits: "visitors/year",
       hiddenRare: "Rare Gem",
 
-      // Travel Quiz (like "عالم الأطفال" but for all ages)
       quizTag: "🧠 Travel Personality",
       quizTitle1: "What Kind of ",
       quizTitleAccent: "Traveler Are You?",
@@ -488,7 +482,13 @@ export const en = {
       share: "Share",
       noTrips: "No trips added yet.",
       noItinerary: "No itinerary available.",
-      noGallery: "No additional images."
+      noGallery: "No additional images.",
+      hotelsTitle: "Nearby Hotels",
+      hotelsDesc: "Best hotels near this destination",
+      restaurantsTitle: "Nearby Restaurants",
+      restaurantsDesc: "Best restaurants near this destination",
+      noHotels: "No hotels found nearby.",
+      noRestaurants: "No restaurants found nearby.",
     },
     tripDetail: {
       overview: "Trip Overview",

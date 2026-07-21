@@ -1,5 +1,6 @@
 import { ThemeProvider } from "@/context/ThemeContext";
 import { LanguageProvider } from "@/context/LanguageContext";
+import { AuthProvider } from "@/context/AuthContext";
 import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 import "./globals.css";
 
@@ -27,12 +28,14 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body suppressHydrationWarning>
+        <AuthProvider>
         <LanguageProvider>
           <ThemeProvider>
             {children}
             <ScrollToTop />
           </ThemeProvider>
         </LanguageProvider>
+        </AuthProvider>
       </body>
     </html>
   );

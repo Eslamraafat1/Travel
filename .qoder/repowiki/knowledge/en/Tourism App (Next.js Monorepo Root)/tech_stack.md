@@ -1,0 +1,1 @@
+Next.js 16 with React 19 and the experimental React Compiler enabled globally via `reactCompiler: true`; shared dependencies include axios, framer-motion, gsap, lucide-react, and openai consumed by multiple children.

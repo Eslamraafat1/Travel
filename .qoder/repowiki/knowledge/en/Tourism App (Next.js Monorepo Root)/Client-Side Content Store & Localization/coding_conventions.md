@@ -1,0 +1,4 @@
+- Every module guards browser-only APIs with `typeof window === 'undefined'` at the top of read/write helpers so the same code runs during SSR without throwing.
+- Persistence helpers wrap `localStorage.getItem`/`setItem` in try/catch and return a fallback value, treating storage as unreliable rather than fatal.
+- Bilingual localization prefers the `*En` variant over the base field only when `lang !== 'ar'`; Arabic content is returned verbatim.
+- Each module exposes only named ES-module exports and keeps internal helpers (e.g. `getAll`/`saveAll`, `load`/`save`) non-exported to form a minimal public surface.

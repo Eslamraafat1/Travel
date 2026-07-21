@@ -1,0 +1,2 @@
+- All source files live under `src/` and are imported via the `@/*` path alias defined in jsconfig.json.
+- ESLint rules come from `eslint-config-next/core-web-vitals` and apply uniformly to every child module.

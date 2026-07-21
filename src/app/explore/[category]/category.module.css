@@ -1,0 +1,860 @@
+/* =============================================
+   CATEGORY PAGES — 9 Unique Layouts
+   ============================================= */
+
+/* ---- Hero with background image ---- */
+.hero {
+  position: relative;
+  min-height: 55vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 130px 24px 60px;
+  overflow: hidden;
+}
+
+.heroImg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.heroOverlayGrad {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.88;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 650px;
+}
+
+.heroLine { margin-bottom: 14px; overflow: hidden; }
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 50px;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  transition: background 0.3s;
+}
+.backBtn:hover { background: rgba(255,255,255,0.2); }
+
+.heroIcon {
+  display: inline-flex;
+  width: 72px; height: 72px;
+  border-radius: 20px;
+  border: 2px solid;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(8px);
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin: 0 auto;
+}
+
+.heroTitle {
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 900;
+  color: white;
+  margin: 0;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  line-height: 1.1;
+}
+
+.heroSub {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.75);
+  max-width: 420px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+.heroStatBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 50px;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+/* ---- Section Outer ---- */
+.sectionOuter {
+  padding: 60px 24px 100px;
+}
+
+.sectionInner {
+  max-width: 1150px;
+  margin: 0 auto;
+}
+
+/* =============================================
+   1. HOTELS — Premium Grid
+   ============================================= */
+.grid3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.hotelCard {
+  background: var(--card-bg);
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  transition: box-shadow 0.4s, transform 0.4s;
+}
+.hotelCard:hover {
+  box-shadow: 0 16px 48px rgba(245,158,11,0.08);
+  transform: translateY(-6px);
+}
+
+.hotelBgDecor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.hotelEmoji {
+  position: absolute;
+  font-size: 28px;
+  opacity: 0.5;
+  animation: floatEmoji 4s ease-in-out infinite;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.hotelEmoji:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+.hotelEmoji:nth-child(2) { bottom: 15%; right: 15%; animation-delay: 0.5s; }
+
+.hotelImgWrap {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+.hotelImg {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+.hotelCard:hover .hotelImg { transform: scale(1.08); }
+.hotelImgOverlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.5));
+}
+.hotelPrice {
+  position: absolute; top: 14px; right: 14px;
+  padding: 5px 14px;
+  background: rgba(245,158,11,0.9);
+  color: white;
+  border-radius: 50px;
+  font-size: 0.8rem; font-weight: 800;
+  backdrop-filter: blur(4px);
+}
+.hotelOpen {
+  position: absolute; top: 14px; left: 14px;
+  padding: 4px 12px;
+  background: rgba(34,197,94,0.9);
+  color: white;
+  border-radius: 50px;
+  font-size: 0.7rem; font-weight: 700;
+}
+
+.hotelBody { padding: 18px; }
+.hotelStars { display: flex; align-items: center; gap: 2px; margin-bottom: 8px; gap: 2px; }
+.hotelRating { margin-left: 6px; font-size: 0.82rem; font-weight: 700; color: var(--text-primary); }
+.hotelName { font-size: 1.05rem; font-weight: 700; color: var(--text-primary); margin: 0 0 6px; }
+.hotelAddr { display: flex; align-items: center; gap: 4px; font-size: 0.8rem; color: var(--text-secondary); margin: 0 0 12px; }
+.hotelFeatures { display: flex; flex-wrap: wrap; gap: 6px; }
+.hotelFeat { padding: 3px 10px; background: rgba(245,158,11,0.06); border: 1px solid rgba(245,158,11,0.15); border-radius: 50px; font-size: 0.7rem; color: var(--text-secondary); }
+
+/* =============================================
+   2. RESTAURANTS — Food Gallery
+   ============================================= */
+.cuisineBar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 16px 24px;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.cuisineScroll {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  max-width: 1150px;
+  margin: 0 auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.cuisineScroll::-webkit-scrollbar { display: none; }
+.cuisinePill {
+  flex-shrink: 0;
+  padding: 8px 20px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 50px;
+  background: transparent;
+  color: rgba(255,255,255,0.6);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.cuisinePill:hover { background: rgba(239,68,68,0.1); color: white; }
+.cuisineActive { background: #ef4444; color: white; border-color: #ef4444; }
+.cuisineActive:hover { background: #ef4444; color: white; }
+
+.foodCard {
+  background: var(--card-bg);
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+.foodCard:hover { box-shadow: 0 12px 40px rgba(239,68,68,0.08); transform: translateY(-4px); }
+
+.foodBgDecor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.foodEmoji {
+  position: absolute;
+  font-size: 24px;
+  opacity: 0.5;
+  animation: floatEmoji 3.5s ease-in-out infinite;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.foodEmoji:nth-child(1) { top: 15%; left: 8%; animation-delay: 0s; }
+.foodEmoji:nth-child(2) { top: 25%; right: 12%; animation-delay: 0.4s; }
+.foodEmoji:nth-child(3) { bottom: 20%; left: 50%; animation-delay: 0.8s; }
+
+.foodImgWrap {
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+}
+.foodImg { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+.foodCard:hover .foodImg { transform: scale(1.06); }
+.foodOverlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.45));
+}
+.foodPrice {
+  position: absolute; top: 14px; right: 14px;
+  padding: 4px 14px;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+  color: white;
+  border-radius: 50px;
+  font-size: 0.8rem; font-weight: 800;
+}
+
+.foodBody { padding: 16px; }
+.foodName { font-size: 1rem; font-weight: 700; color: var(--text-primary); margin: 0 0 8px; }
+.foodTags { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.foodTag { padding: 3px 10px; border-radius: 50px; font-size: 0.65rem; font-weight: 700; }
+.foodOpen { background: rgba(34,197,94,0.15); color: #22c55e; }
+.foodClosed { background: rgba(239,68,68,0.15); color: #ef4444; }
+.foodRating { font-size: 0.82rem; font-weight: 700; color: var(--text-primary); }
+.foodAddr { display: flex; align-items: center; gap: 4px; font-size: 0.78rem; color: var(--text-secondary); margin: 0; }
+
+/* =============================================
+   3. LANDMARKS — Heritage Timeline
+   ============================================= */
+.timelineWrap {
+  position: relative;
+  padding: 20px 0;
+}
+
+.timelineLine {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, #8b5cf6, transparent);
+  transform: translateX(-50%);
+}
+
+.timelineCard {
+  position: relative;
+  display: flex;
+  gap: 30px;
+  margin-bottom: 40px;
+  cursor: pointer;
+  width: 100%;
+}
+.timelineLeft { flex-direction: row; }
+.timelineRight { flex-direction: row-reverse; }
+
+.timelineDot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: #8b5cf6;
+  border: 3px solid var(--bg);
+  z-index: 2;
+  box-shadow: 0 0 20px rgba(139,92,246,0.3);
+}
+
+.timelineImgWrap {
+  flex: 0 0 45%;
+  position: relative;
+  height: 200px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.timelineImg { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+.timelineCard:hover .timelineImg { transform: scale(1.05); }
+.timelineOverlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.4));
+}
+.timelineBadge {
+  position: absolute; top: 12px; left: 12px;
+  padding: 5px 14px;
+  background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+  color: white;
+  border-radius: 50px;
+  font-size: 0.75rem; font-weight: 700;
+}
+
+.timelineBody {
+  flex: 0 0 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 16px 0;
+}
+.timelineName { font-size: 1.2rem; font-weight: 700; color: var(--text-primary); margin: 0 0 8px; }
+.timelineAddr { display: flex; align-items: center; gap: 4px; font-size: 0.82rem; color: var(--text-secondary); margin: 0 0 12px; }
+.timelineMeta { display: flex; align-items: center; gap: 16px; }
+.timelineRating { font-size: 0.9rem; font-weight: 700; color: #8b5cf6; }
+.timelineDist { font-size: 0.8rem; color: var(--text-secondary); }
+
+.timelineBgDecor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.tripEmoji {
+  position: absolute;
+  font-size: 26px;
+  opacity: 0.5;
+  animation: floatEmoji 4s ease-in-out infinite;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.tripEmoji:nth-child(1) { top: 12%; left: 15%; animation-delay: 0s; }
+.tripEmoji:nth-child(2) { bottom: 25%; right: 10%; animation-delay: 0.6s; }
+
+/* =============================================
+   4. ACTIVITIES — Adventure Grid
+   ============================================= */
+.advCard {
+  background: var(--card-bg);
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+.advCard:hover { box-shadow: 0 12px 40px rgba(6,182,212,0.08); transform: translateY(-4px) rotateX(2deg); }
+
+.advImgWrap {
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+}
+.advImg { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+.advCard:hover .advImg { transform: scale(1.08); }
+.advOverlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(6,182,212,0.2), transparent);
+}
+.advDiff {
+  position: absolute; top: 14px; right: 14px;
+  padding: 4px 14px;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  color: white;
+  border-radius: 50px;
+  font-size: 0.7rem; font-weight: 700;
+}
+
+.advBody { padding: 16px; }
+.advName { font-size: 1rem; font-weight: 700; color: var(--text-primary); margin: 0 0 6px; }
+.advAddr { display: flex; align-items: center; gap: 4px; font-size: 0.78rem; color: var(--text-secondary); margin: 0 0 12px; }
+.advAdrenaline { display: flex; flex-direction: column; }
+
+.advBgDecor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.activityEmoji {
+  position: absolute;
+  font-size: 24px;
+  opacity: 0.5;
+  animation: floatEmoji 3.8s ease-in-out infinite;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.activityEmoji:nth-child(1) { top: 18%; right: 10%; animation-delay: 0s; }
+.activityEmoji:nth-child(2) { bottom: 22%; left: 12%; animation-delay: 0.5s; }
+.activityEmoji:nth-child(3) { top: 55%; left: 45%; animation-delay: 1s; }
+.advALabel { display: flex; align-items: center; gap: 4px; font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+.advBar { height: 6px; background: var(--border); border-radius: 10px; overflow: hidden; }
+.advFill { height: 100%; background: linear-gradient(90deg, #22c55e, #eab308, #ef4444); border-radius: 10px; transition: width 0.6s; }
+
+/* =============================================
+   5. TRANSPORT — Transit Board
+   ============================================= */
+.transitList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.transitCard {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 22px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.transitCard:hover { border-color: rgba(16,185,129,0.2); background: rgba(16,185,129,0.02); }
+
+.transitBgDecor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.transitEmoji {
+  position: absolute;
+  font-size: 22px;
+  opacity: 0.5;
+  animation: floatEmoji 3.6s ease-in-out infinite;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.transitEmoji:nth-child(1) { top: 15%; left: 8%; animation-delay: 0s; }
+.transitEmoji:nth-child(2) { bottom: 20%; right: 12%; animation-delay: 0.4s; }
+.transitEmoji:nth-child(3) { top: 50%; left: 55%; animation-delay: 0.8s; }
+
+.transitIcon {
+  width: 48px; height: 48px;
+  border-radius: 14px;
+  background: rgba(16,185,129,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #10b981;
+  flex-shrink: 0;
+}
+
+.transitInfo { flex: 1; min-width: 0; }
+.transitName { font-size: 0.95rem; font-weight: 700; color: var(--text-primary); margin: 0 0 4px; }
+.transitAddr { display: flex; align-items: center; gap: 4px; font-size: 0.78rem; color: var(--text-secondary); margin: 0; }
+
+.transitMeta { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; flex-shrink: 0; }
+.transitPrice { font-size: 0.9rem; font-weight: 800; color: #10b981; }
+.transitRating { font-size: 0.78rem; color: var(--text-secondary); }
+
+/* =============================================
+   6. CAFES — Cozy Corner
+   ============================================= */
+.cozyCard {
+  background: var(--card-bg);
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+.cozyCard:hover { box-shadow: 0 12px 40px rgba(217,119,6,0.06); transform: translateY(-4px); }
+
+.cozyBgDecor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.cafeEmoji {
+  position: absolute;
+  font-size: 22px;
+  opacity: 0.5;
+  animation: floatEmoji 3.7s ease-in-out infinite;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.cafeEmoji:nth-child(1) { top: 12%; right: 10%; animation-delay: 0s; }
+.cafeEmoji:nth-child(2) { bottom: 18%; left: 15%; animation-delay: 0.5s; }
+.cafeEmoji:nth-child(3) { top: 55%; left: 40%; animation-delay: 1s; }
+
+.cozyImgWrap {
+  position: relative;
+  height: 170px;
+  overflow: hidden;
+}
+.cozyImg { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+.cozyCard:hover .cozyImg { transform: scale(1.05); }
+.cozyOverlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.3));
+}
+.cozyWifi {
+  position: absolute; top: 12px; right: 12px;
+  padding: 4px 12px;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+  color: white;
+  border-radius: 50px;
+  font-size: 0.65rem; font-weight: 700;
+  display: flex; align-items: center; gap: 4px;
+}
+
+.cozyBody { padding: 16px; }
+.cozyName { font-size: 1rem; font-weight: 700; color: var(--text-primary); margin: 0 0 8px; }
+.cozyRating { display: flex; align-items: center; gap: 2px; margin-bottom: 8px; font-size: 0.82rem; font-weight: 700; color: var(--text-primary); margin-left: 4px; }
+.cozyHours { display: flex; align-items: center; gap: 4px; font-size: 0.78rem; color: var(--text-secondary); margin: 0; }
+
+/* =============================================
+   7. SERVICES — Directory
+   ============================================= */
+.dirList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dirCard {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.dirCard:hover { border-color: rgba(99,102,241,0.15); background: rgba(99,102,241,0.02); }
+
+.dirBgDecor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.essentialEmoji {
+  position: absolute;
+  font-size: 20px;
+  opacity: 0.5;
+  animation: floatEmoji 3.5s ease-in-out infinite;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.essentialEmoji:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
+.essentialEmoji:nth-child(2) { bottom: 20%; right: 12%; animation-delay: 0.4s; }
+.essentialEmoji:nth-child(3) { top: 50%; left: 50%; animation-delay: 0.8s; }
+
+.dirLeft { flex-shrink: 0; }
+.dirIcon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: rgba(99,102,241,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #6366f1;
+}
+
+.dirBody { flex: 1; min-width: 0; }
+.dirName { font-size: 0.9rem; font-weight: 700; color: var(--text-primary); margin: 0 0 4px; }
+.dirAddr { display: flex; align-items: center; gap: 4px; font-size: 0.75rem; color: var(--text-secondary); margin: 0 0 6px; }
+.dirTags { display: flex; gap: 6px; flex-wrap: wrap; }
+.dirTag { padding: 2px 10px; border-radius: 50px; font-size: 0.65rem; font-weight: 600; }
+.dirTag:first-child { background: rgba(99,102,241,0.06); color: #6366f1; }
+.dirOpen { background: rgba(34,197,94,0.06); color: #22c55e; }
+.dirClosed { background: rgba(239,68,68,0.06); color: #ef4444; }
+
+.dirDist {
+  flex-shrink: 0;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+/* =============================================
+   8. MALLS — Storefront Gallery
+   ============================================= */
+.mallCard {
+  background: var(--card-bg);
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+.mallCard:hover { box-shadow: 0 12px 40px rgba(236,72,153,0.06); transform: translateY(-4px); }
+
+.mallBgDecor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.mallEmoji {
+  position: absolute;
+  font-size: 24px;
+  opacity: 0.5;
+  animation: floatEmoji 3.9s ease-in-out infinite;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.mallEmoji:nth-child(1) { top: 18%; right: 8%; animation-delay: 0s; }
+.mallEmoji:nth-child(2) { bottom: 22%; left: 12%; animation-delay: 0.5s; }
+.mallEmoji:nth-child(3) { top: 52%; left: 48%; animation-delay: 1s; }
+
+.mallImgWrap {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+.mallImg { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+.mallCard:hover .mallImg { transform: scale(1.06); }
+.mallOverlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, transparent 40%, rgba(236,72,153,0.08));
+}
+.mallSale {
+  position: absolute; top: 14px; left: 14px;
+  padding: 5px 14px;
+  background: linear-gradient(135deg, #ec4899, #db2777);
+  color: white;
+  border-radius: 50px;
+  font-size: 0.7rem; font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.mallBody { padding: 16px; }
+.mallName { font-size: 1rem; font-weight: 700; color: var(--text-primary); margin: 0 0 6px; }
+.mallRating { display: flex; align-items: center; gap: 4px; font-size: 0.82rem; color: var(--text-secondary); }
+.mallDot { color: var(--border); margin: 0 2px; }
+
+/* =============================================
+   9. PARKS — Nature Grid (2 columns)
+   ============================================= */
+.grid2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+}
+
+.parkCard {
+  background: var(--card-bg);
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+.parkCard:hover { box-shadow: 0 12px 40px rgba(34,197,94,0.06); transform: translateY(-4px); }
+
+.parkBgDecor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.parkEmoji {
+  position: absolute;
+  font-size: 26px;
+  opacity: 0.5;
+  animation: floatEmoji 4s ease-in-out infinite;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.parkEmoji:nth-child(1) { top: 12%; left: 15%; animation-delay: 0s; }
+.parkEmoji:nth-child(2) { bottom: 25%; right: 10%; animation-delay: 0.6s; }
+.parkEmoji:nth-child(3) { top: 55%; left: 40%; animation-delay: 1.2s; }
+
+.parkImgWrap {
+  position: relative;
+  height: 190px;
+  overflow: hidden;
+}
+.parkImg { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+.parkCard:hover .parkImg { transform: scale(1.06); }
+.parkOverlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.3));
+}
+.parkFamily {
+  position: absolute; top: 14px; left: 14px;
+  padding: 4px 14px;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(4px);
+  color: white;
+  border-radius: 50px;
+  font-size: 0.7rem; font-weight: 700;
+}
+
+.parkBody { padding: 16px; }
+.parkName { font-size: 1.05rem; font-weight: 700; color: var(--text-primary); margin: 0 0 6px; }
+.parkAddr { display: flex; align-items: center; gap: 4px; font-size: 0.8rem; color: var(--text-secondary); margin: 0 0 12px; }
+.parkFacilities { display: flex; flex-wrap: wrap; gap: 6px; }
+.parkFac { padding: 3px 10px; background: rgba(34,197,94,0.06); border: 1px solid rgba(34,197,94,0.15); border-radius: 50px; font-size: 0.7rem; color: var(--text-secondary); }
+
+/* =============================================
+   Skeleton
+   ============================================= */
+.skelCard { background: var(--card-bg); border-radius: 16px; overflow: hidden; }
+.skel { background: linear-gradient(90deg, var(--border) 25%, var(--card-bg) 50%, var(--border) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; }
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+@keyframes floatEmoji {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translateY(-12px) rotate(5deg) scale(1.1);
+  }
+  50% {
+    transform: translateY(-6px) rotate(-3deg) scale(1);
+  }
+  75% {
+    transform: translateY(-18px) rotate(3deg) scale(1.05);
+  }
+}
+
+.skel_premium_grid,
+.skel_food_gallery,
+.skel_adventure_grid,
+.skel_cozy_corner,
+.skel_storefront { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.skel_nature { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.skel_heritage_timeline { display: flex; flex-direction: column; gap: 40px; }
+.skel_transit_board,
+.skel_directory { display: flex; flex-direction: column; gap: 12px; }
+
+/* ---- Empty / Not Found ---- */
+.notFound {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  text-align: center;
+  padding: 24px;
+}
+.notFound h1 { font-size: 2rem; color: var(--text-primary); }
+
+.emptyState {
+  text-align: center;
+  padding: 80px 24px;
+  color: var(--text-secondary);
+}
+.emptyState h3 { margin-top: 16px; font-size: 1.3rem; color: var(--text-primary); }
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+@media (max-width: 1024px) {
+  .grid3 { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .grid2 { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .skel_premium_grid, .skel_food_gallery, .skel_adventure_grid, .skel_cozy_corner, .skel_storefront { grid-template-columns: repeat(2, 1fr); }
+  .hero { min-height: 50vh; padding: 120px 20px 50px; }
+}
+
+@media (max-width: 768px) {
+  .hero { min-height: 45vh; padding: 110px 16px 40px; }
+  .heroIcon { width: 60px; height: 60px; }
+  .heroIcon svg { width: 28px; height: 28px; }
+  .sectionOuter { padding: 40px 16px 80px; }
+  .grid3 { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .grid2 { grid-template-columns: 1fr; gap: 20px; }
+
+  .timelineLine { left: 20px; }
+  .timelineCard { flex-direction: column !important; padding-left: 40px; }
+  .timelineDot { left: 20px; }
+  .timelineLeft .timelineImgWrap, .timelineRight .timelineImgWrap { flex: 1; height: 170px; }
+  .timelineLeft .timelineBody, .timelineRight .timelineBody { flex: 1; }
+
+  .hotelImgWrap { height: 160px; }
+  .mallImgWrap { height: 160px; }
+  .parkImgWrap { height: 160px; }
+
+  .cuisineBar { padding: 12px 16px; }
+  .cuisinePill { font-size: 0.78rem; padding: 6px 16px; }
+
+  .transitCard { padding: 14px 16px; }
+  .dirCard { padding: 14px 16px; }
+}
+
+@media (max-width: 480px) {
+  .grid3 { grid-template-columns: 1fr; gap: 16px; }
+  .grid2 { grid-template-columns: 1fr; }
+  .skel_premium_grid, .skel_food_gallery, .skel_adventure_grid, .skel_cozy_corner, .skel_storefront { grid-template-columns: 1fr; }
+  .skel_nature { grid-template-columns: 1fr; }
+  .hero { min-height: 40vh; padding: 100px 16px 30px; }
+}

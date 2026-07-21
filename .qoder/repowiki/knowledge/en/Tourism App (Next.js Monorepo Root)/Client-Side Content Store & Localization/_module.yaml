@@ -1,0 +1,10 @@
+schema_version: 1
+module_path: content_lib
+title: Client-Side Content Store & Localization
+scope:
+    - src/lib/contentStore.js
+    - src/lib/localizeContent.js
+    - src/lib/adminStore.js
+source_files: []
+depends_on: []
+related_to: []

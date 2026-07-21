@@ -1,0 +1,1 @@
+Standard Next.js scripts: `npm run dev` / `build` / `start` / `lint` — no custom orchestration beyond the framework defaults.

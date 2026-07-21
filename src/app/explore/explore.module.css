@@ -1,0 +1,1073 @@
+/* =============================================
+   EXPLORE HUB — Image-Based Category Cards
+   ============================================= */
+
+/* ---- Main ---- */
+.main {
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ---- Hero ---- */
+.hero {
+  position: relative;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 140px 24px 100px;
+  overflow: hidden;
+}
+
+.heroBg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.heroGlow1 {
+  position: absolute;
+  top: -30%;
+  left: -15%;
+  width: 65%;
+  height: 70%;
+  background: radial-gradient(circle, rgba(255, 107, 53, 0.14) 0%, transparent 70%);
+  pointer-events: none;
+  animation: pulseGlow 8s ease-in-out infinite alternate;
+}
+
+.heroGlow2 {
+  position: absolute;
+  bottom: -25%;
+  right: -10%;
+  width: 55%;
+  height: 60%;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+  animation: pulseGlow 10s ease-in-out infinite alternate-reverse;
+}
+
+.heroGlow3 {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  height: 40%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.07) 0%, transparent 70%);
+  pointer-events: none;
+  animation: pulseGlow 12s ease-in-out infinite alternate;
+}
+
+.heroGlow4 {
+  position: absolute;
+  bottom: -20%;
+  left: 30%;
+  width: 45%;
+  height: 50%;
+  background: radial-gradient(circle, rgba(34, 197, 94, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+  animation: pulseGlow 14s ease-in-out infinite alternate-reverse;
+}
+
+.heroGrid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 80px 80px;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+}
+
+.particlesWrap {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.heroOrb1 {
+  position: absolute;
+  top: 15%;
+  left: 15%;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 107, 53, 0.15) 0%, transparent 70%);
+  filter: blur(40px);
+  animation: floatOrb 20s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.heroOrb2 {
+  position: absolute;
+  bottom: 20%;
+  right: 20%;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.12) 0%, transparent 70%);
+  filter: blur(35px);
+  animation: floatOrb 25s ease-in-out infinite reverse;
+  pointer-events: none;
+}
+
+.heroOrb3 {
+  position: absolute;
+  top: 50%;
+  right: 30%;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+  filter: blur(30px);
+  animation: floatOrb 18s ease-in-out infinite;
+  animation-delay: -5s;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* ---- Floating Decorative Elements ---- */
+.decoWrap {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.decoElement {
+  position: absolute;
+  will-change: transform;
+}
+
+.decoCircle {
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.3), rgba(0, 212, 255, 0.2));
+}
+
+.decoLine {
+  border-radius: 4px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.4), rgba(255, 107, 53, 0.3));
+}
+
+.decoRing {
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+}
+
+.decoTriangle {
+  width: 0;
+  height: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-bottom: 52px solid rgba(255, 107, 53, 0.2);
+  filter: blur(1px);
+}
+
+.decoHexagon {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(139, 92, 246, 0.1));
+  border-radius: 0;
+}
+
+/* ---- Hero Content ---- */
+.heroContent {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 750px;
+}
+
+.heroLine {
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.heroTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 22px;
+  background: rgba(255, 107, 53, 0.1);
+  border: 1px solid rgba(255, 107, 53, 0.25);
+  border-radius: 50px;
+  color: var(--primary);
+  font-size: 0.9rem;
+  font-weight: 700;
+  backdrop-filter: blur(10px);
+}
+
+.heroTitle {
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  font-weight: 900;
+  color: var(--text-primary);
+  line-height: 1.05;
+  margin: 0;
+  letter-spacing: -1px;
+}
+
+.heroAccent {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+}
+
+.heroSub {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+/* ---- Hero Stats ---- */
+.heroStats {
+  display: inline-flex;
+  align-items: center;
+  gap: 28px;
+  padding: 16px 32px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  margin-top: 12px;
+}
+
+.heroStat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.heroStatNum {
+  font-size: 1.6rem;
+  font-weight: 900;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.heroStatLabel {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.heroStatDivider {
+  width: 1px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* ---- Grid Section ---- */
+.gridSection {
+  padding: 40px 24px 100px;
+  position: relative;
+}
+
+.gridContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.gridHeader {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.gridTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 18px;
+  background: rgba(255, 107, 53, 0.08);
+  border: 1px solid rgba(255, 107, 53, 0.15);
+  border-radius: 50px;
+  color: var(--primary);
+  font-size: 0.82rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.gridTitle {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 900;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.gridSub {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+/* =============================================
+   IMAGE-BASED CATEGORY CARD
+   ============================================= */
+
+.cardWrap {
+  position: relative;
+  border-radius: 20px;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  perspective: 800px;
+  min-height: 360px;
+  transition: box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cardWrap:hover {
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+/* Glow behind the card */
+.cardGlow {
+  position: absolute;
+  inset: -2px;
+  border-radius: 22px;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--accent) 40%, transparent),
+    color-mix(in srgb, var(--accent) 10%, transparent)
+  );
+  opacity: 0.25;
+  filter: blur(20px);
+  transition: opacity 0.5s, filter 0.5s;
+  z-index: 0;
+}
+
+.cardWrap:hover .cardGlow {
+  opacity: 0.5;
+  filter: blur(30px);
+}
+
+.cardShine {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.5s;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.cardWrap:hover .cardShine {
+  opacity: 1;
+  animation: shineMove 1.5s ease-in-out;
+}
+
+/* Inner card with image */
+.cardInner {
+  position: relative;
+  height: 100%;
+  min-height: 360px;
+  border-radius: 20px;
+  overflow: hidden;
+  z-index: 1;
+  transform-style: preserve-3d;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Background image */
+.cardImageWrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cardWrap:hover .cardImage {
+  transform: scale(1.08);
+}
+
+/* Gradient overlay */
+.cardOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0.3) 40%,
+    rgba(0, 0, 0, 0.75) 70%,
+    rgba(0, 0, 0, 0.92) 100%
+  );
+  z-index: 1;
+  transition: background 0.5s;
+}
+
+.cardWrap:hover .cardOverlay {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.4) 40%,
+    rgba(0, 0, 0, 0.82) 70%,
+    rgba(0, 0, 0, 0.96) 100%
+  );
+}
+
+/* Neon accent bar at bottom of image */
+.cardAccentBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.cardWrap:hover .cardAccentBar {
+  opacity: 1;
+}
+
+.cardParticles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.particleDot {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--accent);
+  border-radius: 50%;
+  opacity: 0;
+  animation: particleFloat 3s ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+
+/* Category-specific particle colors */
+.card_hotels .particleDot { background: #f59e0b; }
+.card_restaurants .particleDot { background: #ef4444; }
+.card_trips .particleDot { background: #8b5cf6; }
+.card_activities .particleDot { background: #06b6d4; }
+.card_transport .particleDot { background: #10b981; }
+.card_cafes .particleDot { background: #d97706; }
+.card_essentials .particleDot { background: #6366f1; }
+.card_malls .particleDot { background: #ec4899; }
+.card_parks .particleDot { background: #22c55e; }
+
+/* Floating icon badge top-left */
+.cardIconBadge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 3;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  transition: transform 0.3s, background 0.3s;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.cardWrap:hover .cardIconBadge {
+  transform: scale(1.1);
+  background: rgba(0, 0, 0, 0.6);
+}
+
+/* Content area at the bottom */
+.cardContent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  padding: 24px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transform: translateZ(10px);
+}
+
+.cardTitle {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  line-height: 1.2;
+}
+
+.cardDesc {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+  margin: 0;
+  max-width: 260px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  gap: 12px;
+}
+
+.cardCount {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.cardArrow {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.35s;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
+}
+
+.cardWrap:hover .cardArrow {
+  transform: translateX(4px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* =============================================
+   CATEGORY-SPECIFIC CARD STYLES
+   ============================================= */
+
+/* Hotels - Elegant gold theme */
+.card_hotels {
+  border: 2px solid rgba(245, 158, 11, 0.3);
+}
+.card_hotels:hover {
+  border-color: rgba(245, 158, 11, 0.6);
+  box-shadow: 0 20px 60px rgba(245, 158, 11, 0.2), 0 0 40px rgba(245, 158, 11, 0.15);
+}
+.card_hotels .cardGlow {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.5), rgba(217, 119, 6, 0.3));
+}
+
+/* Restaurants - Vibrant red/orange theme */
+.card_restaurants {
+  border: 2px solid rgba(239, 68, 68, 0.3);
+}
+.card_restaurants:hover {
+  border-color: rgba(239, 68, 68, 0.6);
+  box-shadow: 0 20px 60px rgba(239, 68, 68, 0.2), 0 0 40px rgba(239, 68, 68, 0.15);
+}
+.card_restaurants .cardGlow {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.5), rgba(249, 115, 22, 0.3));
+}
+
+/* Trips - Mystical purple theme */
+.card_trips {
+  border: 2px solid rgba(139, 92, 246, 0.3);
+}
+.card_trips:hover {
+  border-color: rgba(139, 92, 246, 0.6);
+  box-shadow: 0 20px 60px rgba(139, 92, 246, 0.2), 0 0 40px rgba(139, 92, 246, 0.15);
+}
+.card_trips .cardGlow {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.5), rgba(109, 40, 217, 0.3));
+}
+
+/* Activities - Energetic cyan theme */
+.card_activities {
+  border: 2px solid rgba(6, 182, 212, 0.3);
+}
+.card_activities:hover {
+  border-color: rgba(6, 182, 212, 0.6);
+  box-shadow: 0 20px 60px rgba(6, 182, 212, 0.2), 0 0 40px rgba(6, 182, 212, 0.15);
+}
+.card_activities .cardGlow {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.5), rgba(8, 145, 178, 0.3));
+}
+
+/* Transport - Fresh green theme */
+.card_transport {
+  border: 2px solid rgba(16, 185, 129, 0.3);
+}
+.card_transport:hover {
+  border-color: rgba(16, 185, 129, 0.6);
+  box-shadow: 0 20px 60px rgba(16, 185, 129, 0.2), 0 0 40px rgba(16, 185, 129, 0.15);
+}
+.card_transport .cardGlow {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.5), rgba(5, 150, 105, 0.3));
+}
+
+/* Cafes - Warm brown theme */
+.card_cafes {
+  border: 2px solid rgba(217, 119, 6, 0.3);
+}
+.card_cafes:hover {
+  border-color: rgba(217, 119, 6, 0.6);
+  box-shadow: 0 20px 60px rgba(217, 119, 6, 0.2), 0 0 40px rgba(217, 119, 6, 0.15);
+}
+.card_cafes .cardGlow {
+  background: linear-gradient(135deg, rgba(217, 119, 6, 0.5), rgba(180, 83, 9, 0.3));
+}
+
+/* Essentials - Professional indigo theme */
+.card_essentials {
+  border: 2px solid rgba(99, 102, 241, 0.3);
+}
+.card_essentials:hover {
+  border-color: rgba(99, 102, 241, 0.6);
+  box-shadow: 0 20px 60px rgba(99, 102, 241, 0.2), 0 0 40px rgba(99, 102, 241, 0.15);
+}
+.card_essentials .cardGlow {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.5), rgba(79, 70, 229, 0.3));
+}
+
+/* Malls - Playful pink theme */
+.card_malls {
+  border: 2px solid rgba(236, 72, 153, 0.3);
+}
+.card_malls:hover {
+  border-color: rgba(236, 72, 153, 0.6);
+  box-shadow: 0 20px 60px rgba(236, 72, 153, 0.2), 0 0 40px rgba(236, 72, 153, 0.15);
+}
+.card_malls .cardGlow {
+  background: linear-gradient(135deg, rgba(236, 72, 153, 0.5), rgba(219, 39, 119, 0.3));
+}
+
+/* Parks - Natural green theme */
+.card_parks {
+  border: 2px solid rgba(34, 197, 94, 0.3);
+}
+.card_parks:hover {
+  border-color: rgba(34, 197, 94, 0.6);
+  box-shadow: 0 20px 60px rgba(34, 197, 94, 0.2), 0 0 40px rgba(34, 197, 94, 0.15);
+}
+.card_parks .cardGlow {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.5), rgba(22, 163, 74, 0.3));
+}
+
+/* =============================================
+   FLOATING EMOJI ANIMATIONS
+   ============================================= */
+.foodBgElements,
+.hotelBgElements,
+.tripsBgElements,
+.activitiesBgElements,
+.transportBgElements,
+.cafesBgElements,
+.parksBgElements,
+.mallsBgElements,
+.essentialsBgElements {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.floatingFood,
+.floatingKey,
+.floatingTrip,
+.floatingActivity,
+.floatingTransport,
+.floatingCafe,
+.floatingPark,
+.floatingMall,
+.floatingEssential {
+  position: absolute;
+  font-size: 24px;
+  opacity: 0.6;
+  animation: floatEmoji 4s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.8s);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.floatingFood:nth-child(1) { top: 15%; left: 10%; }
+.floatingFood:nth-child(2) { top: 25%; right: 15%; }
+.floatingFood:nth-child(3) { bottom: 30%; left: 20%; }
+.floatingFood:nth-child(4) { bottom: 20%; right: 10%; }
+
+.floatingKey:nth-child(1) { top: 20%; left: 15%; }
+.floatingKey:nth-child(2) { top: 60%; right: 20%; }
+.floatingKey:nth-child(3) { bottom: 25%; left: 50%; }
+
+.floatingTrip:nth-child(1) { top: 15%; left: 20%; }
+.floatingTrip:nth-child(2) { bottom: 35%; right: 15%; }
+.floatingTrip:nth-child(3) { top: 50%; left: 10%; }
+
+.floatingActivity:nth-child(1) { top: 25%; right: 10%; }
+.floatingActivity:nth-child(2) { bottom: 20%; left: 15%; }
+.floatingActivity:nth-child(3) { top: 60%; left: 50%; }
+
+.floatingTransport:nth-child(1) { top: 20%; left: 10%; }
+.floatingTransport:nth-child(2) { bottom: 30%; right: 20%; }
+.floatingTransport:nth-child(3) { top: 55%; left: 60%; }
+
+.floatingCafe:nth-child(1) { top: 15%; right: 15%; }
+.floatingCafe:nth-child(2) { bottom: 25%; left: 20%; }
+.floatingCafe:nth-child(3) { top: 50%; left: 40%; }
+
+.floatingPark:nth-child(1) { top: 20%; left: 25%; }
+.floatingPark:nth-child(2) { bottom: 30%; right: 15%; }
+.floatingPark:nth-child(3) { top: 55%; left: 10%; }
+
+.floatingMall:nth-child(1) { top: 25%; right: 10%; }
+.floatingMall:nth-child(2) { bottom: 20%; left: 15%; }
+.floatingMall:nth-child(3) { top: 50%; left: 50%; }
+
+.floatingEssential:nth-child(1) { top: 15%; left: 20%; }
+.floatingEssential:nth-child(2) { bottom: 35%; right: 15%; }
+.floatingEssential:nth-child(3) { top: 60%; left: 40%; }
+
+@keyframes floatEmoji {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translateY(-15px) rotate(5deg) scale(1.1);
+  }
+  50% {
+    transform: translateY(-8px) rotate(-3deg) scale(1);
+  }
+  75% {
+    transform: translateY(-20px) rotate(3deg) scale(1.05);
+  }
+}
+
+/* =============================================
+   CTA SECTION
+   ============================================= */
+.ctaSection {
+  padding: 0 24px 100px;
+}
+
+.ctaCard {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.ctaBg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.08), rgba(139, 92, 246, 0.06), rgba(0, 212, 255, 0.05));
+}
+
+.ctaGlow1 {
+  position: absolute;
+  top: -30%;
+  left: -10%;
+  width: 50%;
+  height: 80%;
+  background: radial-gradient(circle, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.ctaGlow2 {
+  position: absolute;
+  bottom: -30%;
+  right: -10%;
+  width: 50%;
+  height: 80%;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.ctaContent {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.ctaIcon {
+  color: var(--primary);
+  margin-bottom: 4px;
+}
+
+.ctaTitle {
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.ctaSub {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 400px;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  background: var(--gradient-primary);
+  color: #ffffff;
+  border: none;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 20px rgba(255, 107, 53, 0.35);
+  font-family: inherit;
+}
+
+.ctaBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(255, 107, 53, 0.5);
+}
+
+/* =============================================
+   ANIMATIONS
+   ============================================= */
+@keyframes pulseGlow {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.15);
+    opacity: 0.7;
+  }
+}
+
+@keyframes floatOrb {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(30px, -30px) scale(1.1);
+  }
+  50% {
+    transform: translate(-20px, 20px) scale(0.95);
+  }
+  75% {
+    transform: translate(-30px, -10px) scale(1.05);
+  }
+}
+
+@keyframes shineMove {
+  0% {
+    transform: translateX(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(200%) rotate(45deg);
+  }
+}
+
+@keyframes particleFloat {
+  0%, 100% {
+    transform: translateY(0) scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(-20px) scale(1);
+    opacity: 0.8;
+  }
+}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+  }
+
+  .hero {
+    min-height: 70vh;
+    padding: 130px 20px 80px;
+  }
+
+  .heroStats {
+    gap: 20px;
+    padding: 14px 24px;
+  }
+
+  .heroStatNum {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: 65vh;
+    padding: 110px 16px 60px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .cardWrap,
+  .cardInner {
+    min-height: 280px;
+  }
+
+  .cardTitle {
+    font-size: 1.15rem;
+  }
+
+  .cardDesc {
+    font-size: 0.75rem;
+  }
+
+  .cardIconBadge {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    top: 12px;
+    left: 12px;
+  }
+
+  .cardIconBadge svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .cardContent {
+    padding: 20px 16px 16px;
+  }
+
+  .cardCount {
+    padding: 4px 10px;
+    font-size: 0.7rem;
+  }
+
+  .cardArrow {
+    width: 34px;
+    height: 34px;
+  }
+
+  .gridSection {
+    padding: 20px 16px 80px;
+  }
+
+  .gridHeader {
+    margin-bottom: 36px;
+  }
+
+  .ctaSection {
+    padding: 0 16px 80px;
+  }
+
+  .ctaContent {
+    padding: 40px 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .cardWrap,
+  .cardInner {
+    min-height: 320px;
+  }
+
+  .hero {
+    min-height: 60vh;
+    padding: 100px 16px 50px;
+  }
+
+  .heroStats {
+    gap: 14px;
+    padding: 12px 18px;
+    border-radius: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .heroStatDivider {
+    display: none;
+  }
+
+  .heroStatNum {
+    font-size: 1.1rem;
+  }
+
+  .heroStatLabel {
+    font-size: 0.7rem;
+  }
+
+  .gridSection {
+    padding: 10px 16px 60px;
+  }
+
+  .gridTag {
+    font-size: 0.75rem;
+    padding: 5px 14px;
+  }
+}

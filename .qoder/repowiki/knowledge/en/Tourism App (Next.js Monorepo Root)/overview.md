@@ -1,0 +1,1 @@
+Top-level Next.js workspace that wires together the client-side content store, UI pages, and shared utilities into a bilingual English/Arabic tourism application.

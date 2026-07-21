@@ -11,7 +11,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import styles from "./trip-detail.module.css";
 
 export default function TripDetailPage() {
-  const { t, lang } = useLanguage();
+  const { t } = useLanguage();
   const { id } = useParams();
   const router = useRouter();
   const [trip, setTrip] = useState(null);
@@ -19,14 +19,13 @@ export default function TripDetailPage() {
   const [lightbox, setLightbox] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState(0);
-  const isRtl = lang === "ar";
 
   useEffect(() => {
     const load = async () => {
       try {
         const [data, popular] = await Promise.all([
-          getTripById(id, lang),
-          getPopularTrips(5, lang),
+          getTripById(id),
+          getPopularTrips(5),
         ]);
         if (!data) return notFound();
         setTrip(data);
@@ -36,7 +35,7 @@ export default function TripDetailPage() {
       }
     };
     load();
-  }, [id, lang]);
+  }, [id]);
 
   if (loading) {
     return (
@@ -53,10 +52,9 @@ export default function TripDetailPage() {
     const days = Math.min(parseInt(trip.duration) || 3, 5);
     const highlights = trip.highlights || [];
     const dayLabels = ['Arrival & Welcome', 'Exploring the Sights', 'Fun Adventures', 'Free Day & Shopping', 'Departure'];
-    const dayLabelsAr = ['الوصول والاستقبال', 'استكشاف المعالم', 'مغامرات ممتعة', 'يوم حر وتسوق', 'العودة'];
     return Array.from({ length: days }, (_, i) => ({
-      title: `${isRtl ? 'اليوم' : 'Day'} ${i + 1}: ${isRtl ? dayLabelsAr[i] || '' : dayLabels[i] || ''}`,
-      desc: highlights.filter((_, j) => j % days === i).join(' • ') || (isRtl ? 'استمتع برحلتك!' : 'Enjoy your trip!'),
+      title: `Day ${i + 1}: ${dayLabels[i] || ''}`,
+      desc: highlights.filter((_, j) => j % days === i).join(' • ') || 'Enjoy your trip!',
     }));
   }
 
@@ -325,10 +323,10 @@ export default function TripDetailPage() {
                   {activeTab === 2 && (
                     <div className={styles.tipsGrid}>
                       {[
-                        { icon: '☀️', text: isRtl ? 'احضر واقي شمس وقبعة' : 'Bring sunscreen and a hat' },
-                        { icon: '👟', text: isRtl ? 'ارتد أحذية مريحة للمشي' : 'Wear comfortable walking shoes' },
-                        { icon: '📷', text: isRtl ? 'لا تنسَ كاميرتك' : 'Don\'t forget your camera' },
-                        { icon: '💧', text: isRtl ? 'احمل زجاجة ماء' : 'Carry a water bottle' },
+                        { icon: '☀️', text: 'Bring sunscreen and a hat' },
+                        { icon: '👟', text: 'Wear comfortable walking shoes' },
+                        { icon: '📷', text: 'Don\'t forget your camera' },
+                        { icon: '💧', text: 'Carry a water bottle' },
                       ].map((tip, i) => (
                         <div key={i} className={styles.tipItem}>
                           <div className={styles.tipIcon}>{tip.icon}</div>

@@ -1,0 +1,37 @@
+# 知识卡导出索引文件
+schema_version: 1
+locale: en-US
+branch: main
+nodes_managed: true
+exported_at: "2026-07-21T14:28:31Z"
+modules:
+    "":
+        dir_name: Tourism App (Next.js Monorepo Root)
+        title: Tourism App (Next.js Monorepo Root)
+        scope:
+            - README.md
+            - package.json
+            - next.config.mjs
+            - eslint.config.mjs
+            - jsconfig.json
+            - .gitignore
+            - AGENTS.md
+            - CLAUDE.md
+            - arabic-lines.txt
+            - package-lock.json
+        source_files: []
+        children:
+            - content_lib
+        depends_on: []
+        related_to: []
+    content_lib:
+        dir_name: Client-Side Content Store & Localization
+        title: Client-Side Content Store & Localization
+        scope:
+            - src/lib/contentStore.js
+            - src/lib/localizeContent.js
+            - src/lib/adminStore.js
+        source_files: []
+        children: []
+        depends_on: []
+        related_to: []

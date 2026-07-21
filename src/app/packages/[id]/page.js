@@ -2,12 +2,13 @@
 import { useEffect, useState } from "react";
 import { useParams, notFound } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, Clock, Users, Star, Calendar, CheckCircle2, Navigation, Heart, Share2, ArrowLeft } from "lucide-react";
+import { MapPin, Clock, Users, Star, Calendar, Navigation, Heart, Share2, ArrowLeft, Building, UtensilsCrossed } from "lucide-react";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import TripCard from "@/components/TripCard/TripCard";
 import { getPackageById } from "@/lib/api/packages";
 import { getTripsByIds } from "@/lib/api/trips";
+import { searchPlaces } from "@/lib/api/explore";
 import { useLanguage } from "@/context/LanguageContext";
 import styles from "./package-detail.module.css";
 
@@ -18,6 +19,9 @@ export default function PackageDetailPage() {
   const [includedTrips, setIncludedTrips] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("trips");
+  const [hotels, setHotels] = useState([]);
+  const [restaurants, setRestaurants] = useState([]);
+  const [placesLoading, setPlacesLoading] = useState(false);
   const isRtl = lang === "ar";
 
   useEffect(() => {
@@ -37,6 +41,25 @@ export default function PackageDetailPage() {
     };
     load();
   }, [id, lang]);
+
+  useEffect(() => {
+    if (!pkg) return;
+    const fetchPlaces = async () => {
+      setPlacesLoading(true);
+      try {
+        const near = pkg.destination + ", Egypt";
+        const [hotelData, restData] = await Promise.all([
+          searchPlaces({ category: "hotels", near, limit: 6 }),
+          searchPlaces({ category: "restaurants", near, limit: 6 }),
+        ]);
+        setHotels(hotelData?.places || []);
+        setRestaurants(restData?.places || []);
+      } finally {
+        setPlacesLoading(false);
+      }
+    };
+    fetchPlaces();
+  }, [pkg]);
 
   if (loading) {
     return (
@@ -122,6 +145,18 @@ export default function PackageDetailPage() {
                 >
                   {t('pages.packageDetail.includesTitle')}
                 </button>
+                <button
+                  className={`${styles.tabBtn} ${activeTab === "hotels" ? styles.tabActive : ""}`}
+                  onClick={() => setActiveTab("hotels")}
+                >
+                  <Building size={16} /> {t('pages.packageDetail.hotelsTitle')}
+                </button>
+                <button
+                  className={`${styles.tabBtn} ${activeTab === "restaurants" ? styles.tabActive : ""}`}
+                  onClick={() => setActiveTab("restaurants")}
+                >
+                  <UtensilsCrossed size={16} /> {t('pages.packageDetail.restaurantsTitle')}
+                </button>
               </div>
 
               <div className={styles.tabContent}>
@@ -194,6 +229,106 @@ export default function PackageDetailPage() {
                         </div>
                       ))}
                     </div>
+                  </motion.div>
+                )}
+
+                {/* Hotels Tab */}
+                {activeTab === "hotels" && (
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                    <h2 className={styles.sectionTitle}>{t('pages.packageDetail.hotelsTitle')}</h2>
+                    <p className={styles.sectionDesc}>{t('pages.packageDetail.hotelsDesc')}</p>
+                    {placesLoading ? (
+                      <div className={styles.placesGrid}>
+                        {[...Array(3)].map((_, i) => (
+                          <div key={i} className={styles.placeCard}>
+                            <div className="skeleton" style={{ height: "160px", borderRadius: "12px 12px 0 0" }} />
+                            <div style={{ padding: "16px" }}>
+                              <div className="skeleton" style={{ height: "18px", width: "70%", marginBottom: "8px", borderRadius: "8px" }} />
+                              <div className="skeleton" style={{ height: "14px", borderRadius: "8px" }} />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : hotels.length === 0 ? (
+                      <p>{t('pages.packageDetail.noHotels')}</p>
+                    ) : (
+                      <div className={styles.placesGrid}>
+                        {hotels.map((h) => (
+                          <div key={h.id} className={styles.placeCard}>
+                            <div className={styles.placeImage}>
+                              <img src={h.photo} alt={h.name} />
+                              {h.price && <span className={styles.placePrice}>{'$'.repeat(h.price)}</span>}
+                            </div>
+                            <div className={styles.placeBody}>
+                              <h4 className={styles.placeName}>{h.name}</h4>
+                              <span className={styles.placeAddr}>{h.address || h.city}</span>
+                              <div className={styles.placeMeta}>
+                                {h.rating && (
+                                  <span className={styles.placeRating}>
+                                    <Star size={13} fill="#ffd700" color="#ffd700" /> {h.rating}
+                                  </span>
+                                )}
+                                {h.open !== null && (
+                                  <span className={`${styles.placeStatus} ${h.open ? styles.open : styles.closed}`}>
+                                    {h.open ? 'Open' : 'Closed'}
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </motion.div>
+                )}
+
+                {/* Restaurants Tab */}
+                {activeTab === "restaurants" && (
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                    <h2 className={styles.sectionTitle}>{t('pages.packageDetail.restaurantsTitle')}</h2>
+                    <p className={styles.sectionDesc}>{t('pages.packageDetail.restaurantsDesc')}</p>
+                    {placesLoading ? (
+                      <div className={styles.placesGrid}>
+                        {[...Array(3)].map((_, i) => (
+                          <div key={i} className={styles.placeCard}>
+                            <div className="skeleton" style={{ height: "160px", borderRadius: "12px 12px 0 0" }} />
+                            <div style={{ padding: "16px" }}>
+                              <div className="skeleton" style={{ height: "18px", width: "70%", marginBottom: "8px", borderRadius: "8px" }} />
+                              <div className="skeleton" style={{ height: "14px", borderRadius: "8px" }} />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : restaurants.length === 0 ? (
+                      <p>{t('pages.packageDetail.noRestaurants')}</p>
+                    ) : (
+                      <div className={styles.placesGrid}>
+                        {restaurants.map((r) => (
+                          <div key={r.id} className={styles.placeCard}>
+                            <div className={styles.placeImage}>
+                              <img src={r.photo} alt={r.name} />
+                              {r.price && <span className={styles.placePrice}>{'$'.repeat(r.price)}</span>}
+                            </div>
+                            <div className={styles.placeBody}>
+                              <h4 className={styles.placeName}>{r.name}</h4>
+                              <span className={styles.placeAddr}>{r.address || r.city}</span>
+                              <div className={styles.placeMeta}>
+                                {r.rating && (
+                                  <span className={styles.placeRating}>
+                                    <Star size={13} fill="#ffd700" color="#ffd700" /> {r.rating}
+                                  </span>
+                                )}
+                                {r.open !== null && (
+                                  <span className={`${styles.placeStatus} ${r.open ? styles.open : styles.closed}`}>
+                                    {r.open ? 'Open' : 'Closed'}
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </motion.div>
                 )}
               </div>

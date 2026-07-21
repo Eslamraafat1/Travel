@@ -19,24 +19,23 @@ import styles from "./planner.module.css";
 // ===== STATIC BILINGUAL DATA =====
 
 const categoriesData = [
-  { id: "beach", ar: "الشواطئ والجزر", en: "Beach & Islands", descAr: "استمتع بأجمل الشواطئ الرملية والمياه الفيروزية", descEn: "Enjoy pristine beaches and crystal-clear turquoise waters", icon: <Umbrella size={28} />, color: "#00b4d8", gradient: "linear-gradient(135deg, #00b4d8, #0077b6)" },
-  { id: "adventure", ar: "المغامرات", en: "Adventure Travel", descAr: "تسلق الجبال والقفز بالمظلات والتجديف", descEn: "Mountain climbing, skydiving, and white-water rafting", icon: <Mountain size={28} />, color: "#22c55e", gradient: "linear-gradient(135deg, #22c55e, #166534)" },
-  { id: "cultural", ar: "السياحة الثقافية", en: "Cultural Heritage", descAr: "اكتشف التاريخ والتراث في أشهر المتاحف والمواقع الأثرية", descEn: "Explore history and heritage at world-famous museums and sites", icon: <Building2 size={28} />, color: "#f59e0b", gradient: "linear-gradient(135deg, #f59e0b, #b45309)" },
-  { id: "desert", ar: "السفاري والصحراء", en: "Desert Safari", descAr: "مغامرات في قلب الصحراء تحت ضوء النجوم", descEn: "Adventures in the heart of the desert under starlit skies", icon: <Tent size={28} />, color: "#ef4444", gradient: "linear-gradient(135deg, #ef4444, #991b1b)" },
-  { id: "luxury", ar: "السياحة الفاخرة", en: "Luxury Travel", descAr: "أفخم المنتجعات والخدمات الحصرية حول العالم", descEn: "Finest resorts and exclusive services around the world", icon: <Gem size={28} />, color: "#a855f7", gradient: "linear-gradient(135deg, #a855f7, #6b21a8)" },
-  { id: "family", ar: "رحلات عائلية", en: "Family Trips", descAr: "وجهات وأنشطة مناسبة لجميع أفراد العائلة", descEn: "Destinations and activities suitable for the whole family", icon: <Heart size={28} />, color: "#ec4899", gradient: "linear-gradient(135deg, #ec4899, #9d174d)" },
+  { id: "beach", label: "Beach & Islands", desc: "Enjoy pristine beaches and crystal-clear turquoise waters", icon: <Umbrella size={28} />, color: "#00b4d8", gradient: "linear-gradient(135deg, #00b4d8, #0077b6)" },
+  { id: "adventure", label: "Adventure Travel", desc: "Mountain climbing, skydiving, and white-water rafting", icon: <Mountain size={28} />, color: "#22c55e", gradient: "linear-gradient(135deg, #22c55e, #166534)" },
+  { id: "cultural", label: "Cultural Heritage", desc: "Explore history and heritage at world-famous museums and sites", icon: <Building2 size={28} />, color: "#f59e0b", gradient: "linear-gradient(135deg, #f59e0b, #b45309)" },
+  { id: "desert", label: "Desert Safari", desc: "Adventures in the heart of the desert under starlit skies", icon: <Tent size={28} />, color: "#ef4444", gradient: "linear-gradient(135deg, #ef4444, #991b1b)" },
+  { id: "luxury", label: "Luxury Travel", desc: "Finest resorts and exclusive services around the world", icon: <Gem size={28} />, color: "#a855f7", gradient: "linear-gradient(135deg, #a855f7, #6b21a8)" },
+  { id: "family", label: "Family Trips", desc: "Destinations and activities suitable for the whole family", icon: <Heart size={28} />, color: "#ec4899", gradient: "linear-gradient(135deg, #ec4899, #9d174d)" },
 ];
 
 const spotlightData = [
-  
-  { id: "swiss-spot", ar: "سويسرا", en: "Switzerland", descAr: "جبال الألب الخلابة والبحيرات الزرقاء والقرى الساحرة", descEn: "Breathtaking Alps, blue lakes, and charming villages", image: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?w=900", tagAr: "سويسرا", tagEn: "Switzerland", rating: 4.8, trips: 95 },
-  { id: "japan-spot", ar: "اليابان", en: "Japan", descAr: "مزيج فريد من التقاليد العريقة وأحدث التقنيات الحديثة", descEn: "Unique blend of ancient traditions and cutting-edge technology", image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=900", tagAr: "اليابان", en: "Japan", rating: 4.9, trips: 108 },
+  { id: "swiss-spot", label: "Switzerland", desc: "Breathtaking Alps, blue lakes, and charming villages", image: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?w=900", tag: "Switzerland", rating: 4.8, trips: 95 },
+  { id: "japan-spot", label: "Japan", desc: "Unique blend of ancient traditions and cutting-edge technology", image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=900", tag: "Japan", rating: 4.9, trips: 108 },
 ];
 
 const storiesData = [
-  { id: "story1", ar: "كانت رحلة العمر!", en: "Trip of a lifetime!", textAr: "المالديف كانت أفضل تجربة في حياتي. الفيلات فوق الماء والمناظر الخلابة والخدمة الممتازة جعلت رحلة شهر العسل لا تُنسى", textEn: "Maldives was the best experience of my life. The overwater villas, stunning views, and excellent service made our honeymoon unforgettable", nameAr: "أحمد ومريم", nameEn: "Ahmed & Mariam", avatar: "https://i.pravatar.cc/80?img=11", locationAr: "المالديف", locationEn: "Maldives" },
-  { id: "story2", ar: "مغامرة سويسرا", en: "Swiss Adventure", textAr: "تسلق جبال الألب وركوب القطارات الجبلية كانت تجربة استثنائية. المناظر الطبيعية تأخذ الأنفاس", textEn: "Hiking the Alps and riding mountain trains was an extraordinary experience. The scenery is breathtaking", nameAr: "سارة", nameEn: "Sarah", avatar: "https://i.pravatar.cc/80?img=5", locationAr: "سويسرا", locationEn: "Switzerland" },
-  { id: "story3", ar: "سحر اليابان", en: "Magic of Japan", textAr: "موسم أزهار الكرز في اليابان شيء لا يوصف. المعابد القديمة والتكنولوجيا الحديثة مزيج رائع", textEn: "Cherry blossom season in Japan is indescribable. Ancient temples and modern technology - a wonderful blend", nameAr: "خالد", nameEn: "Khaled", avatar: "https://i.pravatar.cc/80?img=9", locationAr: "اليابان", locationEn: "Japan" },
+  { id: "story1", title: "Trip of a lifetime!", text: "Maldives was the best experience of my life. The overwater villas, stunning views, and excellent service made our honeymoon unforgettable", name: "Ahmed & Mariam", avatar: "https://i.pravatar.cc/80?img=11", location: "Maldives" },
+  { id: "story2", title: "Swiss Adventure", text: "Hiking the Alps and riding mountain trains was an extraordinary experience. The scenery is breathtaking", name: "Sarah", avatar: "https://i.pravatar.cc/80?img=5", location: "Switzerland" },
+  { id: "story3", title: "Magic of Japan", text: "Cherry blossom season in Japan is indescribable. Ancient temples and modern technology - a wonderful blend", name: "Khaled", avatar: "https://i.pravatar.cc/80?img=9", location: "Japan" },
 ];
 
 // Static icons for each section
@@ -45,157 +44,157 @@ const storyAvatarsData = storiesData.map(s => ({ avatar: s.avatar }));
 
 // ----- MAP DESTINATIONS (visual map pins) -----
 const mapDestinations = [
-  { id: "md1", ar: "المالديف", en: "Maldives", x: 22, y: 38, color: "#00b4d8", image: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=400", rating: 4.9, tagAr: "جنة استوائية", tagEn: "Tropical Paradise" },
-  { id: "md2", ar: "سويسرا", en: "Switzerland", x: 48, y: 24, color: "#22c55e", image: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?w=400", rating: 4.8, tagAr: "جبال الألب", tagEn: "Alps" },
-  { id: "md3", ar: "اليابان", en: "Japan", x: 82, y: 18, color: "#ef4444", image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400", rating: 4.9, tagAr: "ثقافة وتقاليد", tagEn: "Culture & Tradition" },
-  { id: "md4", ar: "إيطاليا", en: "Italy", x: 52, y: 34, color: "#f59e0b", image: "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=400", rating: 4.7, tagAr: "تاريخ وفن", tagEn: "History & Art" },
-  { id: "md5", ar: "دبي", en: "Dubai", x: 38, y: 48, color: "#a855f7", image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400", rating: 4.6, tagAr: "فخامة وحداثة", tagEn: "Luxury & Modern" },
-  { id: "md6", ar: "تايلاند", en: "Thailand", x: 70, y: 52, color: "#ec4899", image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=400", rating: 4.5, tagAr: "جزر استوائية", tagEn: "Tropical Islands" },
-  { id: "md7", ar: "اليونان", en: "Greece", x: 56, y: 32, color: "#00d4ff", image: "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=400", rating: 4.7, tagAr: "جزر ساحرة", tagEn: "Enchanting Islands" },
-  { id: "md8", ar: "تركيا", en: "Turkey", x: 44, y: 30, color: "#ef4444", image: "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=400", rating: 4.4, tagAr: "ثقافة وتاريخ", tagEn: "Culture & History" },
-  { id: "md9", ar: "كينيا", en: "Kenya", x: 34, y: 62, color: "#22c55e", image: "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=400", rating: 4.6, tagAr: "سفاري", tagEn: "Safari" },
-  { id: "md10", ar: "ماليزيا", en: "Malaysia", x: 74, y: 44, color: "#f59e0b", image: "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=400", rating: 4.3, tagAr: "طبيعة خلابة", tagEn: "Beautiful Nature" },
+  { id: "md1", label: "Maldives", x: 22, y: 38, color: "#00b4d8", image: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=400", rating: 4.9, tag: "Tropical Paradise" },
+  { id: "md2", label: "Switzerland", x: 48, y: 24, color: "#22c55e", image: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?w=400", rating: 4.8, tag: "Alps" },
+  { id: "md3", label: "Japan", x: 82, y: 18, color: "#ef4444", image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400", rating: 4.9, tag: "Culture & Tradition" },
+  { id: "md4", label: "Italy", x: 52, y: 34, color: "#f59e0b", image: "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=400", rating: 4.7, tag: "History & Art" },
+  { id: "md5", label: "Dubai", x: 38, y: 48, color: "#a855f7", image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400", rating: 4.6, tag: "Luxury & Modern" },
+  { id: "md6", label: "Thailand", x: 70, y: 52, color: "#ec4899", image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=400", rating: 4.5, tag: "Tropical Islands" },
+  { id: "md7", label: "Greece", x: 56, y: 32, color: "#00d4ff", image: "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=400", rating: 4.7, tag: "Enchanting Islands" },
+  { id: "md8", label: "Turkey", x: 44, y: 30, color: "#ef4444", image: "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=400", rating: 4.4, tag: "Culture & History" },
+  { id: "md9", label: "Kenya", x: 34, y: 62, color: "#22c55e", image: "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=400", rating: 4.6, tag: "Safari" },
+  { id: "md10", label: "Malaysia", x: 74, y: 44, color: "#f59e0b", image: "https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=400", rating: 4.3, tag: "Beautiful Nature" },
 ];
 
 // ----- HIDDEN TREASURES -----
 const hiddenData = [
-  { id: "soq", ar: "سقطرى - اليمن", en: "Socotra - Yemen", descAr: "أرض العجائب الطبيعية بأشجارها الغريبة التي تشبه الكائنات الفضائية وتنوعها البيولوجي الفريد", descEn: "Land of natural wonders with alien-like Dragon Blood trees and unique biodiversity found nowhere else on Earth", image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800", rating: 4.7, tagAr: "جوهرة نادرة", tagEn: "Rare Gem" },
-  { id: "hua", ar: "واكاتشينا - بيرو", en: "Huacachina - Peru", descAr: "واحة سحرية في قلب صحراء أتاكاما وسط الكثبان الرملية الذهبية وبحيرة فيروزية", descEn: "A magical oasis in the heart of the Atacama desert surrounded by golden sand dunes and a turquoise lagoon", image: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=800", rating: 4.5, tagAr: "واحة سحرية", tagEn: "Magic Oasis" },
-  { id: "hal", ar: "هالستات - النمسا", en: "Hallstatt - Austria", descAr: "قرية جبال الألب الخلابة على ضفاف بحيرة فيروزية تعكس صورة الجبال والغابات", descEn: "Picturesque Alpine village on the shores of a turquoise lake reflecting mountains and forests", image: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=800", rating: 4.8, tagAr: "قرية جبلية", tagEn: "Mountain Village" },
-  { id: "raj", ar: "راجا أمبات - إندونيسيا", en: "Raja Ampat - Indonesia", descAr: "جنة تحت الماء مع أغنى تنوع بحري في العالم وشواطئ بيضاء خلابة", descEn: "An underwater paradise with the world's richest marine biodiversity and stunning white sand beaches", image: "https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=800", rating: 4.9, tagAr: "كنز بحري", tagEn: "Ocean Treasure" },
-  { id: "far", ar: "جزر فارو - الدنمارك", en: "Faroe Islands - Denmark", descAr: "جزر دراماتيكية بين المحيط الأطلسي مع منحدرات وشلالات وطبيعة خام", descEn: "Dramatic islands in the North Atlantic with towering cliffs, waterfalls, and raw untouched nature", image: "https://images.unsplash.com/photo-1517462964-21fdcec3f25b?w=800", rating: 4.6, tagAr: "طبيعة خام", tagEn: "Raw Nature" },
-  { id: "che", ar: "تشيتشن إيتزا - المكسيك", en: "Chichen Itza - Mexico", descAr: "إحدى عجائب الدنيا السبع الجديدة، مدينة المايا القديمة في قلب الغابة", descEn: "One of the New Seven Wonders, the ancient Mayan city deep in the jungle", image: "https://images.unsplash.com/photo-1587595431973-160d0d94add1?w=800", rating: 4.8, tagAr: "عجيبة عالمية", tagEn: "World Wonder" },
+  { id: "soq", label: "Socotra - Yemen", desc: "Land of natural wonders with alien-like Dragon Blood trees and unique biodiversity found nowhere else on Earth", image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800", rating: 4.7, tag: "Rare Gem" },
+  { id: "hua", label: "Huacachina - Peru", desc: "A magical oasis in the heart of the Atacama desert surrounded by golden sand dunes and a turquoise lagoon", image: "https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=800", rating: 4.5, tag: "Magic Oasis" },
+  { id: "hal", label: "Hallstatt - Austria", desc: "Picturesque Alpine village on the shores of a turquoise lake reflecting mountains and forests", image: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=800", rating: 4.8, tag: "Mountain Village" },
+  { id: "raj", label: "Raja Ampat - Indonesia", desc: "An underwater paradise with the world's richest marine biodiversity and stunning white sand beaches", image: "https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=800", rating: 4.9, tag: "Ocean Treasure" },
+  { id: "far", label: "Faroe Islands - Denmark", desc: "Dramatic islands in the North Atlantic with towering cliffs, waterfalls, and raw untouched nature", image: "https://images.unsplash.com/photo-1517462964-21fdcec3f25b?w=800", rating: 4.6, tag: "Raw Nature" },
+  { id: "che", label: "Chichen Itza - Mexico", desc: "One of the New Seven Wonders, the ancient Mayan city deep in the jungle", image: "https://images.unsplash.com/photo-1587595431973-160d0d94add1?w=800", rating: 4.8, tag: "World Wonder" },
 ];
 
 // ----- TRAVEL QUIZ -----
 const quizQuestions = [
   {
-    id: "q1", questionAr: "ماذا تفضل في رحلاتك؟", questionEn: "What do you prefer in your trips?",
+    id: "q1", question: "What do you prefer in your trips?",
     options: [
-      { id: "q1a", ar: "الشواطئ والاسترخاء", en: "Beaches & Relaxation", type: "beach", emoji: "🏖️" },
-      { id: "q1b", ar: "المغامرات والتحديات", en: "Adventure & Challenges", type: "adventure", emoji: "🧗" },
-      { id: "q1c", ar: "الثقافة والتاريخ", en: "Culture & History", type: "culture", emoji: "🏛️" },
-      { id: "q1d", ar: "الرفاهية والفخامة", en: "Luxury & Premium", type: "luxury", emoji: "👑" },
+      { id: "q1a", label: "Beaches & Relaxation", type: "beach", emoji: "🏖️" },
+      { id: "q1b", label: "Adventure & Challenges", type: "adventure", emoji: "🧗" },
+      { id: "q1c", label: "Culture & History", type: "culture", emoji: "🏛️" },
+      { id: "q1d", label: "Luxury & Premium", type: "luxury", emoji: "👑" },
     ]
   },
   {
-    id: "q2", questionAr: "أين تفضل الإقامة؟", questionEn: "Where do you prefer to stay?",
+    id: "q2", question: "Where do you prefer to stay?",
     options: [
-      { id: "q2a", ar: "منتجع على الشاطئ", en: "Beach Resort", type: "beach", emoji: "🌴" },
-      { id: "q2b", ar: "مخيم في الجبال", en: "Mountain Camp", type: "adventure", emoji: "⛺" },
-      { id: "q2c", ar: "فندق تاريخي في المدينة", en: "Historic City Hotel", type: "culture", emoji: "🏨" },
-      { id: "q2d", ar: "فيلا خاصة مع خدمة", en: "Private Villa with Service", type: "luxury", emoji: "🏡" },
+      { id: "q2a", label: "Beach Resort", type: "beach", emoji: "🌴" },
+      { id: "q2b", label: "Mountain Camp", type: "adventure", emoji: "⛺" },
+      { id: "q2c", label: "Historic City Hotel", type: "culture", emoji: "🏨" },
+      { id: "q2d", label: "Private Villa with Service", type: "luxury", emoji: "🏡" },
     ]
   },
   {
-    id: "q3", questionAr: "ما هي نشاطاتك المفضلة؟", questionEn: "What are your favorite activities?",
+    id: "q3", question: "What are your favorite activities?",
     options: [
-      { id: "q3a", ar: "السباحة والغطس", en: "Swimming & Diving", type: "beach", emoji: "🤿" },
-      { id: "q3b", ar: "تسلق الجبال والقفز", en: "Hiking & Skydiving", type: "adventure", emoji: "🪂" },
-      { id: "q3c", ar: "زيارة المتاحف والآثار", en: "Museums & Ruins", type: "culture", emoji: "🏺" },
-      { id: "q3d", ar: "التسوق والمنتجعات الصحية", en: "Shopping & Spas", type: "luxury", emoji: "🛍️" },
+      { id: "q3a", label: "Swimming & Diving", type: "beach", emoji: "🤿" },
+      { id: "q3b", label: "Hiking & Skydiving", type: "adventure", emoji: "🪂" },
+      { id: "q3c", label: "Museums & Ruins", type: "culture", emoji: "🏺" },
+      { id: "q3d", label: "Shopping & Spas", type: "luxury", emoji: "🛍️" },
     ]
   },
   {
-    id: "q4", questionAr: "ما هو طعامك المفضل في السفر؟", questionEn: "What's your favorite travel food?",
+    id: "q4", question: "What's your favorite travel food?",
     options: [
-      { id: "q4a", ar: "مأكولات بحرية طازجة", en: "Fresh Seafood", type: "beach", emoji: "🦐" },
-      { id: "q4b", ar: "أطباق مغامرات محلية", en: "Local Adventurous Dishes", type: "adventure", emoji: "🌮" },
-      { id: "q4c", ar: "أكل تقليدي أصيل", en: "Authentic Traditional Food", type: "culture", emoji: "🍜" },
-      { id: "q4d", ar: "مطاعم حاصلة على نجوم", en: "Michelin Star Restaurants", type: "luxury", emoji: "🍽️" },
+      { id: "q4a", label: "Fresh Seafood", type: "beach", emoji: "🦐" },
+      { id: "q4b", label: "Local Adventurous Dishes", type: "adventure", emoji: "🌮" },
+      { id: "q4c", label: "Authentic Traditional Food", type: "culture", emoji: "🍜" },
+      { id: "q4d", label: "Michelin Star Restaurants", type: "luxury", emoji: "🍽️" },
     ]
   },
 ];
 
 const quizResults = [
-  { type: "beach", icon: "🏖️", titleAr: "عاشق الشواطئ", titleEn: "Beach Lover", descAr: "تحب الشمس والرمال والمياه الصافية. رحلتك المثالية تتضمن الاسترخاء على شواطئ نقية والسباحة في بحار فيروزية ومشاهدة غروب الشمس الذهبي. وجهات مثل المالديف وسيشيل وتايلاند تنتظرك!", descEn: "You love sun, sand, and crystal-clear waters. Your ideal trip involves lounging on pristine beaches, swimming in turquoise seas, and watching golden sunsets. Destinations like Maldives, Seychelles, and Thailand await you!", color: "#00b4d8" },
-  { type: "adventure", icon: "🧗", titleAr: "باحث عن المغامرة", titleEn: "Adventure Seeker", descAr: "تزدهر بالأدرينالين والتحديات. رحلتك المثالية تشمل تسلق الجبال الوعرة والغوص في أعماق المحيطات واستكشاف مناطق مجهولة. نيوزيلندا وكوستاريكا ونيبال في انتظارك!", descEn: "You thrive on adrenaline and challenges. Your perfect trip includes hiking rugged mountains, diving deep oceans, and exploring uncharted territories. New Zealand, Costa Rica, and Nepal await you!", color: "#22c55e" },
-  { type: "culture", icon: "🏛️", titleAr: "مستكشف الثقافات", titleEn: "Culture Explorer", descAr: "تفتن بالتاريخ والفن والتقاليد. رحلة أحلامك تتضمن زيارة الآثار القديمة والمتاحف والانغماس في الثقافات المحلية. مصر واليونان والهند واليابان تنتظر اكتشافك!", descEn: "You're fascinated by history, art, and traditions. Your dream trip involves visiting ancient monuments, museums, and immersing yourself in local cultures. Egypt, Greece, India, and Japan await your discovery!", color: "#f59e0b" },
-  { type: "luxury", icon: "👑", titleAr: "مسافر فاخر", titleEn: "Luxury Traveler", descAr: "تقدر الأشياء الجميلة في الحياة. إجازتك المثالية تشمل منتجعات خمس نجوم وتناول طعام راق وتجارب حصرية وخدمة ممتازة. دبي وموناكو وجزر المالديف الفاخرة في انتظارك!", descEn: "You appreciate the finer things in life. Your ideal vacation includes five-star resorts, gourmet dining, exclusive experiences, and premium service. Dubai, Monaco, and luxury Maldives await you!", color: "#a855f7" },
+  { type: "beach", icon: "🏖️", title: "Beach Lover", desc: "You love sun, sand, and crystal-clear waters. Your ideal trip involves lounging on pristine beaches, swimming in turquoise seas, and watching golden sunsets. Destinations like Maldives, Seychelles, and Thailand await you!", color: "#00b4d8" },
+  { type: "adventure", icon: "🧗", title: "Adventure Seeker", desc: "You thrive on adrenaline and challenges. Your perfect trip includes hiking rugged mountains, diving deep oceans, and exploring uncharted territories. New Zealand, Costa Rica, and Nepal await you!", color: "#22c55e" },
+  { type: "culture", icon: "🏛️", title: "Culture Explorer", desc: "You're fascinated by history, art, and traditions. Your dream trip involves visiting ancient monuments, museums, and immersing yourself in local cultures. Egypt, Greece, India, and Japan await your discovery!", color: "#f59e0b" },
+  { type: "luxury", icon: "👑", title: "Luxury Traveler", desc: "You appreciate the finer things in life. Your ideal vacation includes five-star resorts, gourmet dining, exclusive experiences, and premium service. Dubai, Monaco, and luxury Maldives await you!", color: "#a855f7" },
 ];
 
 // ----- STATS DATA (animated counters) -----
 const statsData = [
-  { id: "trips", icon: "✈️", target: 2847, suffix: "+", color: "#ff6b35", labelAr: "رحلة مكتملة", labelEn: "Trips Completed" },
-  { id: "travelers", icon: "🧑‍🤝‍🧑", target: 12480, suffix: "+", color: "#00b4d8", labelAr: "مسافر سعيد", labelEn: "Happy Travelers" },
-  { id: "countries", icon: "🌍", target: 56, suffix: "", color: "#22c55e", labelAr: "دولة", labelEn: "Countries" },
-  { id: "partners", icon: "🤝", target: 340, suffix: "+", color: "#a855f7", labelAr: "شريك", labelEn: "Partners" },
+  { id: "trips", icon: "✈️", target: 2847, suffix: "+", color: "#ff6b35", label: "Trips Completed" },
+  { id: "travelers", icon: "🧑‍🤝‍🧑", target: 12480, suffix: "+", color: "#00b4d8", label: "Happy Travelers" },
+  { id: "countries", icon: "🌍", target: 56, suffix: "", color: "#22c55e", label: "Countries" },
+  { id: "partners", icon: "🤝", target: 340, suffix: "+", color: "#a855f7", label: "Partners" },
 ];
 
 // ----- CLIMATE DATA -----
 const climateData = [
-  { id: "c1", ar: "المالديف", en: "Maldives", temp: 30, seasonAr: "نوفمبر - أبريل", seasonEn: "Nov - Apr", conditionAr: "مشمس", conditionEn: "Sunny", icon: "☀️", gradient: "linear-gradient(135deg, #00b4d8, #0077b6)" },
-  { id: "c2", ar: "سويسرا", en: "Switzerland", temp: 18, seasonAr: "يونيو - سبتمبر", seasonEn: "Jun - Sep", conditionAr: "معتدل", conditionEn: "Mild", icon: "⛅", gradient: "linear-gradient(135deg, #22c55e, #166534)" },
-  { id: "c3", ar: "اليابان", en: "Japan", temp: 22, seasonAr: "مارس - مايو / أكتوبر - نوفمبر", seasonEn: "Mar-May / Oct-Nov", conditionAr: "لطيف", conditionEn: "Pleasant", icon: "🌸", gradient: "linear-gradient(135deg, #ec4899, #9d174d)" },
-  { id: "c4", ar: "إيطاليا", en: "Italy", temp: 25, seasonAr: "أبريل - يونيو / سبتمبر - أكتوبر", seasonEn: "Apr-Jun / Sep-Oct", conditionAr: "دافئ", conditionEn: "Warm", icon: "🍝", gradient: "linear-gradient(135deg, #f59e0b, #b45309)" },
-  { id: "c5", ar: "تايلاند", en: "Thailand", temp: 32, seasonAr: "نوفمبر - فبراير", seasonEn: "Nov - Feb", conditionAr: "جاف", conditionEn: "Dry", icon: "🌴", gradient: "linear-gradient(135deg, #ef4444, #991b1b)" },
-  { id: "c6", ar: "نيوزيلندا", en: "New Zealand", temp: 20, seasonAr: "ديسمبر - مارس", seasonEn: "Dec - Mar", conditionAr: "مشمس", conditionEn: "Sunny", icon: "🏔️", gradient: "linear-gradient(135deg, #00d4ff, #0369a1)" },
+  { id: "c1", label: "Maldives", temp: 30, season: "Nov - Apr", condition: "Sunny", icon: "☀️", gradient: "linear-gradient(135deg, #00b4d8, #0077b6)" },
+  { id: "c2", label: "Switzerland", temp: 18, season: "Jun - Sep", condition: "Mild", icon: "⛅", gradient: "linear-gradient(135deg, #22c55e, #166534)" },
+  { id: "c3", label: "Japan", temp: 22, season: "Mar-May / Oct-Nov", condition: "Pleasant", icon: "🌸", gradient: "linear-gradient(135deg, #ec4899, #9d174d)" },
+  { id: "c4", label: "Italy", temp: 25, season: "Apr-Jun / Sep-Oct", condition: "Warm", icon: "🍝", gradient: "linear-gradient(135deg, #f59e0b, #b45309)" },
+  { id: "c5", label: "Thailand", temp: 32, season: "Nov - Feb", condition: "Dry", icon: "🌴", gradient: "linear-gradient(135deg, #ef4444, #991b1b)" },
+  { id: "c6", label: "New Zealand", temp: 20, season: "Dec - Mar", condition: "Sunny", icon: "🏔️", gradient: "linear-gradient(135deg, #00d4ff, #0369a1)" },
 ];
 
 // ----- SCENIC ROUTES DATA -----
 const scenicRoutesData = [
-  { id: "sr1", ar: "طريق المحيط الهادئ", en: "Pacific Coast Highway", descAr: "من كاليفورنيا إلى واشنطن على طول الساحل الغربي المذهل", descEn: "From California to Washington along the stunning West Coast", image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800", stops: 8, days: 14, color: "#00b4d8" },
-  { id: "sr2", ar: "طريق جبال الألب", en: "Alpine Route", descAr: "عبر القمم الثلجية والوديان الخضراء في سويسرا والنمسا", descEn: "Through snowy peaks and green valleys of Switzerland and Austria", image: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?w=800", stops: 6, days: 10, color: "#22c55e" },
-  { id: "sr3", ar: "طريق الحرير الحديث", en: "Modern Silk Road", descAr: "رحلة عبر آسيا الوسطى من إسطنبول إلى سمرقند", descEn: "Journey through Central Asia from Istanbul to Samarkand", image: "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=800", stops: 10, days: 21, color: "#f59e0b" },
-  { id: "sr4", ar: "طريق جاردن روت", en: "Garden Route", descAr: "ساحل جنوب أفريقيا الأخضر من كيب تاون إلى بورت إليزابيث", descEn: "South Africa's green coast from Cape Town to Port Elizabeth", image: "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800", stops: 5, days: 7, color: "#ef4444" },
-  { id: "sr5", ar: "طريق جبال الهيمالايا", en: "Himalayan Circuit", descAr: "عبر الممرات الجبلية العالية في نيبال والتبت وبوتان", descEn: "Through high mountain passes of Nepal, Tibet, and Bhutan", image: "https://images.unsplash.com/photo-1488085061387-422e29b40080?w=800", stops: 7, days: 18, color: "#a855f7" },
+  { id: "sr1", label: "Pacific Coast Highway", desc: "From California to Washington along the stunning West Coast", image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800", stops: 8, days: 14, color: "#00b4d8" },
+  { id: "sr2", label: "Alpine Route", desc: "Through snowy peaks and green valleys of Switzerland and Austria", image: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?w=800", stops: 6, days: 10, color: "#22c55e" },
+  { id: "sr3", label: "Modern Silk Road", desc: "Journey through Central Asia from Istanbul to Samarkand", image: "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=800", stops: 10, days: 21, color: "#f59e0b" },
+  { id: "sr4", label: "Garden Route", desc: "South Africa's green coast from Cape Town to Port Elizabeth", image: "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800", stops: 5, days: 7, color: "#ef4444" },
+  { id: "sr5", label: "Himalayan Circuit", desc: "Through high mountain passes of Nepal, Tibet, and Bhutan", image: "https://images.unsplash.com/photo-1488085061387-422e29b40080?w=800", stops: 7, days: 18, color: "#a855f7" },
 ];
 
 // ----- WANDER WHEEL (spinning wheel of fortune) -----
 const wheelData = [
-  { id: "ww1", ar: "المالديف", en: "Maldives", emoji: "🏝️", gradient: "linear-gradient(135deg, #00b4d8, #0077b6)", descAr: "جنة استوائية بفيلات فوق الماء ومياه فيروزية", descEn: "Tropical paradise with overwater villas and turquoise waters" },
-  { id: "ww2", ar: "اليابان", en: "Japan", emoji: "🗾", gradient: "linear-gradient(135deg, #ef4444, #9d174d)", descAr: "مزيج فريد من التقاليد العريقة وأحدث التقنيات", descEn: "Unique blend of ancient traditions and cutting-edge tech" },
-  { id: "ww3", ar: "سويسرا", en: "Switzerland", emoji: "🏔️", gradient: "linear-gradient(135deg, #22c55e, #166534)", descAr: "جبال الألب الخلابة والبحيرات الزرقاء المتلألئة", descEn: "Breathtaking Alps, sparkling blue lakes" },
-  { id: "ww4", ar: "تايلاند", en: "Thailand", emoji: "🌴", gradient: "linear-gradient(135deg, #ec4899, #831843)", descAr: "جزر استوائية وثقافة غنية وطعام لا يقاوم", descEn: "Tropical islands, rich culture, irresistible food" },
-  { id: "ww5", ar: "إيطاليا", en: "Italy", emoji: "🍝", gradient: "linear-gradient(135deg, #f59e0b, #92400e)", descAr: "تاريخ عريق وفن رائع ومطبخ عالمي", descEn: "Ancient history, magnificent art, world-class cuisine" },
-  { id: "ww6", ar: "كينيا", en: "Kenya", emoji: "🦁", gradient: "linear-gradient(135deg, #f97316, #9a3412)", descAr: "سفاري مثيرة وحياة برية لا تصدق", descEn: "Thrilling safaris and incredible wildlife" },
-  { id: "ww7", ar: "نيوزيلندا", en: "New Zealand", emoji: "🌿", gradient: "linear-gradient(135deg, #00d4ff, #0369a1)", descAr: "طبيعة خضراء خلابة ومغامرات لا تنسى", descEn: "Stunning green landscapes and unforgettable adventures" },
-  { id: "ww8", ar: "اليونان", en: "Greece", emoji: "🏛️", gradient: "linear-gradient(135deg, #0ea5e9, #1e3a5f)", descAr: "جزر ساحرة وغروب شمس لا يضاهى", descEn: "Enchanting islands and unmatched sunsets" },
+  { id: "ww1", label: "Maldives", emoji: "🏝️", gradient: "linear-gradient(135deg, #00b4d8, #0077b6)", desc: "Tropical paradise with overwater villas and turquoise waters" },
+  { id: "ww2", label: "Japan", emoji: "🗾", gradient: "linear-gradient(135deg, #ef4444, #9d174d)", desc: "Unique blend of ancient traditions and cutting-edge tech" },
+  { id: "ww3", label: "Switzerland", emoji: "🏔️", gradient: "linear-gradient(135deg, #22c55e, #166534)", desc: "Breathtaking Alps, sparkling blue lakes" },
+  { id: "ww4", label: "Thailand", emoji: "🌴", gradient: "linear-gradient(135deg, #ec4899, #831843)", desc: "Tropical islands, rich culture, irresistible food" },
+  { id: "ww5", label: "Italy", emoji: "🍝", gradient: "linear-gradient(135deg, #f59e0b, #92400e)", desc: "Ancient history, magnificent art, world-class cuisine" },
+  { id: "ww6", label: "Kenya", emoji: "🦁", gradient: "linear-gradient(135deg, #f97316, #9a3412)", desc: "Thrilling safaris and incredible wildlife" },
+  { id: "ww7", label: "New Zealand", emoji: "🌿", gradient: "linear-gradient(135deg, #00d4ff, #0369a1)", desc: "Stunning green landscapes and unforgettable adventures" },
+  { id: "ww8", label: "Greece", emoji: "🏛️", gradient: "linear-gradient(135deg, #0ea5e9, #1e3a5f)", desc: "Enchanting islands and unmatched sunsets" },
 ];
 
 // ----- DESTINY DNA (radar chart traits) -----
 const dnaData = [
-  { id: "d1", ar: "المالديف", en: "Maldives", descAr: "ملاذ هادئ لعشاق البحر والاسترخاء", descEn: "Peaceful haven for sea lovers and relaxation", image: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=400", traits: [2, 9, 5, 4, 10, 3], color: "#00b4d8" },
-  { id: "d2", ar: "سويسرا", en: "Switzerland", descAr: "وجهة مثالية لعشاق الطبيعة والمغامرات", descEn: "Perfect destination for nature lovers and adventures", image: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?w=400", traits: [5, 10, 6, 8, 6, 3], color: "#22c55e" },
-  { id: "d3", ar: "اليابان", en: "Japan", descAr: "حيث يلتقي التاريخ العريق بأحدث التقنيات", descEn: "Where ancient history meets cutting-edge technology", image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400", traits: [10, 5, 9, 3, 4, 7], color: "#ef4444" },
-  { id: "d4", ar: "إيطاليا", en: "Italy", descAr: "مهد الفن والطعام والتاريخ", descEn: "Cradle of art, food, and history", image: "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=400", traits: [9, 4, 10, 3, 6, 7], color: "#f59e0b" },
-  { id: "d5", ar: "دبي", en: "Dubai", descAr: "فخامة وحداثة وسط الصحراء الذهبية", descEn: "Luxury and modernity in the golden desert", image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400", traits: [2, 2, 7, 5, 8, 10], color: "#a855f7" },
-  { id: "d6", ar: "تايلاند", en: "Thailand", descAr: "جنة استوائية نابضة بالحياة والثقافة", descEn: "Vibrant tropical paradise full of life and culture", image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=400", traits: [6, 7, 9, 7, 8, 6], color: "#ec4899" },
+  { id: "d1", label: "Maldives", desc: "Peaceful haven for sea lovers and relaxation", image: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=400", traits: [2, 9, 5, 4, 10, 3], color: "#00b4d8" },
+  { id: "d2", label: "Switzerland", desc: "Perfect destination for nature lovers and adventures", image: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?w=400", traits: [5, 10, 6, 8, 6, 3], color: "#22c55e" },
+  { id: "d3", label: "Japan", desc: "Where ancient history meets cutting-edge technology", image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400", traits: [10, 5, 9, 3, 4, 7], color: "#ef4444" },
+  { id: "d4", label: "Italy", desc: "Cradle of art, food, and history", image: "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=400", traits: [9, 4, 10, 3, 6, 7], color: "#f59e0b" },
+  { id: "d5", label: "Dubai", desc: "Luxury and modernity in the golden desert", image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400", traits: [2, 2, 7, 5, 8, 10], color: "#a855f7" },
+  { id: "d6", label: "Thailand", desc: "Vibrant tropical paradise full of life and culture", image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=400", traits: [6, 7, 9, 7, 8, 6], color: "#ec4899" },
 ];
 
 // ----- PASSPORT STAMPS (flip cards) -----
 const stampData = [
-  { id: "st1", ar: "المالديف", en: "Maldives", emoji: "🏝️", year: "2024", descAr: "جزر مرجانية ومياه كريستالية", descEn: "Coral islands and crystal waters" },
-  { id: "st2", ar: "اليابان", en: "Japan", emoji: "🗾", year: "2024", descAr: "أزهار الكرز ومعابد قديمة", descEn: "Cherry blossoms and ancient temples" },
-  { id: "st3", ar: "إيطاليا", en: "Italy", emoji: "🍝", year: "2023", descAr: "كولوسيوم وبيتزا أصيلة", descEn: "Colosseum and authentic pizza" },
-  { id: "st4", ar: "سويسرا", en: "Switzerland", emoji: "🏔️", year: "2023", descAr: "قمم ثلجية وقطارات جبلية", descEn: "Snowy peaks and mountain trains" },
-  { id: "st5", ar: "دبي", en: "Dubai", emoji: "🌆", year: "2024", descAr: "ناطحات سحاب وصحراء ذهبية", descEn: "Skyscrapers and golden desert" },
-  { id: "st6", ar: "اليونان", en: "Greece", emoji: "🏛️", year: "2023", descAr: "جزر سانتوريني البيضاء", descEn: "White-washed Santorini islands" },
-  { id: "st7", ar: "كينيا", en: "Kenya", emoji: "🦁", year: "2024", descAr: "سفاري ماساي مارا", descEn: "Masai Mara safari" },
-  { id: "st8", ar: "تايلاند", en: "Thailand", emoji: "🌴", year: "2023", descAr: "شواطئ فوكيت الخلابة", descEn: "Stunning Phuket beaches" },
+  { id: "st1", label: "Maldives", emoji: "🏝️", year: "2024", desc: "Coral islands and crystal waters" },
+  { id: "st2", label: "Japan", emoji: "🗾", year: "2024", desc: "Cherry blossoms and ancient temples" },
+  { id: "st3", label: "Italy", emoji: "🍝", year: "2023", desc: "Colosseum and authentic pizza" },
+  { id: "st4", label: "Switzerland", emoji: "🏔️", year: "2023", desc: "Snowy peaks and mountain trains" },
+  { id: "st5", label: "Dubai", emoji: "🌆", year: "2024", desc: "Skyscrapers and golden desert" },
+  { id: "st6", label: "Greece", emoji: "🏛️", year: "2023", desc: "White-washed Santorini islands" },
+  { id: "st7", label: "Kenya", emoji: "🦁", year: "2024", desc: "Masai Mara safari" },
+  { id: "st8", label: "Thailand", emoji: "🌴", year: "2023", desc: "Stunning Phuket beaches" },
 ];
 
 // ----- COLOR VIBES (gradient bars with meanings) -----
 const vibeData = [
-  { id: "v1", ar: "المالديف", en: "Maldives", colors: ["#00b4d8","#0077b6","#90e0ef","#023e8a"], meanings: [{ ar: "محيط", en: "Ocean" }, { ar: "عمق", en: "Depth" }, { ar: "نسيم", en: "Breeze" }, { ar: "غروب", en: "Sunset" }] },
-  { id: "v2", ar: "سويسرا", en: "Switzerland", colors: ["#22c55e","#166534","#86efac","#14532d"], meanings: [{ ar: "غابات", en: "Forests" }, { ar: "قمم", en: "Peaks" }, { ar: "مروج", en: "Meadows" }, { ar: "صنوبر", en: "Pines" }] },
-  { id: "v3", ar: "اليابان", en: "Japan", colors: ["#ef4444","#ec4899","#fca5a5","#9d174d"], meanings: [{ ar: "كرز", en: "Cherry" }, { ar: "خزامى", en: "Sakura" }, { ar: "فجر", en: "Dawn" }, { ar: "تقليد", en: "Tradition" }] },
-  { id: "v4", ar: "إيطاليا", en: "Italy", colors: ["#f59e0b","#92400e","#fde68a","#b45309"], meanings: [{ ar: "شمس", en: "Sun" }, { ar: "بيتزا", en: "Pizza" }, { ar: "رمل", en: "Sand" }, { ar: "نبيذ", en: "Wine" }] },
-  { id: "v5", ar: "دبي", en: "Dubai", colors: ["#a855f7","#6b21a8","#d8b4fe","#3b0764"], meanings: [{ ar: "فخامة", en: "Luxury" }, { ar: "ذهب", en: "Gold" }, { ar: "أضواء", en: "Lights" }, { ar: "صحراء", en: "Desert" }] },
-  { id: "v6", ar: "اليونان", en: "Greece", colors: ["#0ea5e9","#1e3a5f","#7dd3fc","#0f172a"], meanings: [{ ar: "بحر", en: "Sea" }, { ar: "ليل", en: "Night" }, { ar: "سماء", en: "Sky" }, { ar: "أبيض", en: "White" }] },
-  { id: "v7", ar: "كينيا", en: "Kenya", colors: ["#f97316","#9a3412","#fdba74","#431407"], meanings: [{ ar: "شروق", en: "Sunrise" }, { ar: "أرض", en: "Earth" }, { ar: "ذهب", en: "Gold" }, { ar: "تراب", en: "Soil" }] },
+  { id: "v1", label: "Maldives", colors: ["#00b4d8","#0077b6","#90e0ef","#023e8a"], meanings: ["Ocean", "Depth", "Breeze", "Sunset"] },
+  { id: "v2", label: "Switzerland", colors: ["#22c55e","#166534","#86efac","#14532d"], meanings: ["Forests", "Peaks", "Meadows", "Pines"] },
+  { id: "v3", label: "Japan", colors: ["#ef4444","#ec4899","#fca5a5","#9d174d"], meanings: ["Cherry", "Sakura", "Dawn", "Tradition"] },
+  { id: "v4", label: "Italy", colors: ["#f59e0b","#92400e","#fde68a","#b45309"], meanings: ["Sun", "Pizza", "Sand", "Wine"] },
+  { id: "v5", label: "Dubai", colors: ["#a855f7","#6b21a8","#d8b4fe","#3b0764"], meanings: ["Luxury", "Gold", "Lights", "Desert"] },
+  { id: "v6", label: "Greece", colors: ["#0ea5e9","#1e3a5f","#7dd3fc","#0f172a"], meanings: ["Sea", "Night", "Sky", "White"] },
+  { id: "v7", label: "Kenya", colors: ["#f97316","#9a3412","#fdba74","#431407"], meanings: ["Sunrise", "Earth", "Gold", "Soil"] },
 ];
 
 // ----- SKY LENS (camera viewfinder) -----
 const lensData = [
-  { id: "l1", ar: "المالديف", en: "Maldives", image: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=600", tagAr: "جزر", tagEn: "Islands" },
-  { id: "l2", ar: "سويسرا", en: "Switzerland", image: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?w=600", tagAr: "جبال", tagEn: "Mountains" },
-  { id: "l3", ar: "اليابان", en: "Japan", image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600", tagAr: "ثقافة", tagEn: "Culture" },
-  { id: "l4", ar: "إيطاليا", en: "Italy", image: "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=600", tagAr: "تاريخ", tagEn: "History" },
-  { id: "l5", ar: "دبي", en: "Dubai", image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600", tagAr: "مدن", tagEn: "City" },
-  { id: "l6", ar: "اليونان", en: "Greece", image: "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=600", tagAr: "جزر", tagEn: "Islands" },
-  { id: "l7", ar: "كينيا", en: "Kenya", image: "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=600", tagAr: "سفاري", tagEn: "Safari" },
-  { id: "l8", ar: "تايلاند", en: "Thailand", image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=600", tagAr: "جزر", tagEn: "Islands" },
+  { id: "l1", label: "Maldives", image: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=600", tag: "Islands" },
+  { id: "l2", label: "Switzerland", image: "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?w=600", tag: "Mountains" },
+  { id: "l3", label: "Japan", image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600", tag: "Culture" },
+  { id: "l4", label: "Italy", image: "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=600", tag: "History" },
+  { id: "l5", label: "Dubai", image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600", tag: "City" },
+  { id: "l6", label: "Greece", image: "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=600", tag: "Islands" },
+  { id: "l7", label: "Kenya", image: "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=600", tag: "Safari" },
+  { id: "l8", label: "Thailand", image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=600", tag: "Islands" },
 ];
 
 function StatCounter({ target, suffix }) {
@@ -628,7 +627,6 @@ export default function PlannerPage() {
 
       {/* ============================
           TRAVEL CATEGORIES
-          (like "العصور التاريخية")
       ============================ */}
       <section className={`section ${styles.categoriesSection}`}>
         <div className="container">
@@ -664,7 +662,7 @@ export default function PlannerPage() {
       </section>
 
       {/* ============================
-          INTERACTIVE MAP (like "اكتشف خريطة مصر")
+          INTERACTIVE MAP
       ============================ */}
       <section className={styles.mapSection}>
         <div className={styles.mapContainer}>
@@ -808,7 +806,6 @@ export default function PlannerPage() {
 
       {/* ============================
           SPOTLIGHT DESTINATIONS
-          (like "المواقع والقطع الآثرية")
       ============================ */}
       <section className="section section-alt" id="spotlight">
         <div className="container">
@@ -844,7 +841,7 @@ export default function PlannerPage() {
                   <div className={styles.spotlightRating}>
                     <Star size={16} fill="#ffd700" color="#ffd700" />
                     <span>{spot.rating}</span>
-                    <span className={styles.spotlightTrips}>{spot.trips}+ {lang === "ar" ? "رحلة" : "trips"}</span>
+                    <span className={styles.spotlightTrips}>{spot.trips}+ trips</span>
                   </div>
                   <h3>{spot.title}</h3>
                   <p>{spot.desc}</p>
@@ -1087,7 +1084,7 @@ export default function PlannerPage() {
                     ))}
                   </div>
                   <div className={styles.panoramaBadge} style={{ background: r.color }}>
-                    <Route size={12} /> {r.stops} {lang === "ar" ? "محطات" : "stops"}
+                    <Route size={12} /> {r.stops} stops
                   </div>
                 </div>
                 <div className={styles.panoramaBody}>
@@ -1100,7 +1097,7 @@ export default function PlannerPage() {
                     </div>
                     <div className={styles.panoramaMetaItem}>
                       <MapPin size={14} />
-                      <span>{r.stops} {lang === "ar" ? "محطة" : "stops"}</span>
+                      <span>{r.stops} stops</span>
                     </div>
                   </div>
                   <span className={styles.panoramaBtn} style={{ borderColor: r.color, color: r.color }}>
@@ -1115,7 +1112,6 @@ export default function PlannerPage() {
 
       {/* ============================
           TRAVELER STORIES
-          (like "الإعلام و القصص")
       ============================ */}
       <section className="section section-alt" id="stories">
         <div className="container">
@@ -1229,7 +1225,7 @@ export default function PlannerPage() {
       </section>
 
       {/* ============================
-          HIDDEN TREASURES (like "الآثار الغارقة")
+          HIDDEN TREASURES
       ============================ */}
       <section className={styles.hiddenSection}>
         <div className={styles.hiddenBg}>
@@ -1289,7 +1285,7 @@ export default function PlannerPage() {
       </section>
 
       {/* ============================
-          TRAVEL QUIZ (like "عالم الأطفال")
+          TRAVEL QUIZ
       ============================ */}
       <section className={styles.quizSection}>
         <div className={styles.quizBgDecor}>

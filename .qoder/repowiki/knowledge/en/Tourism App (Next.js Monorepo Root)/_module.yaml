@@ -1,0 +1,17 @@
+schema_version: 1
+module_path: ""
+title: Tourism App (Next.js Monorepo Root)
+scope:
+    - README.md
+    - package.json
+    - next.config.mjs
+    - eslint.config.mjs
+    - jsconfig.json
+    - .gitignore
+    - AGENTS.md
+    - CLAUDE.md
+    - arabic-lines.txt
+    - package-lock.json
+source_files: []
+depends_on: []
+related_to: []
