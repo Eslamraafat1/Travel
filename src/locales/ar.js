@@ -627,5 +627,83 @@ export const ar = {
     rights: "جميع الحقوق محفوظة لشركة واندرلاست",
     privacy: "سياسة الخصوصية",
     terms: "الشروط والأحكام"
+  },
+  pages: {
+    packages: {
+      tag: "✈️ باقات السفر",
+      title: "اكتشف ",
+      titleAccent: "باقاتنا المميزة",
+      subtitle: "اعثر على باقة سفر متكاملة تناسب ميزانيتك وتفضيلاتك",
+      searchPlaceholder: "ابحث عن باقة...",
+      resultsCount: "{count} باقة متاحة",
+      emptyTitle: "لا توجد نتائج",
+      emptyDesc: "جرب تغيير بحثك أو الفئة",
+      filters: {
+        title: "تصفية",
+        search: "بحث",
+        categories: "الفئات",
+        sortBy: "ترتيب حسب",
+        default: "الافتراضي",
+        priceAsc: "السعر: الأقل أولاً",
+        priceDesc: "السعر: الأعلى أولاً",
+        rating: "الأعلى تقييماً",
+        duration: "المدة: الأقصر أولاً",
+        reset: "إعادة تعيين"
+      }
+    },
+    trips: {
+      tag: "🗺️ رحلات رائجة",
+      title: "اكتشف ",
+      titleAccent: "رحلاتنا المذهلة",
+      subtitle: "جولات منظمة بعناية لكل وجهة وميزانية",
+      searchPlaceholder: "ابحث عن رحلة...",
+      resultsCount: "{count} رحلة متاحة",
+      loading: "جاري التحميل...",
+      emptyTitle: "لا توجد رحلات مطابقة",
+      emptyDesc: "جرب تغيير عوامل التصفية",
+      filters: {
+        title: "تصفية",
+        search: "بحث",
+        type: "نوع الرحلة",
+        duration: "المدة",
+        priceRange: "أقصى سعر:",
+        sortBy: "ترتيب حسب",
+        default: "الافتراضي",
+        priceAsc: "السعر: الأقل",
+        priceDesc: "السعر: الأعلى",
+        rating: "الأعلى تقييماً",
+        seats: "المقاعد المتبقية",
+        reset: "إعادة تعيين",
+        durationOptions: [
+          { id: "all", label: "جميع المدد" },
+          { id: "short", label: "أقل من 5 أيام" },
+          { id: "medium", label: "5-7 أيام" },
+          { id: "long", label: "أكثر من 7 أيام" }
+        ]
+      }
+    },
+    packageDetail: {
+      includedTrips: "الرحلات المضمنة في هذه الباقة",
+      includedDesc: "قائمة بالرحلات والتجارب الفريدة المضمنة في هذه الباقة. اضغط على أي رحلة للتفاصيل.",
+      itineraryTitle: "برنامج الرحلة",
+      itineraryDesc: "استمتع بجدول يومي منظم بعناية.",
+      galleryTitle: "معرض الصور",
+      includesTitle: "ما يشمل",
+      bookNow: "احجز هذه الباقة الآن",
+      perPerson: "للفرد",
+      bookingLabel: "تاريخ السفر المفضل",
+      bookingPeople: "عدد الأشخاص",
+      saveTrip: "حفظ",
+      share: "مشاركة",
+      noTrips: "لم تتم إضافة رحلات بعد.",
+      noItinerary: "لا يوجد برنامج رحلة متاح.",
+      noGallery: "لا توجد صور إضافية.",
+      hotelsTitle: "فنادق قريبة",
+      hotelsDesc: "أفضل الفنادق القريبة من هذه الوجهة",
+      restaurantsTitle: "مطاعم قريبة", 
+      restaurantsDesc: "أفضل المطاعم القريبة من هذه الوجهة",
+      noHotels: "لم يتم العثور على فنادق قريبة.",
+      noRestaurants: "لم يتم العثور على مطاعم قريبة."
+    }
   }
 };

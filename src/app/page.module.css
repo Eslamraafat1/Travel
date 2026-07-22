@@ -2,171 +2,375 @@
    HOME PAGE STYLES
    ============================================= */
 
-/* ---- HERO ---- */
-.hero {
+/* =============================================
+   AGENCY HERO SECTION - EXACT REPLICA
+   ============================================= */
+
+.agencyHero {
   position: relative;
-  height: 100vh;
-  min-height: 700px;
+  min-height: 100vh;
+  background: #ffffff;
+  color: #000000;
   display: flex;
   align-items: center;
-  justify-content: center;
   overflow: hidden;
+  padding: 0;
 }
 
-.heroBg {
+.agencyHeroBg {
   position: absolute;
+  
   inset: 0;
-  background-size: cover;
-  background-position: center;
-  will-change: transform;
+  background: #ffffff;
 }
 
-.heroOverlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.75) 100%);
-  z-index: 1;
-}
-
-.heroContent {
-  position: relative;
-  z-index: 2;
-  text-align: center;
+.agencyHeroGrid {
+  display: grid;
+  grid-template-columns: 300px 1fr 400px;
+  gap: 0;
+  align-items: center;
+  justify-items: center;
   width: 100%;
-  padding: 0 24px;
+  height: 100vh;
+  position: relative;
 }
 
-.heroInner {
-  max-width: 800px;
-  margin: 0 auto;
+/* Left Image Card */
+.agencyLeftCard {
+  position: relative;
+  width: 280px;
+  height: 350px;
+  border-radius: 20px;
+  overflow: hidden;
+  z-index: 5;
+  margin-left: 40px;
+  transform: rotate(-8deg) skewY(10deg);
 }
 
-.heroTag {
-  display: inline-flex;
+.agencyLeftCard img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: skewY(-10deg); /* Counter-skew the image to keep it straight inside the card */
+}
+
+/* Center Content */
+.agencyCenter {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 6px;
-  padding: 8px 20px;
-  background: rgba(255,107,53,0.2);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,107,53,0.4);
-  color: #ff9970;
-  border-radius: 50px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  margin-bottom: 24px;
+  position: relative;
+  height: 100%;
+  justify-content: center;
 }
 
-.heroTitle {
-  font-size: clamp(2.8rem, 7vw, 5rem);
+.agencyTopCard {
+  position: absolute;
+  top: 15%;
+  width: 160px;
+  height: 200px;
+  border-radius: 15px;
+  overflow: hidden;
+  z-index: 4;
+  transform: rotate(-5deg) skewY(10deg);
+}
+
+.agencyTopCard img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: skewY(-10deg); /* Counter-skew the image */
+}
+
+.agencyHeroText {
+  text-align: center;
+  z-index: 3;
+}
+
+.agencyHeroTitle {
+  font-size: clamp(4rem, 8vw, 7rem);
   font-weight: 900;
-  color: white;
-  line-height: 1.15;
-  margin-bottom: 20px;
-  text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  margin-top: 210;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
 }
 
-.heroAccent {
-  background: var(--gradient-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.heroSub {
-  font-size: 1.2rem;
-  color: rgba(255,255,255,0.85);
-  margin-bottom: 40px;
-  max-width: 500px;
-  margin-inline: auto;
-  line-height: 1.7;
-}
-
-.heroBtns {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.videoBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  color: white;
+.agencyHeroBtn {
+      margin-top: 20px;
+  background: transparent;
+  border: 2px solid #000000;
+  color: #000000;
+  padding: 12px 30px;
+  border-radius: 50px;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
   font-family: inherit;
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
 }
 
-.videoBtn:hover { color: var(--primary); }
+.agencyHeroBtn:hover {
+  background: #000000;
+  color: #ffffff;
+}
 
-.videoCircle {
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(255,255,255,0.4);
+/* Right Content */
+.agencyRight {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  animation: ripple 2s infinite;
-  flex-shrink: 0;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  padding: 60px 40px;
 }
 
-@keyframes ripple {
-  0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.3); }
-  70% { box-shadow: 0 0 0 15px rgba(255,255,255,0); }
-  100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
-}
-
-.slideIndicators {
+.agencyTopText {
   position: absolute;
-  bottom: 40px;
-  inset-inline-start: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 8px;
-  z-index: 3;
+  top: 15%;
+  right: 40px;
+  font-size:1.85rem;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.5px;
+  color: #000000;
 }
 
-html[dir="rtl"] .slideIndicators {
-  transform: translateX(50%);
-}
-
-.dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.4);
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.dotActive {
-  background: white;
-  width: 24px;
-  border-radius: 4px;
-}
-
-.scrollIndicator {
+.agencyRightCard {
   position: absolute;
-  bottom: 30px;
-  inset-inline-start: 50%;
-  transform: translateX(-50%);
-  color: rgba(255,255,255,0.6);
-  z-index: 3;
+  top: 40%;
+  right: 20px;
+  width: 220px;
+  height: 280px;
+  border-radius: 15px;
+  overflow: hidden;
+  z-index: 4;
+  transform: rotate(3deg) skewY(10deg);
 }
 
-html[dir="rtl"] .scrollIndicator {
-  transform: translateX(50%);
+.agencyRightCard img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: skewY(-10deg); /* Counter-skew the image */
+}
+
+.agencyRightCard img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.agencyBottomText {
+  display: none;
+  position: absolute;
+  bottom: 15%;
+  right: 40px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.3px;
+  color: #000000;
+  max-width: 300px;
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+  .agencyHeroGrid {
+    grid-template-columns: 260px 1fr 360px;
+  }
+  
+  .agencyLeftCard {
+    width: 250px;
+    height: 310px;
+    margin-left: 25px;
+  }
+  
+  .agencyRightCard {
+    width: 190px;
+    height: 250px;
+    right: 15px;
+  }
+  
+  .agencyHeroTitle {
+    font-size: clamp(3.5rem, 7vw, 6rem);
+  }
+}
+
+@media (max-width: 1200px) {
+  .agencyHeroGrid {
+    grid-template-columns: 220px 1fr 320px;
+    gap: 10px;
+  }
+  
+  .agencyLeftCard {
+    width: 200px;
+    height: 260px;
+    margin-left: 15px;
+  }
+  
+  .agencyTopCard {
+    width: 130px;
+    height: 160px;
+  }
+  
+  .agencyRightCard {
+    width: 170px;
+    height: 210px;
+  }
+  
+  .agencyHeroTitle {
+    font-size: clamp(3rem, 6vw, 5rem);
+  }
+  
+  .agencyTopText,
+  .agencyBottomText {
+    font-size: 0.78rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .agencyHero {
+    padding: 60px 20px;
+    min-height: auto;
+  }
+  
+  .agencyHeroGrid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 30px;
+    height: auto;
+    min-height: 100vh;
+  }
+  
+  .agencyLeftCard {
+    order: 2;
+    margin: 0 auto;
+    width: 220px;
+    height: 270px;
+  }
+  
+  .agencyCenter {
+    order: 1;
+    height: auto;
+    padding: 20px 0;
+  }
+  
+  .agencyTopCard {
+    position: relative;
+    top: auto;
+    order: 3;
+    margin: 30px auto;
+    width: 140px;
+    height: 170px;
+  }
+  
+  .agencyRight {
+    order: 4;
+    height: auto;
+    padding: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .agencyTopText,
+  .agencyBottomText {
+    position: relative;
+    top: auto;
+    bottom: auto;
+    right: auto;
+    margin: 10px auto;
+    text-align: center;
+  }
+  
+  .agencyRightCard {
+    position: relative;
+    top: auto;
+    right: auto;
+    margin: 15px auto;
+    width: 180px;
+    height: 220px;
+  }
+  
+  .agencyHeroTitle {
+    font-size: clamp(2.2rem, 6vw, 3.8rem);
+    margin-bottom: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  .agencyHero {
+    padding: 40px 15px;
+  }
+  
+  .agencyLeftCard {
+    width: 190px;
+    height: 230px;
+  }
+  
+  .agencyTopCard {
+    width: 110px;
+    height: 130px;
+  }
+  
+  .agencyRightCard {
+    width: 150px;
+    height: 190px;
+  }
+  
+  .agencyHeroTitle {
+    font-size: clamp(1.9rem, 5vw, 3rem);
+    margin-bottom: 20px;
+  }
+  
+  .agencyHeroBtn {
+    padding: 10px 24px;
+    font-size: 0.9rem;
+  }
+  
+  .agencyTopText,
+  .agencyBottomText {
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+}
+
+@media (max-width: 480px) {
+  .agencyHero {
+    padding: 30px 10px;
+  }
+  
+  .agencyLeftCard {
+    width: 160px;
+    height: 200px;
+  }
+  
+  .agencyTopCard {
+    width: 95px;
+    height: 115px;
+  }
+  
+  .agencyRightCard {
+    width: 130px;
+    height: 165px;
+  }
+  
+  .agencyHeroTitle {
+    font-size: clamp(1.6rem, 6vw, 2.3rem);
+    margin-bottom: 18px;
+  }
+  
+  .agencyHeroBtn {
+    padding: 8px 20px;
+    font-size: 0.85rem;
+  }
+  
+  .agencyTopText,
+  .agencyBottomText {
+    font-size: 0.72rem;
+  }
 }
 
 /* ---- STATS ---- */

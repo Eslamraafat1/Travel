@@ -102,14 +102,8 @@ export default function HomePage() {
   const [packages, setPackages] = useState([]);
   const [trips, setTrips] = useState([]);
   const [stats, setStats] = useState({ destinations: 120, travelers: 50000, years: 15 });
-  const [heroIdx, setHeroIdx] = useState(0);
   const [testimonialIdx, setTestimonialIdx] = useState(0);
   const [loading, setLoading] = useState(true);
-
-  const heroRef = useRef(null);
-  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
-  const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   const isRtl = lang === "ar";
   const ArrowIcon = isRtl ? ArrowLeft : ArrowRight;
@@ -140,11 +134,6 @@ export default function HomePage() {
   }, [lang, contentVer]);
 
   // Merge translation data with static icon/data (check contentStore overrides first)
-  const heroSlidesRaw = ct('hero.slides');
-  const heroSlides = Array.isArray(heroSlidesRaw)
-    ? heroSlidesRaw.map((s, i) => ({ ...s, ...heroBgData[i] }))
-    : [];
-
   const featuresRaw = ct('home.whyUs.features');
   const features = Array.isArray(featuresRaw)
     ? featuresRaw.map((f, i) => ({ ...f, ...featureIcons[i] }))
@@ -165,13 +154,6 @@ export default function HomePage() {
     ? galleryRaw.map((g, i) => ({ ...g, ...galleryImages[i] }))
     : [];
 
-  // Auto-rotate hero
-  useEffect(() => {
-    if (!heroSlides.length) return;
-    const interval = setInterval(() => setHeroIdx(i => (i + 1) % heroSlides.length), 5000);
-    return () => clearInterval(interval);
-  }, [heroSlides.length]);
-
   // Auto-rotate testimonials
   useEffect(() => {
     if (!testimonials.length) return;
@@ -179,75 +161,150 @@ export default function HomePage() {
     return () => clearInterval(interval);
   }, [testimonials.length]);
 
-  const slide = heroSlides[heroIdx] || {};
-
   return (
     <main>
       <Navbar />
 
       {/* ============================
-          HERO SECTION
+          HERO SECTION - AGENCY STYLE
       ============================ */}
-      <section ref={heroRef} className={styles.hero} id="hero">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={heroIdx}
-            className={styles.heroBg}
-            style={{ backgroundImage: `url(${slide.bg})`, y: heroY }}
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}
-          />
-        </AnimatePresence>
-        <div className={styles.heroOverlay} />
-
-        <motion.div className={styles.heroContent} style={{ opacity: heroOpacity }}>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={heroIdx}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.7 }}
-              className={styles.heroInner}
+      <section className={styles.agencyHero} id="hero">
+        <div className={styles.agencyHeroBg}></div>
+        
+        <div className="container">
+          <div className={styles.agencyHeroGrid}>
+            
+            {/* Left Image Card */}
+            <motion.div 
+              className={styles.agencyLeftCard}
+              initial={{ opacity: 0, x: -300, scale: 0.7, skewY: 0 }}
+              animate={{ opacity: 1, x: 0, scale: 1, skewY: 10 }}
+              transition={{ 
+                type: "spring", 
+                stiffness: 60, 
+                damping: 12, 
+                mass: 0.8 
+              }}
             >
-              <span className={styles.heroTag}>
-                <MapPin size={14} /> {slide.tag}
-              </span>
-              <h1 className={styles.heroTitle}>
-                {slide.title} <br />
-                <span className={styles.heroAccent}>{slide.titleAccent}</span>
-              </h1>
-              <p className={styles.heroSub}>{slide.sub}</p>
-              <div className={styles.heroBtns}>
-                <Link href="/packages" className="btn-primary" id="hero-explore-btn">
-                  {ct('hero.explore')} <ArrowIcon size={18} />
-                </Link>
-                <button className={styles.videoBtn} id="hero-video-btn">
-                  <span className={styles.videoCircle}><Play size={16} fill="white" /></span>
-                  {ct('hero.watchVideo')}
-                </button>
-              </div>
-            </motion.div>
-          </AnimatePresence>
-
-          <div className={styles.slideIndicators}>
-            {heroSlides.map((_, i) => (
-              <button key={i} id={`hero-slide-${i}`}
-                className={`${styles.dot} ${i === heroIdx ? styles.dotActive : ""}`}
-                onClick={() => setHeroIdx(i)}
+              <img 
+                src="https://images.unsplash.com/photo-1548786811-dd6e453ccca7?w=400&h=500&fit=crop" 
+                alt="Travel destination"
               />
-            ))}
-          </div>
-        </motion.div>
+            </motion.div>
 
-        <motion.div className={styles.scrollIndicator}
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5 }}
-        >
-          <ChevronDown size={28} />
-        </motion.div>
+            {/* Center Content */}
+            <div className={styles.agencyCenter}>
+              
+              {/* Top Center Card */}
+              <motion.div 
+                className={styles.agencyTopCard}
+                initial={{ opacity: 0, y: -150, scale: 0.6, rotate: -45, skewY: 0 }}
+                animate={{ opacity: 1, y: 0, scale: 1, rotate: -5, skewY: 10 }}
+                transition={{ 
+                  type: "spring", 
+                  stiffness: 80, 
+                  damping: 14, 
+                  delay: 0.15 
+                }}
+              >
+                <img 
+                  src="https://images.unsplash.com/photo-1548786811-dd6e453ccca7?w=200&h=250&fit=crop" 
+                  alt="Portrait"
+                />
+              </motion.div>
+
+              {/* Main Hero Text */}
+              <motion.div 
+                className={styles.agencyHeroText}
+                initial={{ opacity: 0, y: 80, scale: 0.8 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ 
+                  type: "spring", 
+                  stiffness: 100, 
+                  damping: 15, 
+                  delay: 0.3 
+                }}
+              >
+                <h1 className={styles.agencyHeroTitle}>
+                  DISCOVER<br />
+                  EGYPT
+                </h1>
+                
+                <motion.button 
+                  className={styles.agencyHeroBtn}
+                  initial={{ opacity: 0, y: 30, scale: 0.9 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ 
+                    type: "spring", 
+                    stiffness: 120, 
+                    damping: 10, 
+                    delay: 0.7 
+                  }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Explore Now
+                </motion.button>
+              </motion.div>
+
+            </div>
+
+            {/* Right Content */}
+            <div className={styles.agencyRight}>
+              
+              {/* Top Right Text */}
+              <motion.div 
+                className={styles.agencyTopText}
+                initial={{ opacity: 0, x: 200, y: -30 }}
+                animate={{ opacity: 1, x: 0, y: 0 }}
+                transition={{ 
+                  type: "spring", 
+                  stiffness: 90, 
+                  damping: 13, 
+                  delay: 0.25 
+                }}
+              >
+                <p>PREMIUM<br />TRAVEL<br />EXPERIENCES</p>
+              </motion.div>
+
+              {/* Right Image Card */}
+              <motion.div 
+                className={styles.agencyRightCard}
+                initial={{ opacity: 0, x: 300, scale: 0.7, skewY: 0 }}
+                animate={{ opacity: 1, x: 0, scale: 1, skewY: 10 }}
+                transition={{ 
+                  type: "spring", 
+                  stiffness: 65, 
+                  damping: 12, 
+                  mass: 0.85, 
+                  delay: 0.4 
+                }}
+              >
+                <img 
+                  src="https://images.unsplash.com/photo-1548786811-dd6e453ccca7?w=300&h=400&fit=crop" 
+                  alt="Creative work"
+                />
+              </motion.div>
+
+              {/* Bottom Right Text */}
+              <motion.div 
+                className={styles.agencyBottomText}
+                initial={{ opacity: 0, x: 150, y: 40 }}
+                animate={{ opacity: 1, x: 0, y: 0 }}
+                transition={{ 
+                  type: "spring", 
+                  stiffness: 100, 
+                  damping: 14, 
+                  delay: 0.5 
+                }}
+              >
+                <p>MAKE YOUR DREAM TRIP COME TRUE<br />WITH US.</p>
+              </motion.div>
+
+            </div>
+
+          </div>
+        </div>
       </section>
 
       {/* ============================
@@ -553,110 +610,12 @@ export default function HomePage() {
       {/* ============================
           VIDEO PROMO
       ============================ */}
-      <section className={styles.videoSection}>
-        <div className={styles.videoBg}>
-          <img src="https://images.unsplash.com/photo-1682687982501-1e5898cb8f4b?w=1920" alt="Promo Video" />
-          <div className={styles.videoOverlay} />
-        </div>
-        <div className="container" style={{ position: "relative", zIndex: 2 }}>
-          <motion.div className={styles.videoContent}
-            initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-          >
-            <button className={styles.playBtn}><Play size={32} fill="currentColor" /></button>
-            <h2>{ct('home.video.title')}</h2>
-            <p>{ct('home.video.subtitle')}</p>
-          </motion.div>
-        </div>
-      </section>
+     
 
       {/* ============================
           APP SECTION (NEW)
       ============================ */}
-      <section className="section" id="app-section">
-        <div className="container">
-          <div className={styles.appSection}>
-            <motion.div className={styles.appContent}
-              initial={{ opacity: 0, x: isRtl ? -60 : 60 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-            >
-              <span className="section-tag" style={{ textAlign: "start" }}>{ct('home.apps.tag')}</span>
-              <h2 className={styles.appTitle}>
-                {ct('home.apps.title1')}<span className="gradient-text">{ct('home.apps.titleAccent')}</span>
-              </h2>
-              <p className={styles.appSubtitle}>{ct('home.apps.subtitle')}</p>
-
-              <div className={styles.appFeatures}>
-                {[
-                  { icon: <Zap size={20} />, label: ct('home.apps.feature1'), color: "#ff6b35" },
-                  { icon: <MapPin size={20} />, label: ct('home.apps.feature2'), color: "#00d4ff" },
-                  { icon: <HeadphonesIcon size={20} />, label: ct('home.apps.feature3'), color: "#a855f7" },
-                ].map((f, i) => (
-                  <motion.div key={i} className={styles.appFeatureItem}
-                    initial={{ opacity: 0, x: isRtl ? -20 : 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.3 + i * 0.1 }}
-                  >
-                    <div className={styles.appFeatureIcon} style={{ color: f.color, background: `${f.color}18` }}>
-                      {f.icon}
-                    </div>
-                    <span>{f.label}</span>
-                  </motion.div>
-                ))}
-              </div>
-
-              <div className={styles.appBtns}>
-                <a href="#" className={styles.storeBtn} id="app-store-btn">
-                  <Download size={22} />
-                  <span>
-                    <small>{ct('home.apps.downloadOn')}</small>
-                    {ct('home.apps.appStore')}
-                  </span>
-                </a>
-                <a href="#" className={styles.storeBtn} id="google-play-btn">
-                  <Smartphone size={22} />
-                  <span>
-                    <small>{ct('home.apps.getItOn')}</small>
-                    {ct('home.apps.googlePlay')}
-                  </span>
-                </a>
-              </div>
-
-              <p className={styles.appUsers}>
-                <CheckCircle size={16} style={{ color: "#22c55e", flexShrink: 0 }} />
-                {ct('home.apps.users')}
-              </p>
-            </motion.div>
-
-            <motion.div className={styles.appVisual}
-              initial={{ opacity: 0, x: isRtl ? 60 : -60 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-            >
-              <div className={styles.phoneMockup}>
-                <div className={styles.phoneInner}>
-                  <img
-                    src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400"
-                    alt="App preview"
-                    className={styles.phoneImg}
-                  />
-                  <div className={styles.phoneOverlay}>
-                    <div className={styles.phoneStat}>
-                      <Star size={14} fill="#ffd700" color="#ffd700" />
-                      <span>4.9</span>
-                    </div>
-                  </div>
-                </div>
-                <div className={styles.phoneGlow} />
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+    
 
       {/* ============================
           PARTNERS

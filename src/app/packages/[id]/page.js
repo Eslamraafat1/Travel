@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useParams, notFound } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, Clock, Users, Star, Calendar, Navigation, Heart, Share2, ArrowLeft, Building, UtensilsCrossed } from "lucide-react";
+import { MapPin, Clock, Users, Star, Calendar, Navigation, Heart, Share2, ArrowLeft, Building, UtensilsCrossed, CheckCircle2 } from "lucide-react";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import TripCard from "@/components/TripCard/TripCard";

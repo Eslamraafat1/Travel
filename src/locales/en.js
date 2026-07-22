@@ -640,5 +640,83 @@ export const en = {
     rights: "All rights reserved to Wanderlust",
     privacy: "Privacy Policy",
     terms: "Terms & Conditions"
+  },
+  pages: {
+    packages: {
+      tag: "✈️ Travel Packages",
+      title: "Discover ",
+      titleAccent: "Our Featured Packages",
+      subtitle: "Find a complete travel package that suits your budget and preferences",
+      searchPlaceholder: "Search for package...",
+      resultsCount: "{count} packages available",
+      emptyTitle: "No results found",
+      emptyDesc: "Try changing your search or category",
+      filters: {
+        title: "Filter",
+        search: "Search",
+        categories: "Categories",
+        sortBy: "Sort by",
+        default: "Default",
+        priceAsc: "Price: Low to High",
+        priceDesc: "Price: High to Low", 
+        rating: "Highest Rated",
+        duration: "Duration: Shortest First",
+        reset: "Reset"
+      }
+    },
+    trips: {
+      tag: "🗺️ Popular Trips",
+      title: "Discover ",
+      titleAccent: "Our Amazing Journeys",
+      subtitle: "Carefully organized tours for every destination and budget",
+      searchPlaceholder: "Search for trip...",
+      resultsCount: "{count} trips available",
+      loading: "Loading...",
+      emptyTitle: "No matching trips",
+      emptyDesc: "Try changing your filters",
+      filters: {
+        title: "Filter",
+        search: "Search",
+        type: "Trip Type",
+        duration: "Duration",
+        priceRange: "Max Price:",
+        sortBy: "Sort by",
+        default: "Default",
+        priceAsc: "Price: Low",
+        priceDesc: "Price: High",
+        rating: "Highest Rated",
+        seats: "Remaining Seats",
+        reset: "Reset",
+        durationOptions: [
+          { id: "all", label: "All Durations" },
+          { id: "short", label: "Less than 5 days" },
+          { id: "medium", label: "5-7 days" },
+          { id: "long", label: "More than 7 days" }
+        ]
+      }
+    },
+    packageDetail: {
+      includedTrips: "Trips Included in This Package",
+      includedDesc: "List of trips and unique experiences included in this package. Click on any trip for details.",
+      itineraryTitle: "Trip Itinerary",
+      itineraryDesc: "Enjoy a carefully organized daily schedule.",
+      galleryTitle: "Photo Gallery",
+      includesTitle: "What's Included",
+      bookNow: "Book This Package Now",
+      perPerson: "per person",
+      bookingLabel: "Preferred Travel Date",
+      bookingPeople: "Number of People",
+      saveTrip: "Save",
+      share: "Share",
+      noTrips: "No trips added yet.",
+      noItinerary: "No trip itinerary available.",
+      noGallery: "No additional photos.",
+      hotelsTitle: "Nearby Hotels",
+      hotelsDesc: "Best hotels near this destination",
+      restaurantsTitle: "Nearby Restaurants",
+      restaurantsDesc: "Best restaurants near this destination",
+      noHotels: "No nearby hotels found.",
+      noRestaurants: "No nearby restaurants found."
+    }
   }
 };

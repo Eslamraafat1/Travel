@@ -112,7 +112,7 @@
 
 .layout {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  /* grid-template-columns: 2fr 1fr;   */
   gap: 40px;
   align-items: start;
 }
@@ -184,7 +184,7 @@
 .timeline::before {
   content: '';
   position: absolute;
-  right: 48px;
+  inset-inline-end: 48px;
   top: 0;
   bottom: 0;
   width: 2px;
@@ -279,6 +279,13 @@
 .bookingSidebar {
   position: sticky;
   top: 100px;
+}
+
+@media (max-width: 1200px) {
+  .bookingSidebar {
+    position: static;
+    top: auto;
+  }
 }
 
 .bookingCard {
@@ -400,17 +407,185 @@
 }
 
 /* Responsive */
+@media (max-width: 1200px) {
+  .layout { 
+    grid-template-columns: 1fr; 
+    gap: 30px;
+  }
+  .bookingSidebar { 
+    position: static; 
+    margin-top: 30px; 
+  }
+  .bookingCard {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}
+
 @media (max-width: 1024px) {
-  .layout { grid-template-columns: 1fr; }
-  .bookingSidebar { position: static; margin-top: 40px; }
-  .timeline::before { right: 40px; }
+  .hero { 
+    height: 450px; 
+    padding-bottom: 50px; 
+  }
+  .heroContent h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+  }
+  .timeline::before { 
+    inset-inline-end: 40px; 
+  }
+  .timelineDot {
+    width: 80px;
+    font-size: 0.85rem;
+  }
+  .tabs {
+    gap: 8px;
+  }
+  .tabBtn {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+  .tripsGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
 }
 
 @media (max-width: 768px) {
-  .hero { height: 400px; padding-bottom: 40px; }
-  .gallery, .includesGrid { grid-template-columns: 1fr; }
-  .timelineItem { flex-direction: column; gap: 16px; }
-  .timeline::before { display: none; }
+  .hero { 
+    height: 400px; 
+    padding-bottom: 40px; 
+  }
+  .heroMeta {
+    gap: 16px;
+    font-size: 0.95rem;
+  }
+  .heroMeta span {
+    font-size: 0.9rem;
+  }
+  .mainContent {
+    padding: 40px 0 80px;
+  }
+  .tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 12px;
+    margin-bottom: 24px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .tabBtn {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+  .sectionTitle {
+    font-size: 1.4rem;
+  }
+  .sectionDesc {
+    font-size: 1rem;
+  }
+  .gallery, .includesGrid { 
+    grid-template-columns: 1fr; 
+  }
+  .includesGrid {
+    gap: 12px;
+  }
+  .includeItem {
+    padding: 12px;
+  }
+  .timelineItem { 
+    flex-direction: column; 
+    gap: 12px; 
+  }
+  .timeline::before { 
+    display: none; 
+  }
+  .timelineCard {
+    padding: 20px;
+  }
+  .bookingCard {
+    padding: 24px;
+    border-radius: 20px;
+  }
+  .currentPrice {
+    font-size: 2rem;
+  }
+  .placesGrid { 
+    grid-template-columns: 1fr; 
+    gap: 16px;
+  }
+  .placeImage {
+    height: 140px;
+  }
+  .cardActions {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .actionBtn {
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero { 
+    height: 350px; 
+    padding-bottom: 30px; 
+  }
+  .heroContent h1 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+  }
+  .heroTop {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .destination, .badge {
+    font-size: 0.8rem;
+    padding: 4px 12px;
+  }
+  .heroMeta {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .mainContent {
+    padding: 30px 0 60px;
+  }
+  .tabBtn {
+    padding: 6px 14px;
+    font-size: 0.8rem;
+  }
+  .sectionTitle {
+    font-size: 1.2rem;
+  }
+  .timelineCard {
+    padding: 16px;
+  }
+  .timelineTitle {
+    font-size: 1rem;
+  }
+  .timelineDesc {
+    font-size: 0.9rem;
+  }
+  .bookingCard {
+    padding: 20px;
+  }
+  .currentPrice {
+    font-size: 1.8rem;
+  }
+  .inputGroup label {
+    font-size: 0.85rem;
+  }
+  .input {
+    padding: 10px 12px 10px 36px;
+    font-size: 0.9rem;
+  }
+  .inputWrapper svg {
+    right: 12px;
+  }
 }
 
 /* Places Grid (Hotels & Restaurants) */
