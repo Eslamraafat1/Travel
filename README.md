@@ -1,5 +1,7 @@
 # 🇨🇪🏝️ Tour Egypt Club — Travel & Tours Website
 
+[![E2E Tests](https://github.com/Eslamraafat1/Travel/actions/workflows/e2e.yml/badge.svg)](https://github.com/Eslamraafat1/Travel/actions/workflows/e2e.yml)
+
 Live production website for a tourism company offering tours and trips across Egypt. Built for real users and international travelers.
 
 🔗 **Live website:** https://touregyptclub.com
@@ -22,6 +24,10 @@ Live production website for a tourism company offering tours and trips across Eg
 | Framework | Next.js, React |
 | Language | JavaScript |
 | Deployment | Vercel |
+
+## 🧪 Testing
+
+Automated **Playwright** end-to-end tests run on every push via **GitHub Actions** (desktop + mobile Chrome). See [`e2e/`](./e2e).
 
 ## 🚀 Getting Started
 
