@@ -1,4 +1,4 @@
-# 🇨🇪🏝️ Tour Egypt Club — Travel & Tours Website
+# 🇪🇬 Tour Egypt Club — Travel & Tours Website
 
 [![E2E Tests](https://github.com/Eslamraafat1/Travel/actions/workflows/e2e.yml/badge.svg)](https://github.com/Eslamraafat1/Travel/actions/workflows/e2e.yml)
 
