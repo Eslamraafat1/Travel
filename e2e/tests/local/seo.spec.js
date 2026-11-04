@@ -14,7 +14,7 @@ test.describe('SEO', () => {
     ['/', 'Tour Egypt Club - Egypt Tours & Travel Packages'],
     ['/trips', 'Trips & Excursions | Tour Egypt Club'],
     ['/packages', 'Travel Packages | Tour Egypt Club'],
-    ['/trips/1', 'Enchanting Sharm El-Sheikh Trip | Tour Egypt Club'],
+    ['/trips/7', 'VIP tour inside Giza Pyramids | Tour Egypt Club'],
   ]) {
     test(`${path}: title, absolute https canonical, OG/Twitter`, async ({ request }) => {
       const html = await head(request, path);
@@ -35,11 +35,14 @@ test.describe('SEO', () => {
     expect(home.map((d) => d['@type'])).toEqual(expect.arrayContaining(['TravelAgency', 'WebSite']));
     expect(home.find((d) => d['@type'] === 'TravelAgency').name).toBe('Tour Egypt Club');
 
-    for (const path of ['/trips/1', '/packages/1']) {
+    for (const path of ['/trips/7', '/packages/1']) {
       const items = jsonLd(await head(request, path));
       const trip = items.find((d) => d['@type'] === 'TouristTrip');
       expect(trip?.name).toBeTruthy();
       expect(trip.offers.priceCurrency).toBe('EGP');
+      expect(trip.offers.price).toBeGreaterThan(0);
+      expect(trip.aggregateRating).toBeUndefined();
+      for (const img of trip.image) expect(img).toMatch(/^https:\/\/[^/]+\/images\/egypt\/.+\.webp$/);
       const crumbs = items.find((d) => d['@type'] === 'BreadcrumbList');
       expect(crumbs.itemListElement).toHaveLength(3);
       expect(crumbs.itemListElement[2].item).toMatch(new RegExp(`^https://[^/]+${path}$`));
@@ -63,11 +66,11 @@ test.describe('SEO', () => {
     expect(locs.length).toBeGreaterThan(20);
     for (const loc of locs) expect(loc).toMatch(/^https:\/\/(?!localhost)/);
     const paths = locs.map((l) => new URL(l).pathname);
-    expect(paths).toEqual(expect.arrayContaining(['/', '/trips', '/packages', '/trips/1', '/packages/1', '/explore/hotels']));
+    expect(paths).toEqual(expect.arrayContaining(['/', '/trips', '/packages', '/trips/7', '/trips/3', '/packages/1', '/packages/2', '/explore/hotels']));
     expect(paths).not.toContain('/dashboard');
   });
 
-  for (const path of ['/dashboard', '/login', '/checkout/1']) {
+  for (const path of ['/dashboard', '/login', '/checkout/3']) {
     test(`${path} is noindex`, async ({ request }) => {
       const html = await head(request, path);
       expect(attr(html, /<meta name="robots" content="([^"]+)"/)).toContain('noindex');

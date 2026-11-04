@@ -2,15 +2,15 @@ import { test, expect } from './fixtures.js';
 
 test.describe('Booking flow', () => {
   test('trip detail "book" leads to checkout for that trip', async ({ page }) => {
-    await page.goto('/trips/1');
-    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Enchanting Sharm El-Sheikh Trip');
+    await page.goto('/trips/3');
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Sharm El-Sheikh Diving Adventure');
     await page.getByRole('button', { name: /confirm booking/i }).first().click();
-    await expect(page).toHaveURL(/\/checkout\/1$/);
+    await expect(page).toHaveURL(/\/checkout\/3$/);
     await expect(page.getByRole('heading', { level: 1, name: 'Complete Your Booking' })).toBeVisible();
   });
 
   test('checkout validates each step before moving on', async ({ page }) => {
-    await page.goto('/checkout/1');
+    await page.goto('/checkout/3');
     const next = page.getByRole('button', { name: /booking details/i });
     await expect(page.getByLabel('Full Name')).toBeVisible();
 

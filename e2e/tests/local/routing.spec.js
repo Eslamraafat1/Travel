@@ -38,7 +38,7 @@ test.describe('Routing & guards', () => {
 
   test('key pages render without uncaught errors', async ({ page }) => {
     const errors = trackPageErrors(page);
-    for (const path of ['/', '/trips', '/packages', '/trips/2', '/packages/2', '/explore', '/planner', '/about', '/contact']) {
+    for (const path of ['/', '/trips', '/packages', '/trips/4', '/packages/2', '/explore', '/planner', '/about', '/contact']) {
       const res = await page.goto(path);
       expect(res.status(), path).toBe(200);
       await expect(page.getByRole('navigation', { name: 'Main' })).toBeVisible();

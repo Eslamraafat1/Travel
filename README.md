@@ -38,12 +38,22 @@ The front end had to solve three problems:
 
 > **About this repository:** it is the front-end codebase of the project: pages, components, i18n and an API layer with mock data. The production site at [touregyptclub.com](https://touregyptclub.com/) is deployed separately from a later version and has grown beyond this snapshot (for example, Blog, News and Travel Guide sections). This repository is not what serves the live site. Its own SEO layer, tests and CI run against a local production build of **this** code; a small optional smoke test for the live site is kept separately.
 
+## 🗂 Content
+
+The catalogue in this repo **mirrors the client's real catalogue** on [touregyptclub.com](https://touregyptclub.com/) (captured from the live site's public API in November 2026), not template data:
+
+- **5 trips** (VIP tour inside Giza Pyramids, Sharm El-Sheikh Diving Adventure, Western Desert Safari, Pyramids & Cairo Explorer, Luxor & Aswan Nile Cruise) and **2 packages** (Hurghada & Red Sea Luxury, Cairo & Giza Pyramids Package), with titles, EGP prices, durations, itineraries, inclusions/exclusions, FAQs, upgrades and cancellation terms as published.
+- **Photos** are the client's own, downloaded from the live site and stored as optimised WebP (max 1600 px wide) in [`public/images/egypt`](./public/images/egypt); partner logos in [`public/images/partners`](./public/images/partners). Live photos that clearly show the wrong place (e.g. a non-Egyptian landscape on an Egypt tour) were not used; a photo from the same tour's own gallery was used instead.
+- **Contact details** (phone/WhatsApp, `sales@` e-mail, Giza address, opening hours), the "Why choose us" points, the success partners and the trip-planner categories, featured destinations and scenic routes come from the live site.
+- **Not copied on purpose:** star ratings, review counts, testimonials, traveller/years counters and team members. They could not be verified, so the home page counts trips, packages and destinations from the catalogue instead, and no `AggregateRating` is emitted.
+- **Arabic:** UI strings are shared with the live site's own Arabic dictionary. The live site publishes tour content in English only, so trip and package text is English in both languages (marked `dir="auto"` so it lays out correctly inside the RTL page).
+
 ## ✨ Key Features
 
 ### Booking journey
 - **Packages and trips:** listing pages filter by type or category, text search, duration and price range. Detail pages show the itinerary, what is included and excluded, highlights and FAQs.
 - **3-step checkout** (`/checkout/[id]`): personal info, then booking details, then payment method, with a progress indicator.
-- **Trip planner** (`/planner`): suggests destinations and routes from a "from" and a "to" query.
+- **Trip planner** (`/planner`): matches the "to" destination (English or Arabic name) against the real trips and packages and links to them; also shows the live site's travel styles, featured destinations and scenic routes.
 - **Explore guide** (`/explore/[category]/[id]`): nearby restaurants, hotels, cafés, activities, transport and essentials from the **Foursquare Places API v3**. It falls back to built-in mock data when no API key is set.
 - **Content dashboard** (`/dashboard`): add, edit and delete trips and packages, and override home-page text for each language. Changes are saved in `localStorage`, so this is a demo admin layer. It sits behind a client-side guard (redirects to `/login?next=/dashboard`) and is `noindex`.
 - Login and register screens backed by a **mock** `AuthContext` (any e-mail/password "logs in"; nothing is verified). A real deployment needs server-side auth.
@@ -87,7 +97,7 @@ The front end had to solve three problems:
 - **Metadata API** with `metadataBase`, a `%s | Tour Egypt Club` title pattern and per-route `layout.js` metadata: unique title and description, absolute **canonical**, Open Graph and Twitter `summary_large_image` tags. Trip and package pages generate theirs from the catalogue data.
 - **Site URL can't leak localhost:** `src/lib/site.js` resolves `NEXT_PUBLIC_SITE_URL` → `VERCEL_PROJECT_PRODUCTION_URL` → `https://touregyptclub.com`, and ignores a localhost value in production builds.
 - **`app/sitemap.js`** (static pages, every trip, package and explore category) and **`app/robots.js`** (disallows `/dashboard`, `/checkout/`, `/login`, `/register`, `/api/`; points to the sitemap).
-- **JSON-LD:** `TravelAgency` + `WebSite` site-wide; `TouristTrip` (with `Offer`) and `BreadcrumbList` on trip and package pages; `BreadcrumbList` on explore categories. No ratings/reviews are emitted, because the mock ratings aren't real.
+- **JSON-LD:** `TravelAgency` + `WebSite` site-wide; `TouristTrip` (with `Offer`) and `BreadcrumbList` on trip and package pages; `BreadcrumbList` on explore categories. Trip images are absolute URLs and items without a published price get no `Offer`. No ratings/reviews are emitted, because there is no verifiable review source.
 - `noindex` on the dashboard, login, register and checkout pages, and on explore place pages while they show demo data.
 - Trip, package and explore-category pages are **pre-rendered** (`generateStaticParams`); unknown explore categories return a real **404**.
 - **`next/image`** for cards, the home hero and gallery, avatars and the checkout summary (remote hosts are allow-listed; URLs entered in the demo dashboard fall back to unoptimized). **`next/font`** self-hosts the fonts.
@@ -99,14 +109,14 @@ The **Playwright** suite in [`e2e/`](./e2e) runs against a **production build of
 
 | Spec | What is verified |
 |---|---|
-| `catalogue.spec.js` | Trip list → trip detail; case-insensitive search updates results; type filter; price sort is ascending; package category filter → package detail |
+| `catalogue.spec.js` | Trip list (the 5 live trips) → trip detail; case-insensitive search; type filter; price sort is ascending; package category filter → package detail; published price, itinerary (stops vs. days) and upgrades render; no invented ratings; every image is local and loads (no 4xx, no stock-photo hosts); planner search returns the matching catalogue trip |
 | `booking.spec.js` | Trip detail → checkout; step-by-step validation (required fields, invalid e-mail, missing date), guest count updates the total, booking confirmation |
 | `i18n-theme.spec.js` | Server HTML is `lang="ar" dir="rtl"` with no raw i18n keys; the toggle switches to `lang="en" dir="ltr"` and English nav labels, persists on reload and switches back; theme toggle persists |
 | `seo.spec.js` | Titles, absolute https canonical (never localhost), OG/Twitter tags, JSON-LD parses and has `TravelAgency`/`TouristTrip`/`BreadcrumbList`, `robots.txt` → sitemap, `sitemap.xml` URLs, `noindex` on private pages |
 | `routing.spec.js` | Custom 404 (status 404), unknown explore category → 404, `/dashboard` → login → back to dashboard, Places proxy falls back to demo data and rejects bad input, key pages render without uncaught errors |
 | `navigation.mobile.spec.js` | Mobile menu opens, navigates and closes; language toggle on mobile (Pixel 7) |
 
-- **26 tests** (24 desktop + 2 mobile). CI ([`.github/workflows/e2e.yml`](./.github/workflows/e2e.yml)) runs **lint → build → E2E** on every push to `main` and every pull request; failures keep traces and screenshots, and the HTML report is uploaded.
+- **31 tests** (29 desktop + 2 mobile). CI ([`.github/workflows/e2e.yml`](./.github/workflows/e2e.yml)) runs **lint → build → E2E** on every push to `main` and every pull request; failures keep traces and screenshots, and the HTML report is uploaded.
 - `tests/live/smoke.spec.js` is a separate, optional smoke test for the live site (`npm run test:live`, or a manual CI run), since that site is not built from this repo.
 
 ```bash
@@ -128,6 +138,7 @@ npm run test:live             # optional: smoke test https://touregyptclub.com
 │   ├── tests/local/              # User-flow, i18n, SEO and routing specs (local build)
 │   └── tests/live/               # Optional smoke test for the live site
 ├── docs/screenshots/             # README images
+├── public/images/                # Client photos (WebP) and partner logos
 └── src/
     ├── app/                      # App Router pages
     │   ├── layout.js             # Root layout: metadata, fonts, JSON-LD, lang/dir script, providers
@@ -146,7 +157,7 @@ npm run test:live             # optional: smoke test https://touregyptclub.com
     ├── locales/                  # en.js / ar.js translation dictionaries
     └── lib/
         ├── api/                  # Axios client, endpoints, services (packages, trips, explore, planner)
-        ├── mockData/             # Seed trips and packages
+        ├── mockData/             # Trips and packages mirrored from touregyptclub.com
         ├── site.js               # Brand, site URL, metadata helper
         ├── structuredData.js     # JSON-LD builders
         └── localizeContent.js    # Per-language field mapping
