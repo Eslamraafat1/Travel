@@ -200,6 +200,22 @@ Copy [`.env.example`](./.env.example) to `.env.local`. The app runs without any 
 
 The production site at **[touregyptclub.com](https://touregyptclub.com/)** is deployed separately from a later version of the code. This repository builds with `npm run build && npm run start` into a standard Next.js Node server and runs on any Node host; CI tests that local build.
 
+<!-- more-projects:start -->
+## More of my work
+
+| Project | What it is | Demo |
+|---|---|---|
+| **[VANTA](https://github.com/Eslamraafat1/E-commerce-New-)** | 3D bilingual e-commerce storefront | [Live](https://e-commerce-new2-delta.vercel.app/en) |
+| **[Atlas Estates](https://github.com/Eslamraafat1/New-Real-Estate)** | 3D real estate platform | [Live](https://new-real-estate-jade.vercel.app) |
+| **[Crust & Crave](https://github.com/Eslamraafat1/New-Restaurant)** | cinematic restaurant storefront | [Live](https://new-restaurant-kappa.vercel.app) |
+| **[NEXORA Academy](https://github.com/Eslamraafat1/Courses-N)** | bilingual e-learning platform | [Live](https://courses-n.vercel.app) |
+| **[Nubia](https://github.com/Eslamraafat1/Perfume)** | perfume store on Supabase | [Live](https://perfume-sooty-alpha.vercel.app) |
+| **[MONOLITH](https://github.com/Eslamraafat1/3D-Website-)** | 3D architecture studio site | [Live](https://3-d-website-seven-xi.vercel.app) |
+| **[Portfolio](https://github.com/Eslamraafat1/new-portfolio)** | bilingual Next.js portfolio | [Live](https://new-portfolio-ashy-xi.vercel.app) |
+
+See everything on my [GitHub profile](https://github.com/Eslamraafat1) and [portfolio](https://new-portfolio-ashy-xi.vercel.app/).
+<!-- more-projects:end -->
+
 ## 👤 Author
 
 **Eslam Raafat**, Front-End Developer (React · Next.js · TypeScript)
