@@ -1,12 +1,13 @@
 {
-  "name": "travel-e2e",
+  "name": "tour-egypt-club-e2e",
   "private": true,
   "type": "module",
   "scripts": {
     "test": "playwright test",
+    "test:live": "playwright test -c playwright.live.config.js",
     "report": "playwright show-report"
   },
   "devDependencies": {
-    "@playwright/test": "1.48.2"
+    "@playwright/test": "1.63.0"
   }
 }
