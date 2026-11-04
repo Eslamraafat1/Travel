@@ -11,7 +11,8 @@ export default function PackageCard({ pkg, index = 0 }) {
   const isRtl = lang === "ar";
   const ArrowIcon = isRtl ? ArrowLeft : ArrowRight;
 
-  const discount = pkg.originalPrice
+  const hasPrice = Number.isFinite(pkg.price) && pkg.price > 0;
+  const discount = hasPrice && pkg.originalPrice > pkg.price
     ? Math.round(((pkg.originalPrice - pkg.price) / pkg.originalPrice) * 100)
     : null;
 
@@ -44,27 +45,30 @@ export default function PackageCard({ pkg, index = 0 }) {
         </div>
 
         {/* Category */}
-        <span className={styles.category}>{pkg.destination}</span>
+        <span className={styles.category} dir="auto">{pkg.destination}</span>
       </Link>
 
       {/* Body */}
       <div className={styles.body}>
         <Link href={`/packages/${pkg.id}`}>
-          <h3 className={styles.title}>{pkg.title}</h3>
+          <h3 className={styles.title} dir="auto">{pkg.title}</h3>
         </Link>
-        <p className={styles.desc}>{pkg.description}</p>
+        <p className={styles.desc} dir="auto">{pkg.description}</p>
 
         {/* Meta */}
         <div className={styles.meta}>
           <span className={styles.metaItem}>
-            <Clock size={14} /> {pkg.duration}
+            <Clock size={14} /> <span dir="auto">{pkg.duration}</span>
           </span>
-          <span className={styles.metaItem}>
-            <Users size={14} /> {pkg.maxGroupSize} {t('common.people')}
-          </span>
+          {pkg.maxGroupSize > 0 && (
+            <span className={styles.metaItem}>
+              <Users size={14} /> {pkg.maxGroupSize} {t('common.people')}
+            </span>
+          )}
         </div>
 
-        {/* Rating */}
+        {/* Rating (only when the item carries a real rating) */}
+        {pkg.rating > 0 && (
         <div className={styles.rating}>
           <div className={styles.stars}>
             {[...Array(5)].map((_, i) => (
@@ -78,24 +82,25 @@ export default function PackageCard({ pkg, index = 0 }) {
           </div>
           <span className={styles.ratingText}>{pkg.rating} ({pkg.reviewCount?.toLocaleString()})</span>
         </div>
+        )}
 
         {/* Includes */}
         <div className={styles.includes}>
           {pkg.includes?.slice(0, 3).map((item, i) => (
-            <span key={i} className={styles.includeTag}>{item}</span>
+            <span key={i} className={styles.includeTag} dir="auto">{item}</span>
           ))}
         </div>
 
         {/* Price & CTA */}
         <div className={styles.footer}>
           <div className={styles.pricing}>
-            {pkg.originalPrice && (
+            {discount && (
               <span className={styles.originalPrice}>
                 {pkg.originalPrice.toLocaleString()} {pkg.currency}
               </span>
             )}
             <span className={styles.price}>
-              {pkg.price.toLocaleString()} <small>{pkg.currency}</small>
+              {hasPrice ? <>{pkg.price.toLocaleString()} <small>{pkg.currency}</small></> : t('common.priceOnRequest')}
             </span>
           </div>
           <Link href={`/packages/${pkg.id}`} className={styles.cta} id={`pkg-book-${pkg.id}`}>

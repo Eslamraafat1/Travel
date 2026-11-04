@@ -51,7 +51,7 @@ export default function TripsPage() {
 
     if (activeDuration !== "all") {
       result = result.filter((t) => {
-        const days = parseInt(t.duration);
+        const days = t.durationDays ?? parseInt(t.duration);
         if (activeDuration === "short") return days < 5;
         if (activeDuration === "medium") return days >= 5 && days <= 7;
         if (activeDuration === "long") return days > 7;
@@ -70,7 +70,6 @@ export default function TripsPage() {
 
     if (sortBy === "price-asc") result.sort((a, b) => a.price - b.price);
     else if (sortBy === "price-desc") result.sort((a, b) => b.price - a.price);
-    else if (sortBy === "rating") result.sort((a, b) => b.rating - a.rating);
     else if (sortBy === "seats") result.sort((a, b) => a.availableSeats - b.availableSeats);
 
     return result;
@@ -199,7 +198,6 @@ export default function TripsPage() {
                   <option value="default">{t('pages.trips.filters.default')}</option>
                   <option value="price-asc">{t('pages.trips.filters.priceAsc')}</option>
                   <option value="price-desc">{t('pages.trips.filters.priceDesc')}</option>
-                  <option value="rating">{t('pages.trips.filters.rating')}</option>
                   <option value="seats">{t('pages.trips.filters.seats')}</option>
                 </select>
               </div>

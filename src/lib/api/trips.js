@@ -29,7 +29,12 @@ export async function getAllTrips(type = "all", lang = "ar") {
 export async function getPopularTrips(limit = 4, lang = "ar") {
   if (USE_MOCK_API) {
     await delay(400);
-    return getTripsSource().sort((a, b) => b.rating - a.rating).slice(0, limit).map((trip) => localizeTrip(trip, lang));
+    // Featured trips first, otherwise in catalogue order (there are no
+    // verified ratings to rank by).
+    return [...getTripsSource()]
+      .sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)))
+      .slice(0, limit)
+      .map((trip) => localizeTrip(trip, lang));
   }
   return await apiClient.get(ENDPOINTS.TRIPS.POPULAR);
 }
@@ -59,9 +64,9 @@ export async function searchTrips(query, lang = "ar") {
     return getTripsSource()
       .filter(
         (trip) =>
-          trip.title.toLowerCase().includes(q) ||
-          trip.destination.toLowerCase().includes(q) ||
-          trip.description.toLowerCase().includes(q)
+          trip.title?.toLowerCase().includes(q) ||
+          trip.destination?.toLowerCase().includes(q) ||
+          trip.description?.toLowerCase().includes(q)
       )
       .map((trip) => localizeTrip(trip, lang));
   }

@@ -99,11 +99,6 @@ function buildContent(lng) {
         subtitle: or(sh.trips?.subtitle, "home.trips.subtitle"),
         viewAll: or(sh.trips?.viewAll, "home.trips.viewAll"),
       },
-      stats: {
-        destinations: sh.stats?.destinations ?? 120,
-        travelers: sh.stats?.travelers ?? 50000,
-        years: sh.stats?.years ?? 15,
-      },
       howItWorks: {
         tag: or(sh.howItWorks?.tag, "home.howItWorks.tag"),
         title1: or(sh.howItWorks?.title1, "home.howItWorks.title1"),
@@ -117,12 +112,6 @@ function buildContent(lng) {
         titleAccent: or(sh.gallery?.titleAccent, "home.gallery.titleAccent"),
         subtitle: or(sh.gallery?.subtitle, "home.gallery.subtitle"),
         items: or(sh.gallery?.items, "home.gallery.items"),
-      },
-      testimonials: {
-        tag: or(sh.testimonials?.tag, "home.testimonials.tag"),
-        title1: or(sh.testimonials?.title1, "home.testimonials.title1"),
-        titleAccent: or(sh.testimonials?.titleAccent, "home.testimonials.titleAccent"),
-        items: or(sh.testimonials?.items, "home.testimonials.items"),
       },
       video: {
         title: or(sh.video?.title, "home.video.title"),
@@ -212,7 +201,7 @@ export default function DashboardPage() {
       showToast(t('dashboard.successEdit'));
     } else {
       data.id = Math.max(...trips.map(t => t.id), 0) + 1;
-      if (!data.image) data.image = "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=800";
+      if (!data.image) data.image = "/images/egypt/egypt-pyramids.webp";
       updated = [...trips, data];
       showToast(t('dashboard.successAdd'));
     }
@@ -237,7 +226,7 @@ export default function DashboardPage() {
       showToast(t('dashboard.successEdit'));
     } else {
       data.id = Math.max(...packages.map(p => p.id), 0) + 1;
-      if (!data.image) data.image = "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=800";
+      if (!data.image) data.image = "/images/egypt/egypt-pyramids.webp";
       updated = [...packages, data];
       showToast(t('dashboard.successAdd'));
     }
@@ -525,16 +514,6 @@ export default function DashboardPage() {
                 </div>
               </Collapsible>
 
-              {/* ── Stats ── */}
-              <Collapsible title={t('dashboard.stats')} id="stats" sectionsOpen={sectionsOpen} setSectionsOpen={setSectionsOpen}>
-                <div className={styles.contentCard}>
-                  <div className={styles.contentGrid}>
-                    <Field label={t('dashboard.destinationField')} type="number" value={content.home.stats.destinations} onChange={v => setContent(c => ({ ...c, home: { ...c.home, stats: { ...c.home.stats, destinations: Number(v) } } }))} />
-                    <Field label={t('dashboard.totalUsers')} type="number" value={content.home.stats.travelers} onChange={v => setContent(c => ({ ...c, home: { ...c.home, stats: { ...c.home.stats, travelers: Number(v) } } }))} />
-                    <Field label={t('dashboard.experience')} type="number" value={content.home.stats.years} onChange={v => setContent(c => ({ ...c, home: { ...c.home, stats: { ...c.home.stats, years: Number(v) } } }))} />
-                  </div>
-                </div>
-              </Collapsible>
 
               {/* ── How It Works ── */}
               <Collapsible title={t('dashboard.steps')} id="steps" sectionsOpen={sectionsOpen} setSectionsOpen={setSectionsOpen}>
@@ -581,28 +560,6 @@ export default function DashboardPage() {
                 ))}
               </Collapsible>
 
-              {/* ── Testimonials ── */}
-              <Collapsible title={t('dashboard.testimonials')} id="testimonials" sectionsOpen={sectionsOpen} setSectionsOpen={setSectionsOpen}>
-                <div className={styles.contentCard}>
-                  <h4>Section Headers</h4>
-                  <div className={styles.contentGrid}>
-                    <Field label="Tag" value={content.home.testimonials.tag} onChange={v => setContent(c => ({ ...c, home: { ...c.home, testimonials: { ...c.home.testimonials, tag: v } } }))} />
-                    <Field label="Title 1" value={content.home.testimonials.title1} onChange={v => setContent(c => ({ ...c, home: { ...c.home, testimonials: { ...c.home.testimonials, title1: v } } }))} />
-                    <Field label="Title Accent" value={content.home.testimonials.titleAccent} onChange={v => setContent(c => ({ ...c, home: { ...c.home, testimonials: { ...c.home.testimonials, titleAccent: v } } }))} />
-                  </div>
-                </div>
-                {content.home.testimonials.items.map((item, i) => (
-                  <div key={i} className={styles.contentCard}>
-                    <h4>{t('dashboard.testimonialNum')} {i + 1}</h4>
-                    <div className={styles.contentGrid}>
-                      <Field label={t('dashboard.nameField')} value={item.name} onChange={v => { const it = [...content.home.testimonials.items]; it[i] = { ...it[i], name: v }; setContent(c => ({ ...c, home: { ...c.home, testimonials: { ...c.home.testimonials, items: it } } })); }} />
-                      <Field label={t('dashboard.roleField')} value={item.role} onChange={v => { const it = [...content.home.testimonials.items]; it[i] = { ...it[i], role: v }; setContent(c => ({ ...c, home: { ...c.home, testimonials: { ...c.home.testimonials, items: it } } })); }} />
-                      <Field full textarea label={t('dashboard.textField')} value={item.text} onChange={v => { const it = [...content.home.testimonials.items]; it[i] = { ...it[i], text: v }; setContent(c => ({ ...c, home: { ...c.home, testimonials: { ...c.home.testimonials, items: it } } })); }} />
-                      <Field label={t('dashboard.destinationField')} value={item.destination} onChange={v => { const it = [...content.home.testimonials.items]; it[i] = { ...it[i], destination: v }; setContent(c => ({ ...c, home: { ...c.home, testimonials: { ...c.home.testimonials, items: it } } })); }} />
-                    </div>
-                  </div>
-                ))}
-              </Collapsible>
 
               {/* ── Video ── */}
               <Collapsible title={t('dashboard.videoSection')} id="video" sectionsOpen={sectionsOpen} setSectionsOpen={setSectionsOpen}>

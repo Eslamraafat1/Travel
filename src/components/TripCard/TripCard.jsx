@@ -16,8 +16,10 @@ export default function TripCard({ trip, index = 0 }) {
   const { t } = useLanguage();
   const ArrowIcon = ArrowRight;
 
-  const seatsPercent = Math.round((trip.availableSeats / trip.totalSeats) * 100);
-  const urgency = trip.availableSeats <= 5;
+  const hasSeats = Number.isFinite(trip.availableSeats) && trip.totalSeats > 0;
+  const seatsPercent = hasSeats ? Math.round((trip.availableSeats / trip.totalSeats) * 100) : 0;
+  const urgency = hasSeats && trip.availableSeats <= 5;
+  const hasPrice = Number.isFinite(trip.price) && trip.price > 0;
 
   return (
     <motion.div
@@ -39,51 +41,60 @@ export default function TripCard({ trip, index = 0 }) {
             {t('common.lastSeats', { n: trip.availableSeats })}
           </span>
         )}
-        <div className={styles.ratingBadge}>
-          <Star size={12} fill="#ffd700" color="#ffd700" />
-          {trip.rating}
-        </div>
+        {trip.rating > 0 && (
+          <div className={styles.ratingBadge}>
+            <Star size={12} fill="#ffd700" color="#ffd700" />
+            {trip.rating}
+          </div>
+        )}
       </Link>
 
       {/* Body */}
       <div className={styles.body}>
         {/* Header */}
         <div className={styles.header}>
-          <span
-            className={styles.difficulty}
-            style={{ color: difficultyColors[trip.difficulty] || "#22c55e" }}
-          >
-            ● {trip.difficulty}
-          </span>
-          <span className={styles.type}>{trip.type}</span>
+          {trip.difficulty && (
+            <span
+              className={styles.difficulty}
+              style={{ color: difficultyColors[String(trip.difficulty).toLowerCase()] || "#22c55e" }}
+            >
+              ● {trip.difficulty}
+            </span>
+          )}
+          <span className={styles.type} dir="auto">{trip.type}</span>
         </div>
 
         <Link href={`/trips/${trip.id}`}>
-          <h3 className={styles.title}>{trip.title}</h3>
+          <h3 className={styles.title} dir="auto">{trip.title}</h3>
         </Link>
-        <p className={styles.desc}>{trip.description}</p>
+        <p className={styles.desc} dir="auto">{trip.description}</p>
 
         {/* Info grid */}
         <div className={styles.infoGrid}>
           <div className={styles.infoItem}>
             <MapPin size={14} className={styles.infoIcon} />
-            <span>{trip.destination}</span>
+            <span dir="auto">{trip.destination}</span>
           </div>
           <div className={styles.infoItem}>
             <Clock size={14} className={styles.infoIcon} />
-            <span>{trip.duration}</span>
+            <span dir="auto">{trip.duration}</span>
           </div>
-          <div className={styles.infoItem}>
-            <Calendar size={14} className={styles.infoIcon} />
-            <span>{trip.departureDate}</span>
-          </div>
-          <div className={styles.infoItem}>
-            <Users size={14} className={styles.infoIcon} />
-            <span>{trip.availableSeats} {t('common.seatsLeft')}</span>
-          </div>
+          {trip.departureDate && (
+            <div className={styles.infoItem}>
+              <Calendar size={14} className={styles.infoIcon} />
+              <span dir="ltr">{trip.departureDate}</span>
+            </div>
+          )}
+          {hasSeats && (
+            <div className={styles.infoItem}>
+              <Users size={14} className={styles.infoIcon} />
+              <span>{trip.availableSeats} {t('common.seatsLeft')}</span>
+            </div>
+          )}
         </div>
 
         {/* Seats progress */}
+        {hasSeats && (
         <div className={styles.seatsSection}>
           <div className={styles.seatsLabel}>
             <span>{t('pages.tripDetail.availableSeats')}</span>
@@ -100,12 +111,17 @@ export default function TripCard({ trip, index = 0 }) {
             />
           </div>
         </div>
+        )}
 
         {/* Footer */}
         <div className={styles.footer}>
           <div className={styles.pricing}>
             <span className={styles.priceLabel}>{t('common.priceStarts')}</span>
-            <span className={styles.price}>{trip.price.toLocaleString()} <small>{trip.currency}</small></span>
+            {hasPrice ? (
+              <span className={styles.price}>{trip.price.toLocaleString()} <small>{trip.currency}</small></span>
+            ) : (
+              <span className={styles.price}>{t('common.priceOnRequest')}</span>
+            )}
           </div>
           <Link href={`/trips/${trip.id}`} className={styles.cta} id={`trip-book-${trip.id}`}>
             {t('common.book')} <ArrowIcon size={15} />

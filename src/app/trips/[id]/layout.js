@@ -16,7 +16,9 @@ export async function generateMetadata({ params }) {
   if (!trip) return pageMetadata({ title: "Trip", path: `/trips/${id}`, noindex: true });
   return pageMetadata({
     title: trip.title,
-    description: `${trip.description.replace(/\.$/, "")}. ${trip.duration} in ${trip.destination} from ${trip.price.toLocaleString("en-US")} ${trip.currency}.`,
+    description: `${trip.description.replace(/\.$/, "")}. ${trip.duration} in ${trip.destination}${
+      trip.price > 0 ? ` from ${trip.price.toLocaleString("en-US")} ${trip.currency}` : ""
+    }.`,
     path: `/trips/${id}`,
     images: [{ url: trip.image, alt: trip.title }],
   });

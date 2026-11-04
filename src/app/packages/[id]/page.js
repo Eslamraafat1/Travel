@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useParams, notFound } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { MapPin, Clock, Users, Star, Calendar, Navigation, Heart, Share2, ArrowLeft, Building, UtensilsCrossed, CheckCircle2 } from "lucide-react";
+import { MapPin, Clock, Users, Star, Calendar, Navigation, Heart, Share2, ArrowLeft, Building, UtensilsCrossed, CheckCircle2, XCircle } from "lucide-react";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import TripCard from "@/components/TripCard/TripCard";
@@ -47,7 +47,7 @@ export default function PackageDetailPage() {
     const fetchPlaces = async () => {
       setPlacesLoading(true);
       try {
-        const near = pkg.destination + ", Egypt";
+        const near = /egypt/i.test(pkg.destination) ? pkg.destination : `${pkg.destination}, Egypt`;
         const [hotelData, restData] = await Promise.all([
           searchPlaces({ category: "hotels", near, limit: 6 }),
           searchPlaces({ category: "restaurants", near, limit: 6 }),
@@ -87,7 +87,7 @@ export default function PackageDetailPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              <span className={styles.destination}><MapPin size={16} /> {pkg.destination}</span>
+              <span className={styles.destination}><MapPin size={16} /> <span dir="auto">{pkg.destination}</span></span>
               {pkg.badge && <span className={styles.badge}>{pkg.badge}</span>}
             </motion.div>
 
@@ -96,7 +96,7 @@ export default function PackageDetailPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
             >
-              {pkg.title}
+              <span dir="auto">{pkg.title}</span>
             </motion.h1>
 
             <motion.div
@@ -105,9 +105,11 @@ export default function PackageDetailPage() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
             >
-              <span><Clock size={16} /> {pkg.duration}</span>
-              <span><Users size={16} /> {t('common.group')} {pkg.maxGroupSize}</span>
-              <span className={styles.rating}><Star size={16} fill="#ffd700" color="#ffd700" /> {pkg.rating} ({pkg.reviewCount})</span>
+              <span><Clock size={16} /> <span dir="auto">{pkg.duration}</span></span>
+              {pkg.maxGroupSize > 0 && <span><Users size={16} /> {t('common.group')} {pkg.maxGroupSize}</span>}
+              {pkg.rating > 0 && (
+                <span className={styles.rating}><Star size={16} fill="#ffd700" color="#ffd700" /> {pkg.rating} ({pkg.reviewCount})</span>
+              )}
             </motion.div>
           </div>
         </div>
@@ -120,6 +122,9 @@ export default function PackageDetailPage() {
 
             {/* Left Column (Details) */}
             <div className={styles.detailsCol}>
+              {(pkg.overview || pkg.description) && (
+                <p className={styles.sectionDesc} data-testid="package-overview" dir="auto">{pkg.overview || pkg.description}</p>
+              )}
               <div className={styles.tabs}>
                 <button
                   className={`${styles.tabBtn} ${activeTab === "trips" ? styles.tabActive : ""}`}
@@ -196,8 +201,8 @@ export default function PackageDetailPage() {
                         >
                           <div className={styles.timelineDot}>{isRtl ? 'اليوم' : 'Day'} {item.day}</div>
                           <div className={styles.timelineCard}>
-                            <h3 className={styles.timelineTitle}>{item.title}</h3>
-                            <p className={styles.timelineDesc}>{item.desc}</p>
+                            <h3 className={styles.timelineTitle} dir="auto">{item.title}</h3>
+                            <p className={styles.timelineDesc} dir="auto">{item.desc}</p>
                           </div>
                         </motion.div>
                       )) || <p>{t('pages.packageDetail.noItinerary')}</p>}
@@ -222,13 +227,26 @@ export default function PackageDetailPage() {
                   <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                     <h2 className={styles.sectionTitle}>{t('pages.packageDetail.includesTitle')}</h2>
                     <div className={styles.includesGrid}>
-                      {pkg.includes?.map((item, i) => (
+                      {[...(pkg.highlights || []), ...(pkg.includes || [])].map((item, i) => (
                         <div key={i} className={styles.includeItem}>
                           <CheckCircle2 size={20} className={styles.checkIcon} />
-                          <span>{item}</span>
+                          <span dir="auto">{item}</span>
                         </div>
                       ))}
                     </div>
+                    {pkg.excluded?.length > 0 && (
+                      <>
+                        <h3 className={styles.sectionTitle} style={{ marginTop: "32px", fontSize: "1.2rem" }}>{t('pages.tripDetail.excluded')}</h3>
+                        <div className={styles.includesGrid} data-testid="package-excluded">
+                          {pkg.excluded.map((item, i) => (
+                            <div key={i} className={styles.includeItem}>
+                              <XCircle size={20} color="#ef4444" />
+                              <span dir="auto">{item}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </>
+                    )}
                   </motion.div>
                 )}
 
@@ -338,11 +356,11 @@ export default function PackageDetailPage() {
             <div className={styles.bookingSidebar}>
               <div className={styles.bookingCard}>
                 <div className={styles.priceHeader}>
-                  {pkg.originalPrice && (
+                  {pkg.price > 0 && pkg.originalPrice > pkg.price && (
                     <span className={styles.oldPrice}>{pkg.originalPrice.toLocaleString()} {pkg.currency}</span>
                   )}
                   <div className={styles.currentPrice}>
-                    {pkg.price.toLocaleString()} <span>{pkg.currency}</span>
+                    {pkg.price > 0 ? <>{pkg.price.toLocaleString()} <span>{pkg.currency}</span></> : t('common.priceOnRequest')}
                   </div>
                   <p className={styles.perPerson}>{t('pages.packageDetail.perPerson')}</p>
                 </div>

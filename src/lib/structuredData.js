@@ -1,5 +1,5 @@
-// JSON-LD builders (schema.org). Only data that exists in the repo is used —
-// no ratings/reviews are emitted because the mock ratings are not real.
+// JSON-LD builders (schema.org). Only data that exists in the catalogue is used;
+// no ratings/reviews are emitted because there is no verifiable review source.
 import { SITE, SITE_URL, absoluteUrl } from "./site";
 
 export function breadcrumbLd(items) {
@@ -15,9 +15,13 @@ export function breadcrumbLd(items) {
   };
 }
 
-/** TouristTrip for a trip or a package from the mock catalogue. */
+/** Local "/images/..." paths -> absolute URLs; remote URLs pass through. */
+const absoluteImage = (src) => (typeof src === "string" && src.startsWith("/") ? absoluteUrl(src) : src);
+
+/** TouristTrip for a trip or a package from the catalogue. */
 export function touristTripLd(item, path) {
   const url = absoluteUrl(path);
+  const hasPrice = Number.isFinite(item.price) && item.price > 0;
   const ld = {
     "@context": "https://schema.org",
     "@type": "TouristTrip",
@@ -25,18 +29,21 @@ export function touristTripLd(item, path) {
     name: item.title,
     description: item.description,
     url,
-    image: [item.image, ...(item.gallery || [])].filter(Boolean),
+    image: [...new Set([item.image, ...(item.gallery || [])].filter(Boolean))].map(absoluteImage),
     touristType: item.type || item.category,
     provider: { "@type": "TravelAgency", "@id": `${SITE_URL}/#organization`, name: SITE.name },
-    offers: {
+  };
+  // Items without a published price ("price on request") get no Offer.
+  if (hasPrice) {
+    ld.offers = {
       "@type": "Offer",
       price: item.price,
       priceCurrency: item.currency || "EGP",
       url,
       availability: item.availableSeats === 0 ? "https://schema.org/SoldOut" : "https://schema.org/InStock",
       ...(item.departureDate ? { validFrom: item.departureDate } : {}),
-    },
-  };
+    };
+  }
   if (item.destination) {
     ld.itinerary = {
       "@type": "ItemList",

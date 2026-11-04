@@ -383,7 +383,7 @@
 
 .statsGrid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 0;
   background: var(--bg-card);
   border-radius: 20px;
@@ -465,7 +465,7 @@
 
 .featuresGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 24px;
 }
 
@@ -1039,24 +1039,17 @@ html[dir="rtl"] .phoneGlow {
   box-shadow: 0 16px 40px rgba(255,107,53,0.12);
 }
 
-.partnerLogoIcon {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+.partnerLogoImage {
+  position: relative;
+  display: block;
+  width: 160px;
+  height: 64px;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-.partnerLogoIcon span {
-  font-size: 1.3rem;
-  font-weight: 800;
-  color: white;
-  font-family: var(--font-en);
-  text-transform: uppercase;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+.partnerLogoImage img {
+  object-fit: contain;
 }
 
 .partnerLogoName {
@@ -1200,10 +1193,6 @@ html[dir="rtl"] .phoneGlow {
 
 @media (max-width: 900px) {
   .packagesGrid { grid-template-columns: repeat(2, 1fr); }
-  .statsGrid { grid-template-columns: repeat(2, 1fr); }
-  .statCard:nth-child(2) { border-inline-end: none; }
-  .statCard:nth-child(3) { border-top: 1px solid var(--border); }
-  .statCard:nth-child(4) { border-top: 1px solid var(--border); }
   .newsletterCard { flex-direction: column; text-align: center; padding: 40px 30px; }
   .newsletterDecor { display: none; }
 }
@@ -1214,7 +1203,8 @@ html[dir="rtl"] .phoneGlow {
   .featuresGrid,
   .stepsGrid,
   .galleryGrid { grid-template-columns: 1fr; }
-  .statsGrid { grid-template-columns: repeat(2, 1fr); }
+  .statCard { padding: 24px 8px; }
+  .statValue { font-size: 2rem; }
   .heroTitle { font-size: 2.4rem; }
   .testimonialCard { padding: 28px 20px; }
   .stepsGrid { gap: 20px; }

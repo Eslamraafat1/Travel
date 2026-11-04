@@ -53,8 +53,7 @@ export default function PackagesPage() {
     // Sort
     if (sortBy === "price-asc") result.sort((a, b) => a.price - b.price);
     else if (sortBy === "price-desc") result.sort((a, b) => b.price - a.price);
-    else if (sortBy === "rating") result.sort((a, b) => b.rating - a.rating);
-    else if (sortBy === "duration") result.sort((a, b) => parseInt(a.duration) - parseInt(b.duration));
+    else if (sortBy === "duration") result.sort((a, b) => (a.durationDays ?? parseInt(a.duration)) - (b.durationDays ?? parseInt(b.duration)));
 
     return result;
   }, [packages, activeCategory, searchQuery, sortBy]);
@@ -139,7 +138,6 @@ export default function PackagesPage() {
                 <option value="default">{t('pages.packages.filters.default')}</option>
                 <option value="price-asc">{t('pages.packages.filters.priceAsc')}</option>
                 <option value="price-desc">{t('pages.packages.filters.priceDesc')}</option>
-                <option value="rating">{t('pages.packages.filters.rating')}</option>
                 <option value="duration">{t('pages.packages.filters.duration')}</option>
               </select>
             </div>

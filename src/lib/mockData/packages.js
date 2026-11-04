@@ -1,189 +1,200 @@
+// Catalogue mirrored from the client's live site (https://touregyptclub.com,
+// public API /api/v1/packages and /api/v1/packages/{slug}), captured 2026-11-04.
+// Titles, prices, durations, itineraries and inclusions are copied as published.
+// Images are the live site's own photos, stored locally under /public/images/egypt.
+// Not copied on purpose: star ratings and review counts (no verifiable review
+// source) and template placeholders the live data still contains.
+// The live site publishes this content in English only, so Arabic falls back to
+// English (see localizeContent.js: add titleAr-style fields when it exists).
+
 export const mockPackages = [
   {
-    id: 1,
-    title: "Maldives Dream Escape",
-    description: "Enjoy the most beautiful white beaches and turquoise waters in the Maldives",
-    destination: "Maldives",
-    duration: "7 Days / 6 Nights",
-    price: 15000,
-    originalPrice: 19000,
-    currency: "EGP",
-    rating: 4.9,
-    reviewCount: 342,
-    category: "beach",
-    image: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=800",
-    includedTrips: [1, 2],
-    gallery: [
-      "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800",
-      "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=800",
-      "https://images.unsplash.com/photo-1544550581-5f7ceaf7f992?w=800"
+    "id": 1,
+    "slug": "hurghada-red-sea-luxury",
+    "title": "Hurghada & Red Sea Luxury",
+    "description": "Five-star luxury on the Red Sea - crystal waters, private beaches and world-class resorts in Hurghada.",
+    "overview": "Escape to the turquoise waters of the Red Sea in this all-inclusive luxury package. Relax on pristine beaches, dive among vibrant coral reefs, and enjoy five-star hospitality with daily boat excursions to the most stunning islands.",
+    "destination": "Hurghada, Egypt",
+    "duration": "7 Days / 6 Nights",
+    "durationDays": 7,
+    "price": 12500,
+    "currency": "EGP",
+    "originalPrice": 15000,
+    "badge": "Best Seller",
+    "image": "/images/egypt/egypt-redsea.webp",
+    "gallery": [
+      "/images/egypt/egypt-redsea.webp",
+      "/images/egypt/egypt-hotel2.webp",
+      "/images/egypt/egypt-fish2.webp",
+      "/images/egypt/egypt-nile-sunset.webp",
+      "/images/egypt/red-sea-coast.webp",
+      "/images/egypt/egypt-desert-resort.webp"
     ],
-    includes: ["Round-trip flights", "5-star hotel", "Daily breakfast", "Boat tours"],
-    maxGroupSize: 12,
-    featured: true,
-    badge: "Best Seller",
-    itinerary: [
-      { day: 1, title: "Arrival & Welcome", desc: "Airport pickup and speedboat transfer to the resort and overwater villa." },
-      { day: 2, title: "Boat Tour & Snorkeling", desc: "Morning boat trip exploring coral reefs and the enchanting marine life of Maldives." },
-      { day: 3, title: "Free Day & Relaxation", desc: "Free day to enjoy spa services and premium recreational facilities." },
-      { day: 4, title: "Night Fishing & Romantic Dinner", desc: "Sunset fishing trip followed by a romantic beach dinner." },
-      { day: 5, title: "Submarine Tour", desc: "Explore the ocean depths in a safe submarine to see unique marine life." },
-      { day: 6, title: "Shopping & Departure", desc: "Free time for souvenir shopping, then transfer to the airport." }
-    ]
-  },
-  {
-    id: 2,
-    title: "Swiss Alpine Magic",
-    description: "Stroll through the stunning Alps and enjoy fresh air and breathtaking views",
-    destination: "Switzerland",
-    duration: "10 Days / 9 Nights",
-    price: 22000,
-    originalPrice: 28000,
-    currency: "EGP",
-    rating: 4.8,
-    reviewCount: 215,
-    category: "mountain",
-    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
-    includedTrips: [2, 3],
-    gallery: [
-      "https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?w=800",
-      "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800"
+    "category": "beach-holidays",
+    "maxGroupSize": 12,
+    "featured": true,
+    "highlights": [
+      "Private beach access on the Red Sea",
+      "Giftun Island cruise & snorkeling",
+      "Certified diving excursions",
+      "5-star all-inclusive resort",
+      "Desert safari with Bedouin dinner",
+      "El Gouna lagoon day trip"
     ],
-    includes: ["Flights", "4-star hotel", "Train tickets", "Tour guide"],
-    maxGroupSize: 15,
-    featured: true,
-    badge: "Limited Offer",
-    itinerary: [
-      { day: 1, title: "Arrival in Zurich", desc: "Tour of beautiful Zurich and its historic landmarks." },
-      { day: 2, title: "Mount Titlis Summit", desc: "Cable car ascent to the highest ice peaks and the suspension bridge." },
-      { day: 3, title: "Rhine Falls", desc: "Visit Europe's largest waterfalls and enjoy a boat tour." }
-    ]
-  },
-  {
-    id: 3,
-    title: "Eternal Rome",
-    description: "Discover the richness of Roman history and taste the finest Italian cuisine",
-    destination: "Italy",
-    duration: "8 Days / 7 Nights",
-    price: 12000,
-    originalPrice: 15000,
-    currency: "EGP",
-    rating: 4.7,
-    reviewCount: 489,
-    category: "city",
-    image: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=800",
-    includes: ["Flights", "4-star hotel", "Cultural tours", "Selected meals"],
-    maxGroupSize: 20,
-    featured: true,
-    badge: null,
-  },
-  {
-    id: 4,
-    title: "Kenya Wild Safari",
-    description: "Experience the African safari and an unforgettable journey with magnificent wildlife",
-    destination: "Kenya",
-    duration: "9 Days / 8 Nights",
-    price: 18000,
-    originalPrice: 23000,
-    currency: "EGP",
-    rating: 4.9,
-    reviewCount: 178,
-    category: "adventure",
-    image: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=800",
-    includes: ["Flights", "Luxury lodge", "Daily safaris", "Specialist guide"],
-    maxGroupSize: 10,
-    featured: false,
-    badge: "Unforgettable Adventure",
-  },
-  {
-    id: 5,
-    title: "Romantic Paris",
-    description: "The city of light and love in an unforgettable journey through famous Parisian landmarks",
-    destination: "France",
-    duration: "6 Days / 5 Nights",
-    price: 13500,
-    originalPrice: 17000,
-    currency: "EGP",
-    rating: 4.8,
-    reviewCount: 623,
-    category: "city",
-    image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800",
-    includes: ["Flights", "Boutique hotel", "Seine river cruise", "Eiffel Tower visit"],
-    maxGroupSize: 16,
-    featured: false,
-    badge: "Romantic",
-  },
-  {
-    id: 6,
-    title: "Spiritual Bali",
-    description: "Island of the Gods where stunning nature meets unique Asian culture",
-    destination: "Indonesia",
-    duration: "8 Days / 7 Nights",
-    price: 11000,
-    originalPrice: 14000,
-    currency: "EGP",
-    rating: 4.7,
-    reviewCount: 387,
-    category: "beach",
-    image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800",
-    includes: ["Flights", "Private villa", "Yoga sessions", "Temple tours"],
-    maxGroupSize: 14,
-    featured: false,
-    badge: null,
-  },
-  {
-    id: 7,
-    title: "Nepal Everest Trek",
-    description: "Climb the world's highest peak and experience trekking in the Himalayas",
-    destination: "Nepal",
-    duration: "14 Days / 13 Nights",
-    price: 25000,
-    originalPrice: 32000,
-    currency: "EGP",
-    rating: 5.0,
-    reviewCount: 95,
-    category: "adventure",
-    image: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=800",
-    includedTrips: [1, 3],
-    gallery: [
-      "https://images.unsplash.com/photo-1522083115901-bc11d2449b29?w=800"
+    "guide": "Certified Red Sea guide",
+    "meetingPoint": "Hurghada International Airport - Arrival Hall",
+    "requirements": [
+      "Valid passport (6+ months validity)",
+      "Swimwear and sun protection",
+      "Travel insurance recommended",
+      "Moderate fitness for diving/snorkeling"
     ],
-    includes: ["Flights", "Camping accommodation", "Climbing equipment", "Certified mountain guide"],
-    maxGroupSize: 8,
-    featured: false,
-    badge: "Adventurers Only",
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Arrival & Private Beach",
+        "desc": "Check into a 5-star resort on the Red Sea, relax on the private beach and enjoy a welcome dinner by the shore."
+      },
+      {
+        "day": 2,
+        "title": "Giftun Island Cruise",
+        "desc": "Sail to Giftun Island, snorkel among colorful coral reefs and swim in the crystal-clear lagoons."
+      },
+      {
+        "day": 3,
+        "title": "Desert Safari & Bedouin Camp",
+        "desc": "Ride a quad bike across the desert and enjoy dinner with a traditional Bedouin show under the stars."
+      },
+      {
+        "day": 4,
+        "title": "Diving in the Red Sea",
+        "desc": "Full-day diving excursion exploring world-famous reef walls and marine life with certified instructors."
+      },
+      {
+        "day": 5,
+        "title": "El Gouna Day Trip",
+        "desc": "Stroll through the canals and marinas of El Gouna, a charming seaside town built around lagoons."
+      },
+      {
+        "day": 6,
+        "title": "Spa & Resort Leisure",
+        "desc": "Enjoy a full day of spa treatments, pools and water sports at your luxury resort."
+      },
+      {
+        "day": 7,
+        "title": "Departure",
+        "desc": "Transfer to Hurghada International Airport for your flight home."
+      }
+    ],
+    "includedTrips": [
+      3,
+      5,
+      6
+    ],
+    "includes": [
+      "Round-trip flights",
+      "5-star hotel",
+      "Daily breakfast",
+      "Boat tours"
+    ],
+    "excluded": [
+      "Personal expenses",
+      "Entry visa"
+    ],
+    "faqs": []
   },
   {
-    id: 8,
-    title: "Japan Cherry Blossom",
-    description: "Witness pink cherry blossoms and discover Japan's blend of modernity and tradition",
-    destination: "Japan",
-    duration: "11 Days / 10 Nights",
-    price: 27000,
-    originalPrice: 33000,
-    currency: "EGP",
-    rating: 4.9,
-    reviewCount: 256,
-    category: "city",
-    image: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=800",
-    includes: ["Flights", "Traditional Ryokan hotel", "JR Pass", "Cultural tours"],
-    maxGroupSize: 18,
-    featured: false,
-    badge: "Seasonal",
-  },
+    "id": 2,
+    "slug": "cairo-giza-pyramids-package",
+    "title": "Cairo & Giza Pyramids Package",
+    "description": "Walk in the shadow of the Great Pyramids - ancient wonders, the Sphinx, and the treasures of Cairo.",
+    "overview": "A once-in-a-lifetime journey to the heart of ancient Egypt. Stand before the last surviving Wonder of the Ancient World, explore the Egyptian Museum's royal treasures, and experience Cairo's vibrant culture from the bazaars to the Nile.",
+    "destination": "Giza & Cairo, Egypt",
+    "duration": "5 Days / 4 Nights",
+    "durationDays": 5,
+    "price": 9800,
+    "currency": "EGP",
+    "originalPrice": 12000,
+    "badge": "Limited Offer",
+    "image": "/images/egypt/egypt-pyramids.webp",
+    "gallery": [
+      "/images/egypt/egypt-pyramids.webp",
+      "/images/egypt/egypt-camel-pyramid.webp",
+      "/images/egypt/egypt-cairo.webp",
+      "/images/egypt/egypt-khan.webp",
+      "/images/egypt/egypt-market.webp",
+      "/images/egypt/egypt-nile.webp"
+    ],
+    "category": "luxury-tours",
+    "maxGroupSize": 15,
+    "featured": true,
+    "highlights": [
+      "Great Pyramid & Solar Boat Museum",
+      "Camel ride on the Giza Plateau",
+      "King Tut treasures at the Egyptian Museum",
+      "Khan el-Khalili bazaar shopping",
+      "Coptic Cairo & Hanging Church",
+      "Nile dinner cruise with show"
+    ],
+    "guide": "Certified Egyptologist guide",
+    "meetingPoint": "Cairo International Airport - Terminal 3",
+    "requirements": [
+      "Valid passport (6+ months validity)",
+      "Comfortable walking shoes",
+      "Moderate fitness for sightseeing",
+      "Camera for ancient monuments"
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "title": "Arrival & Giza Plateau",
+        "desc": "Arrive in Cairo and transfer to your hotel with views of the Great Pyramids."
+      },
+      {
+        "day": 2,
+        "title": "Pyramids & Sphinx",
+        "desc": "Explore the Great Pyramid, the Solar Boat Museum and the enigmatic Sphinx on a camel ride."
+      },
+      {
+        "day": 3,
+        "title": "Egyptian Museum & Citadel",
+        "desc": "Discover King Tut's golden treasures, then visit the Saladin Citadel and Mohamed Ali Mosque."
+      },
+      {
+        "day": 4,
+        "title": "Coptic Cairo & Khan el-Khalili",
+        "desc": "Walk the Hanging Church and historic alleyways, then shop at the legendary Khan el-Khalili bazaar."
+      },
+      {
+        "day": 5,
+        "title": "Nile Dinner Cruise & Departure",
+        "desc": "Sail the Nile at sunset with a live show before your evening flight home."
+      }
+    ],
+    "includedTrips": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "includes": [
+      "Round-trip flights",
+      "4-star hotel",
+      "Scenic train tickets"
+    ],
+    "excluded": [
+      "International flights",
+      "Travel insurance",
+      "Personal expenses",
+      "Tipping"
+    ],
+    "faqs": []
+  }
 ];
 
+// Package categories as used by the live API. `label` is Arabic, `labelEn` English.
 export const mockCategories = [
-  { id: "all", label: "All", icon: "Globe" },
-  { id: "beach", label: "Beaches", icon: "Waves" },
-  { id: "mountain", label: "Mountains", icon: "Mountain" },
-  { id: "city", label: "Cities", icon: "Building" },
-  { id: "adventure", label: "Adventure", icon: "Compass" },
+  { id: "all", label: "الكل", labelEn: "All" },
+  { id: "beach-holidays", label: "عطلات شاطئية", labelEn: "Beach Holidays" },
+  { id: "luxury-tours", label: "جولات فاخرة", labelEn: "Luxury Tours" },
 ];
-
-export const mockStats = {
-  destinations: 120,
-  travelers: 50000,
-  years: 15,
-  rating: 4.9,
-};

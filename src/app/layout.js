@@ -54,6 +54,8 @@ const organizationLd = {
   description: SITE.description,
   email: SITE.email,
   telephone: SITE.phone,
+  address: { "@type": "PostalAddress", ...SITE.address },
+  openingHours: SITE.openingHours,
   image: SITE.ogImage.url,
   areaServed: { "@type": "Country", name: "Egypt" },
   availableLanguage: ["ar", "en"],

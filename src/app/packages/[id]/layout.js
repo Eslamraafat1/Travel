@@ -16,7 +16,9 @@ export async function generateMetadata({ params }) {
   if (!pkg) return pageMetadata({ title: "Package", path: `/packages/${id}`, noindex: true });
   return pageMetadata({
     title: pkg.title,
-    description: `${pkg.description.replace(/\.$/, "")}. ${pkg.duration} in ${pkg.destination} from ${pkg.price.toLocaleString("en-US")} ${pkg.currency}.`,
+    description: `${pkg.description.replace(/\.$/, "")}. ${pkg.duration} in ${pkg.destination}${
+      pkg.price > 0 ? ` from ${pkg.price.toLocaleString("en-US")} ${pkg.currency}` : ""
+    }.`,
     path: `/packages/${id}`,
     images: [{ url: pkg.image, alt: pkg.title }],
   });

@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url('https://images.unsplash.com/photo-1488085061387-422e29b40080?w=1920') center/cover;
+  background: url('/images/egypt/hero-discover-egypt.webp') center/cover;
   overflow: hidden;
 }
 

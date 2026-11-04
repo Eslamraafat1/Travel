@@ -3,10 +3,8 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
-  MapPin, Star, ArrowLeft, ArrowRight, Play, ChevronDown,
-  Shield, HeadphonesIcon, Award, Globe, TrendingUp, Heart,
-  Quote, ChevronRight, ChevronLeft, Search, CreditCard,
-  Smile, CheckCircle, Download, Smartphone, Zap
+  MapPin, ArrowLeft, ArrowRight, Shield, HeadphonesIcon, Globe,
+  Compass, Gem, Search, CreditCard, Smile, ExternalLink
 } from "lucide-react";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
@@ -51,20 +49,12 @@ function Counter({ target, suffix = "", duration = 2 }) {
 }
 
 // Static icon/visual data (language-independent)
-const testimonialData = [
-  { id: 1, avatar: "https://i.pravatar.cc/80?img=5", rating: 5 },
-  { id: 2, avatar: "https://i.pravatar.cc/80?img=11", rating: 5 },
-  { id: 3, avatar: "https://i.pravatar.cc/80?img=9", rating: 5 },
-  { id: 4, avatar: "https://i.pravatar.cc/80?img=15", rating: 5 },
-];
-
+// Same order as home.whyUs.features (the live site's "core advantages").
 const featureIcons = [
+  { icon: <Compass size={28} />, color: "#ff6b35" },
+  { icon: <Gem size={28} />, color: "#a855f7" },
   { icon: <Shield size={28} />, color: "#22c55e" },
-  { icon: <Award size={28} />, color: "#f59e0b" },
   { icon: <HeadphonesIcon size={28} />, color: "#00d4ff" },
-  { icon: <TrendingUp size={28} />, color: "#ff6b35" },
-  { icon: <Globe size={28} />, color: "#a855f7" },
-  { icon: <Heart size={28} />, color: "#ec4899" },
 ];
 
 const stepIcons = [
@@ -73,37 +63,28 @@ const stepIcons = [
   { icon: <Smile size={32} />, color: "#22c55e", bg: "rgba(34,197,94,0.15)" },
 ];
 
-const heroBgData = [
-  { bg: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=1920" },
-  { bg: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920" },
-  { bg: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1920" },
-];
-
+// Photos from the client's live site (public/images/egypt), same order as
+// home.gallery.items: Luxor, Aswan (Abu Simbel), Cairo, Hurghada, Sharm El-Sheikh.
 const galleryImages = [
-  { src: "https://images.unsplash.com/photo-1540202404-a2f29016b523?w=800", span: "span2x2" },
-  { src: "https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=600" },
-  { src: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600" },
-  { src: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=800", span: "spanWide" },
-  { src: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=600" },
+  { src: "/images/egypt/egypt-luxor.webp", span: "span2x2" },
+  { src: "/images/egypt/egypt-temple.webp" },
+  { src: "/images/egypt/egypt-khan.webp" },
+  { src: "/images/egypt/egypt-redsea.webp", span: "spanWide" },
+  { src: "/images/egypt/red-sea-coast.webp" },
 ];
 
+// "Success Partners" exactly as listed on touregyptclub.com.
 const partners = [
-  { name: "Emirates", color: "#d71921" },
-  { name: "Booking.com", color: "#003580" },
-  { name: "Qatar Airways", color: "#8c1533" },
-  { name: "Marriott", color: "#1a1a2e" },
-  { name: "Expedia", color: "#003580" },
-  { name: "Turkish Airlines", color: "#e30a17" },
-  { name: "Hilton", color: "#00471b" },
-  { name: "Etihad", color: "#a38654" },
+  { name: "VIP Egypt Tours", logo: "/images/partners/vip-egypt-tours.webp", url: "https://vipegypttours.com/" },
+  { name: "Explore Egypt Tours", logo: "/images/partners/explore-egypt-tours.webp", url: "https://exploreegypttours.com/en/" },
+  { name: "Alacart Travel Egypt", logo: "/images/partners/alacart-travel-egypt.webp", url: "https://alacarttravelegypt.com/" },
 ];
 
 export default function HomePage() {
   const { t, lang } = useLanguage();
   const [packages, setPackages] = useState([]);
   const [trips, setTrips] = useState([]);
-  const [stats, setStats] = useState({ destinations: 120, travelers: 50000, years: 15 });
-  const [testimonialIdx, setTestimonialIdx] = useState(0);
+  const [stats, setStats] = useState({ trips: 0, packages: 0, destinations: 0 });
   const [loading, setLoading] = useState(true);
 
   const isRtl = lang === "ar";
@@ -122,7 +103,7 @@ export default function HomePage() {
         const [pkgs, trps, st] = await Promise.all([
           getFeaturedPackages(lang),
           getPopularTrips(4, lang),
-          getHomeStats(lang),
+          getHomeStats(),
         ]);
         setPackages(pkgs);
         setTrips(trps);
@@ -140,11 +121,6 @@ export default function HomePage() {
     ? featuresRaw.map((f, i) => ({ ...f, ...featureIcons[i] }))
     : [];
 
-  const testimonialsRaw = ct('home.testimonials.items');
-  const testimonials = Array.isArray(testimonialsRaw)
-    ? testimonialsRaw.map((item, i) => ({ ...item, ...testimonialData[i] }))
-    : [];
-
   const stepsRaw = ct('home.howItWorks.steps');
   const steps = Array.isArray(stepsRaw)
     ? stepsRaw.map((s, i) => ({ ...s, ...stepIcons[i] }))
@@ -154,13 +130,6 @@ export default function HomePage() {
   const galleryItems = Array.isArray(galleryRaw)
     ? galleryRaw.map((g, i) => ({ ...g, ...galleryImages[i] }))
     : [];
-
-  // Auto-rotate testimonials
-  useEffect(() => {
-    if (!testimonials.length) return;
-    const interval = setInterval(() => setTestimonialIdx(i => (i + 1) % testimonials.length), 4000);
-    return () => clearInterval(interval);
-  }, [testimonials.length]);
 
   return (
     <main>
@@ -188,8 +157,8 @@ export default function HomePage() {
               }}
             >
               <SmartImage
-                src="https://images.unsplash.com/photo-1548786811-dd6e453ccca7?w=400&h=500&fit=crop"
-                alt=""
+                src="/images/egypt/egypt-camel-pyramid.webp"
+                alt="The Great Pyramid of Giza"
                 width={400}
                 height={500}
                 sizes="280px"
@@ -213,8 +182,8 @@ export default function HomePage() {
                 }}
               >
                 <SmartImage
-                  src="https://images.unsplash.com/photo-1548786811-dd6e453ccca7?w=200&h=250&fit=crop"
-                  alt=""
+                  src="/images/egypt/egypt-luxor2.webp"
+                  alt="Karnak Temple, Luxor"
                   width={200}
                   height={250}
                   sizes="160px"
@@ -289,8 +258,8 @@ export default function HomePage() {
                 }}
               >
                 <SmartImage
-                  src="https://images.unsplash.com/photo-1548786811-dd6e453ccca7?w=300&h=400&fit=crop"
-                  alt=""
+                  src="/images/egypt/giza-sphinx.webp"
+                  alt="The Great Sphinx and Khafre's pyramid, Giza"
                   width={300}
                   height={400}
                   sizes="220px"
@@ -325,10 +294,10 @@ export default function HomePage() {
         <div className="container">
           <div className={styles.statsGrid}>
             {[
-              { label: ct('home.stats.destinations'), value: stats.destinations, suffix: "+" },
-              { label: ct('home.stats.travelers'), value: stats.travelers, suffix: "+" },
-              { label: ct('home.stats.years'), value: stats.years, suffix: "" },
-              { label: ct('home.stats.rating'), isRating: true },
+              // Counted from the catalogue, so they always match what is on sale.
+              { label: ct('home.stats.trips'), value: stats.trips },
+              { label: ct('home.stats.packages'), value: stats.packages },
+              { label: ct('home.stats.destinations'), value: stats.destinations },
             ].map((stat, i) => (
               <motion.div key={i} className={styles.statCard}
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -337,15 +306,9 @@ export default function HomePage() {
                 transition={{ duration: 0.5, delay: i * 0.1 }}
               >
                 <div className={styles.statValue}>
-                  {stat.isRating ? "4.9" : <Counter target={stat.value} suffix={stat.suffix} />}
-                  {stat.isRating && <span className={styles.statSuffix}>/5</span>}
+                  <Counter target={stat.value} />
                 </div>
                 <div className={styles.statLabel}>{stat.label}</div>
-                {stat.isRating && (
-                  <div className={styles.statStars}>
-                    {[...Array(5)].map((_, j) => <Star key={j} size={12} fill="#ffd700" color="#ffd700" />)}
-                  </div>
-                )}
               </motion.div>
             ))}
           </div>
@@ -555,80 +518,6 @@ export default function HomePage() {
       </section>
 
       {/* ============================
-          TESTIMONIALS
-      ============================ */}
-      <section className="section section-alt" id="testimonials">
-        <div className="container">
-          <motion.div className="section-header"
-            initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <span className="section-tag">{ct('home.testimonials.tag')}</span>
-            <h2 className="section-title">
-              {ct('home.testimonials.title1')} <span className="gradient-text">{ct('home.testimonials.titleAccent')}</span>
-            </h2>
-          </motion.div>
-
-          <div className={styles.testimonialWrapper}>
-            <AnimatePresence mode="wait">
-              {testimonials.length > 0 && (
-                <motion.div key={testimonialIdx} className={styles.testimonialCard}
-                  initial={{ opacity: 0, x: isRtl ? 50 : -50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: isRtl ? -50 : 50 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <Quote size={40} className={styles.quoteIcon} />
-                  <p className={styles.testimonialText}>{testimonials[testimonialIdx].text}</p>
-                  <div className={styles.testimonialFooter}>
-                    <SmartImage src={testimonials[testimonialIdx].avatar} alt={testimonials[testimonialIdx].name} className={styles.avatar} width={56} height={56} />
-                    <div>
-                      <h4 className={styles.testimonialName}>{testimonials[testimonialIdx].name}</h4>
-                      <p className={styles.testimonialRole}>{testimonials[testimonialIdx].role} • {testimonials[testimonialIdx].destination}</p>
-                      <div className={styles.testimonialStars}>
-                        {[...Array(5)].map((_, i) => <Star key={i} size={14} fill="#ffd700" color="#ffd700" />)}
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            <div className={styles.testimonialControls}>
-              <button id="testimonial-prev" className={styles.testimonialBtn}
-                onClick={() => setTestimonialIdx(i => (i - 1 + testimonials.length) % testimonials.length)}
-              >
-                <ChevronRight size={20} />
-              </button>
-              <div className={styles.testimonialDots}>
-                {testimonials.map((_, i) => (
-                  <button key={i} id={`testimonial-dot-${i}`}
-                    className={`${styles.testimonialDot} ${i === testimonialIdx ? styles.testimonialDotActive : ""}`}
-                    onClick={() => setTestimonialIdx(i)}
-                  />
-                ))}
-              </div>
-              <button id="testimonial-next" className={styles.testimonialBtn}
-                onClick={() => setTestimonialIdx(i => (i + 1) % testimonials.length)}
-              >
-                <ChevronLeft size={20} />
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ============================
-          VIDEO PROMO
-      ============================ */}
-     
-
-      {/* ============================
-          APP SECTION (NEW)
-      ============================ */}
-    
-
-      {/* ============================
           PARTNERS
       ============================ */}
       <section className="section section-alt">
@@ -643,13 +532,14 @@ export default function HomePage() {
 
           <div className={styles.partnersSlider}>
             <div className={styles.partnersTrack}>
-              {[...partners, ...partners].map((p, i) => (
-                <div key={i} className={styles.partnerLogo}>
-                  <div className={styles.partnerLogoIcon} style={{ background: `linear-gradient(135deg, ${p.color}, ${p.color}cc)` }}>
-                    <span>{p.name.charAt(0)}</span>
-                  </div>
-                  <span className={styles.partnerLogoName}>{p.name}</span>
-                </div>
+              {[...partners, ...partners, ...partners, ...partners].map((p, i) => (
+                <a key={i} className={styles.partnerLogo} href={p.url} target="_blank" rel="noopener noreferrer"
+                  aria-hidden={i >= partners.length ? "true" : undefined} tabIndex={i >= partners.length ? -1 : undefined}>
+                  <span className={styles.partnerLogoImage}>
+                    <SmartImage src={p.logo} alt={i < partners.length ? p.name : ""} fill sizes="160px" />
+                  </span>
+                  <span className={styles.partnerLogoName}>{p.name} <ExternalLink size={12} aria-hidden="true" /></span>
+                </a>
               ))}
             </div>
           </div>

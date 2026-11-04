@@ -36,10 +36,18 @@ export const SITE = {
     "sharm el sheikh tours",
     "hurghada trips",
   ],
-  email: "info@touregyptclub.com",
+  // Contact details as shown on touregyptclub.com/contact (site settings).
+  email: "sales@touregyptclub.com",
   // WhatsApp number linked from the production site.
   phone: "+201062592809",
   phoneDisplay: "+20 106 259 2809",
+  address: {
+    streetAddress: "120 Al Haram St, El Talbia",
+    addressLocality: "Giza",
+    addressRegion: "Giza Governorate",
+    addressCountry: "EG",
+  },
+  openingHours: "Sa-Th 09:00-18:00",
   twitter: "@touregyptclub",
   ogImage: {
     url: "https://touregyptclub.com/storage/images/site/egypt_pyramids.jpg",

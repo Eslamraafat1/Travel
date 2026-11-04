@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter, notFound } from "next/navigation";
 import { motion } from "framer-motion";
-import { MapPin, Clock, Users, Star, Calendar, CheckCircle, XCircle, Info, Heart, Share2, ArrowLeft, Navigation, AlertTriangle, Shield, X } from "lucide-react";
+import { MapPin, Clock, Users, Star, Calendar, CheckCircle, XCircle, Info, Heart, Share2, ArrowLeft, Navigation, AlertTriangle, Shield, X, Sparkles, PlusCircle, Route } from "lucide-react";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import { getTripById, getPopularTrips } from "@/lib/api/trips";
@@ -48,15 +48,22 @@ export default function TripDetailPage() {
 
   if (!trip) return null;
 
-  function generateItinerary() {
-    const days = Math.min(parseInt(trip.duration) || 3, 5);
-    const highlights = trip.highlights || [];
-    const dayLabels = ['Arrival & Welcome', 'Exploring the Sights', 'Fun Adventures', 'Free Day & Shopping', 'Departure'];
-    return Array.from({ length: days }, (_, i) => ({
-      title: `Day ${i + 1}: ${dayLabels[i] || ''}`,
-      desc: highlights.filter((_, j) => j % days === i).join(' • ') || 'Enjoy your trip!',
-    }));
-  }
+  const hasSeats = Number.isFinite(trip.availableSeats) && trip.totalSeats > 0;
+  const hasPrice = Number.isFinite(trip.price) && trip.price > 0;
+  // Multi-day trips number their itinerary by day; a same-day tour (e.g. the
+  // 3–4 hour Giza visit) lists stops instead.
+  const itineraryLabel = (n) =>
+    t(trip.durationDays > 1 ? 'pages.tripDetail.day' : 'pages.tripDetail.stop', { n });
+  const tabs = [
+    trip.itinerary?.length ? { id: "itinerary", label: t('pages.tripDetail.tabsItinerary') } : null,
+    { id: "tips", label: t('pages.tripDetail.tabsTips') },
+  ].filter(Boolean);
+  const currentTab = tabs[activeTab] ? tabs[activeTab].id : tabs[0].id;
+  const extraSections = [
+    { key: "upgrades", title: t('pages.tripDetail.upgrades'), icon: <Sparkles size={20} /> },
+    { key: "optionalExperiences", title: t('pages.tripDetail.optionalExperiences'), icon: <PlusCircle size={20} /> },
+    { key: "comboTours", title: t('pages.tripDetail.comboTours'), icon: <Route size={20} /> },
+  ].filter((section) => trip[section.key]?.length);
 
   return (
     <main>
@@ -73,7 +80,7 @@ export default function TripDetailPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              <span className={styles.destination}><MapPin size={16} /> {trip.destination}</span>
+              <span className={styles.destination}><MapPin size={16} /> <span dir="auto">{trip.destination}</span></span>
               <span className={styles.type}>{trip.type}</span>
             </motion.div>
 
@@ -82,17 +89,19 @@ export default function TripDetailPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
             >
-              {trip.title}
+              <span dir="auto">{trip.title}</span>
             </motion.h1>
 
-            <motion.div
-              className={styles.heroMeta}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
-            >
-              <span className={styles.rating}><Star size={16} fill="#ffd700" color="#ffd700" /> {trip.rating} ({trip.reviewCount} {t('common.reviews')})</span>
-            </motion.div>
+            {trip.rating > 0 && (
+              <motion.div
+                className={styles.heroMeta}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+              >
+                <span className={styles.rating}><Star size={16} fill="#ffd700" color="#ffd700" /> {trip.rating} ({trip.reviewCount} {t('common.reviews')})</span>
+              </motion.div>
+            )}
           </div>
         </div>
       </section>
@@ -105,71 +114,77 @@ export default function TripDetailPage() {
             {/* Left Column (Details) */}
             <div className={styles.detailsCol}>
               <h2 className={styles.sectionTitle}>{t('pages.tripDetail.overview')}</h2>
-              <p className={styles.desc}>{trip.description}</p>
+              <p className={styles.desc} dir="auto">{trip.overview || trip.description}</p>
 
               <div className={styles.infoCards}>
                 <div className={styles.infoCard}>
                   <Clock size={24} className={styles.infoIcon} />
                   <div>
                     <h4>{t('pages.tripDetail.duration')}</h4>
-                    <p>{trip.duration}</p>
+                    <p dir="auto">{trip.duration}</p>
                   </div>
                 </div>
-                <div className={styles.infoCard}>
-                  <Calendar size={24} className={styles.infoIcon} />
-                  <div>
-                    <h4>{t('pages.tripDetail.departureDate')}</h4>
-                    <p>{trip.departureDate}</p>
+                {trip.departureDate && (
+                  <div className={styles.infoCard}>
+                    <Calendar size={24} className={styles.infoIcon} />
+                    <div>
+                      <h4>{t('pages.tripDetail.departureDate')}</h4>
+                      <p>{trip.departureDate}</p>
+                    </div>
                   </div>
-                </div>
-                <div className={styles.infoCard}>
-                  <Users size={24} className={styles.infoIcon} />
-                  <div>
-                    <h4>{t('pages.tripDetail.availableSeats')}</h4>
-                    <p>{trip.availableSeats} / {trip.totalSeats}</p>
+                )}
+                {hasSeats && (
+                  <div className={styles.infoCard}>
+                    <Users size={24} className={styles.infoIcon} />
+                    <div>
+                      <h4>{t('pages.tripDetail.availableSeats')}</h4>
+                      <p>{trip.availableSeats} / {trip.totalSeats}</p>
+                    </div>
                   </div>
-                </div>
-                <div className={styles.infoCard}>
-                  <Info size={24} className={styles.infoIcon} />
-                  <div>
-                    <h4>{t('pages.tripDetail.difficulty')}</h4>
-                    <p>{trip.difficulty}</p>
+                )}
+                {trip.difficulty && (
+                  <div className={styles.infoCard}>
+                    <Info size={24} className={styles.infoIcon} />
+                    <div>
+                      <h4>{t('pages.tripDetail.difficulty')}</h4>
+                      <p dir="auto">{trip.difficulty}</p>
+                    </div>
                   </div>
-                </div>
+                )}
+                {!trip.departureDate && trip.maxGroupSize > 0 && (
+                  <div className={styles.infoCard}>
+                    <Users size={24} className={styles.infoIcon} />
+                    <div>
+                      <h4>{t('pages.tripDetail.groupSize')}</h4>
+                      <p>{t('pages.tripDetail.maxPeople', { n: trip.maxGroupSize })}</p>
+                    </div>
+                  </div>
+                )}
               </div>
 
-              <div className={styles.quickStats}>
-                <div className={styles.quickStat}>
-                  <div className={styles.quickStatIcon}>⭐</div>
-                  <div className={styles.quickStatValue}>{trip.rating}</div>
-                  <div className={styles.quickStatLabel}>{t('common.rating')}</div>
-                </div>
-                <div className={styles.quickStat}>
-                  <div className={styles.quickStatIcon}>👥</div>
-                  <div className={styles.quickStatValue}>{trip.reviewCount}+</div>
-                  <div className={styles.quickStatLabel}>{t('common.reviews')}</div>
-                </div>
-                <div className={styles.quickStat}>
-                  <div className={styles.quickStatIcon}>🌡️</div>
-                  <div className={styles.quickStatValue}>28°C</div>
-                  <div className={styles.quickStatLabel}>{t('pages.tripDetail.avgTemp')}</div>
-                </div>
-                <div className={styles.quickStat}>
-                  <div className={styles.quickStatIcon}>🗣️</div>
-                  <div className={styles.quickStatValue}>AR / EN</div>
-                  <div className={styles.quickStatLabel}>{t('pages.tripDetail.language')}</div>
-                </div>
-              </div>
-
-              <h2 className={styles.sectionTitle} style={{ marginTop: "40px" }}>{t('pages.tripDetail.highlights')}</h2>
-              <div className={styles.highlightsGrid}>
-                {trip.highlights?.map((hl, i) => (
-                  <div key={i} className={styles.highlightItem}>
-                    <CheckCircle size={20} className={styles.checkIcon} />
-                    <span>{hl}</span>
+              {trip.accessNote && (
+                <div className={styles.cancellationCard} style={{ marginTop: "24px" }}>
+                  <Info size={24} className={styles.cancellationIcon} />
+                  <div>
+                    <h4>{t('pages.tripDetail.goodToKnow')}</h4>
+                    <p dir="auto">{trip.accessNote}</p>
                   </div>
-                ))}
-              </div>
+                </div>
+              )}
+
+              {trip.highlights?.length > 0 && (
+                <>
+                  <h2 className={styles.sectionTitle} style={{ marginTop: "40px" }}>{t('pages.tripDetail.highlights')}</h2>
+                  <div className={styles.highlightsGrid}>
+                    {trip.highlights.map((hl, i) => (
+                      <div key={i} className={styles.highlightItem}>
+                        <CheckCircle size={20} className={styles.checkIcon} />
+                        <span dir="auto">{hl}</span>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
 
               {/* Details sections */}
               {trip.meetingPoint && (
@@ -179,7 +194,7 @@ export default function TripDetailPage() {
                     <Navigation size={24} className={styles.infoIcon} />
                     <div>
                       <h4>{t('pages.tripDetail.location')}</h4>
-                      <p>{trip.meetingPoint}</p>
+                      <p dir="auto">{trip.meetingPoint}</p>
                     </div>
                   </div>
                 </>
@@ -192,7 +207,7 @@ export default function TripDetailPage() {
                     <AlertTriangle size={24} className={styles.warningIcon} />
                     <ul>
                       {trip.requirements.map((req, i) => (
-                        <li key={i}>{req}</li>
+                        <li key={i} dir="auto">{req}</li>
                       ))}
                     </ul>
                   </div>
@@ -205,7 +220,7 @@ export default function TripDetailPage() {
                     <h3><CheckCircle size={20} color="#22c55e" /> {t('pages.tripDetail.included')}</h3>
                     <ul>
                       {trip.included.map((item, i) => (
-                        <li key={i}>{item}</li>
+                        <li key={i} dir="auto">{item}</li>
                       ))}
                     </ul>
                   </div>
@@ -216,12 +231,26 @@ export default function TripDetailPage() {
                     <h3><XCircle size={20} color="#ef4444" /> {t('pages.tripDetail.excluded')}</h3>
                     <ul>
                       {trip.excluded.map((item, i) => (
-                        <li key={i}>{item}</li>
+                        <li key={i} dir="auto">{item}</li>
                       ))}
                     </ul>
                   </div>
                 )}
               </div>
+
+              {extraSections.map((section) => (
+                <div key={section.key}>
+                  <h2 className={styles.sectionTitle} style={{ marginTop: "40px" }}>{section.title}</h2>
+                  <div className={styles.faqs} data-testid={`trip-${section.key}`}>
+                    {trip[section.key].map((item, i) => (
+                      <div key={i} className={styles.faqItem}>
+                        <h4 dir="auto">{section.icon} {item.title}</h4>
+                        <p dir="auto">{item.description}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
 
               {trip.faqs && trip.faqs.length > 0 && (
                 <>
@@ -229,8 +258,8 @@ export default function TripDetailPage() {
                   <div className={styles.faqs}>
                     {trip.faqs.map((faq, i) => (
                       <div key={i} className={styles.faqItem}>
-                        <h4>{faq.q}</h4>
-                        <p>{faq.a}</p>
+                        <h4 dir="auto">{faq.q}</h4>
+                        <p dir="auto" style={{ whiteSpace: "pre-line" }}>{faq.a}</p>
                       </div>
                     ))}
                   </div>
@@ -245,7 +274,7 @@ export default function TripDetailPage() {
                       <Users size={28} />
                     </div>
                     <div className={styles.guideInfo}>
-                      <h4>{trip.guide}</h4>
+                      <h4 dir="auto">{trip.guide}</h4>
                       <p>{t('pages.tripDetail.guide')}</p>
                     </div>
                   </div>
@@ -257,7 +286,7 @@ export default function TripDetailPage() {
                 <Shield size={24} className={styles.cancellationIcon} />
                 <div>
                   <h4>{t('pages.tripDetail.cancellation')}</h4>
-                  <p>{t('pages.tripDetail.cancellationContent')}</p>
+                  <p dir="auto" style={{ whiteSpace: "pre-line" }}>{trip.cancellationPolicy || t('pages.tripDetail.cancellationContent')}</p>
                 </div>
               </div>
 
@@ -278,49 +307,25 @@ export default function TripDetailPage() {
               {/* TABS */}
               <div className={styles.tabsWrapper}>
                 <div className={styles.tabsNav}>
-                  {[
-                    t('pages.tripDetail.tabsItinerary'),
-                    t('pages.tripDetail.tabsReviews'),
-                    t('pages.tripDetail.tabsTips'),
-                  ].map((label, i) => (
-                    <button key={i} className={`${styles.tabBtn} ${activeTab === i ? styles.tabActive : ''}`}
-                      onClick={() => setActiveTab(i)}>{label}</button>
+                  {tabs.map((tab, i) => (
+                    <button key={tab.id} type="button" className={`${styles.tabBtn} ${currentTab === tab.id ? styles.tabActive : ''}`}
+                      onClick={() => setActiveTab(i)}>{tab.label}</button>
                   ))}
                 </div>
 
                 <div className={styles.tabPanel}>
-                  {activeTab === 0 && (
-                    <div className={styles.itinerary}>
-                      {generateItinerary().map((day, i) => (
+                  {currentTab === "itinerary" && (
+                    <div className={styles.itinerary} data-testid="trip-itinerary">
+                      {trip.itinerary.map((day, i) => (
                         <div key={i} className={styles.itineraryDay}>
                           <div className={styles.itineraryDot} />
-                          <h4>{day.title}</h4>
-                          <p>{day.desc}</p>
+                          <h4>{itineraryLabel(day.day || i + 1)}: <span dir="auto">{day.title}</span></h4>
+                          <p dir="auto" style={{ whiteSpace: "pre-line" }}>{day.desc}</p>
                         </div>
                       ))}
                     </div>
                   )}
-                  {activeTab === 1 && (
-                    <div className={styles.reviewSummary}>
-                      <div className={styles.reviewBigScore}>
-                        <h3>{trip.rating}</h3>
-                        <p>{trip.reviewCount} {t('common.reviews')}</p>
-                      </div>
-                      <div className={styles.reviewBars}>
-                        {[5, 4, 3, 2, 1].map(star => (
-                          <div key={star} className={styles.reviewBarRow}>
-                            <span>{star}</span>
-                            <div className={styles.reviewBarTrack}>
-                              <div className={styles.reviewBarFill}
-                                style={{ width: `${star === 5 ? 72 : star === 4 ? 20 : star === 3 ? 5 : star === 2 ? 2 : 1}%` }}
-                              />
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                  {activeTab === 2 && (
+                  {currentTab === "tips" && (
                     <div className={styles.tipsGrid}>
                       {[
                         { icon: '☀️', text: 'Bring sunscreen and a hat' },
@@ -345,12 +350,13 @@ export default function TripDetailPage() {
                 <div className={styles.priceHeader}>
                   <p className={styles.priceLabel}>{t('pages.tripDetail.priceLabel')}</p>
                   <div className={styles.currentPrice}>
-                    {trip.price.toLocaleString()} <span>{trip.currency}</span>
+                    {hasPrice ? <>{trip.price.toLocaleString()} <span>{trip.currency}</span></> : t('common.priceOnRequest')}
                   </div>
                   <p className={styles.perPerson}>{t('pages.tripDetail.perPerson')}</p>
                 </div>
 
                 <div className={styles.bookingForm}>
+                  {hasSeats && (
                   <div className={styles.inputGroup}>
                     <label>{t('pages.tripDetail.availableSeats')}</label>
                     <div className={styles.progressSection}>
@@ -363,11 +369,12 @@ export default function TripDetailPage() {
                       <p>{t('pages.tripDetail.remainingSeats', { count: trip.availableSeats })}</p>
                     </div>
                   </div>
+                  )}
                   <div className={styles.inputGroup}>
                     <label>{t('pages.tripDetail.bookingPeople')}</label>
                     <div className={styles.inputWrapper}>
                       <Users size={18} />
-                      <input type="number" min="1" max={trip.availableSeats} defaultValue="1" className={styles.input} />
+                      <input type="number" min="1" max={trip.availableSeats || trip.maxGroupSize || undefined} defaultValue="1" className={styles.input} />
                     </div>
                   </div>
                   <button className="btn-primary" style={{ width: "100%", justifyContent: "center", marginTop: "10px" }}

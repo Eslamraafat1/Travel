@@ -1,9 +1,9 @@
 import apiClient, { USE_MOCK_API } from "./config";
 import { ENDPOINTS } from "./endpoints";
-import { mockPackages, mockStats } from "../mockData/packages";
+import { mockPackages } from "../mockData/packages";
+import { mockTrips } from "../mockData/trips";
 import { localizePackage } from "../localizeContent";
-import { getStoredPackages } from "../adminStore";
-import { getContentOverrides } from "../contentStore";
+import { getStoredPackages, getStoredTrips } from "../adminStore";
 
 const delay = (ms = 600) => new Promise((res) => setTimeout(res, ms));
 
@@ -46,15 +46,23 @@ export async function getPackageById(id, lang = "ar") {
   return await apiClient.get(ENDPOINTS.PACKAGES.DETAIL(id));
 }
 
-export async function getHomeStats(lang = "ar") {
+/**
+ * Home-page counters, derived from the catalogue itself so they can never
+ * drift from what is actually on sale (no invented traveller numbers).
+ */
+export async function getHomeStats() {
   if (USE_MOCK_API) {
     await delay(300);
-    const overrides = getContentOverrides(lang);
-    const statsOverride = overrides.home?.stats;
-    if (statsOverride && typeof statsOverride === "object" && Object.keys(statsOverride).length > 0) {
-      return { ...mockStats, ...statsOverride };
-    }
-    return mockStats;
+    const trips = typeof window === "undefined" ? mockTrips : getStoredTrips(mockTrips);
+    const packages = getPackagesSource();
+    // "Giza & Cairo, Egypt" -> ["giza", "cairo"]; "Giza Plateau" counts as Giza.
+    const places = new Set(
+      [...trips, ...packages]
+        .flatMap((item) => (item.destinationEn || item.destination || "").replace(/,\s*Egypt$/i, "").split(/\s*&\s*/))
+        .map((place) => place.trim().toLowerCase().replace(/\s+plateau$/, ""))
+        .filter(Boolean)
+    );
+    return { trips: trips.length, packages: packages.length, destinations: places.size };
   }
   return await apiClient.get(ENDPOINTS.STATS.HOME);
 }

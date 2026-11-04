@@ -1,11 +1,10 @@
 "use client";
 import { motion } from "framer-motion";
-import { Users, Award, Globe, Heart, Target, Eye, CheckCircle } from "lucide-react";
+import { Globe, Heart, Target, Eye, CheckCircle } from "lucide-react";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import { useLanguage } from "@/context/LanguageContext";
 import styles from "./about.module.css";
-import SmartImage from "@/components/SmartImage/SmartImage";
 
 const valueIcons = [
   { icon: <Heart size={24} />, color: "#ec4899" },
@@ -14,20 +13,11 @@ const valueIcons = [
   { icon: <Globe size={24} />, color: "#00d4ff" },
 ];
 
-const statIcons = [
-  { icon: <Users size={28} /> },
-  { icon: <Globe size={28} /> },
-  { icon: <Award size={28} /> },
-  { icon: <Heart size={28} /> },
-];
-
 export default function AboutPage() {
   const { t, lang } = useLanguage();
   const isRtl = lang === "ar";
 
   const values = Array.isArray(t('pages.about.values')) ? t('pages.about.values').map((v, i) => ({ ...v, ...valueIcons[i] })) : [];
-  const team = Array.isArray(t('pages.about.team')) ? t('pages.about.team') : [];
-  const stats = Array.isArray(t('pages.about.stats')) ? t('pages.about.stats') : [];
 
   return (
     <main>
@@ -85,27 +75,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Stats Banner */}
-      <section className={styles.statsBanner}>
-        <div className="container">
-          <div className={styles.statsRow}>
-            {stats.map((stat, i) => (
-              <motion.div
-                key={i}
-                className={styles.statItem}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-              >
-                <div className={styles.statIcon}>{statIcons[i]?.icon}</div>
-                <div className={styles.statValue}>{stat.value}</div>
-                <div className={styles.statLabel}>{stat.label}</div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Values */}
       <section className="section section-alt">
@@ -141,45 +110,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Team */}
-      <section className="section">
-        <div className="container">
-          <motion.div
-            className="section-header"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <span className="section-tag">{t('pages.about.teamTag')}</span>
-            <h2 className="section-title">
-              {t('pages.about.teamTitle').split(' ').map((word, idx, arr) =>
-                idx === arr.length - 1 ? <span key={idx} className="gradient-text">{word}</span> : word + ' '
-              )}
-            </h2>
-          </motion.div>
-          <div className={styles.teamGrid}>
-            {team.map((member, i) => (
-              <motion.div
-                key={i}
-                className={styles.teamCard}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.12 }}
-                whileHover={{ y: -8 }}
-              >
-                <div className={styles.avatarWrapper}>
-                  <SmartImage src={member.avatar} alt={member.name} className={styles.avatar} width={96} height={96} />
-                  <div className={styles.avatarGlow} />
-                </div>
-                <h3 className={styles.memberName}>{member.name}</h3>
-                <p className={styles.memberRole}>{member.role}</p>
-                <span className={styles.memberExp}>{member.exp}</span>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       <Footer />
     </main>

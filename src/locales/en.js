@@ -1,3 +1,5 @@
+// English UI dictionary. Strings shared with the live site
+// (touregyptclub.com /api/v1/translations) are kept identical to it.
 export const en = {
   nav: {
     home: "Home",
@@ -17,17 +19,16 @@ export const en = {
     explore: "Explore Packages",
     watchVideo: "Watch Video",
     slides: [
-      { tag: "Maldives", title: "Discover the Paradise of", titleAccent: "Maldives", sub: "White beaches and turquoise waters await you" },
-      { tag: "Switzerland", title: "Between the", titleAccent: "Swiss Alps", sub: "Breathtaking nature and fresh air in the heart of Europe" },
-      { tag: "Japan", title: "Magic of the", titleAccent: "Far East", sub: "Ancient heritage and a stunning blend of modernity and tradition" }
+      { tag: "Sharm El-Sheikh", title: "Discover the Paradise of", titleAccent: "Sharm El-Sheikh", sub: "White beaches and turquoise waters await you on the Red Sea" },
+      { tag: "Luxor", title: "Between the", titleAccent: "Ancient Temples", sub: "Breathtaking history and monuments in the heart of Upper Egypt" },
+      { tag: "Aswan", title: "Magic of the", titleAccent: "Nile Valley", sub: "Ancient heritage and a stunning blend of nature and tradition" }
     ]
   },
   home: {
     stats: {
-      destinations: "Destinations",
-      travelers: "Happy Travelers",
-      years: "Years Experience",
-      rating: "Client Rating"
+      trips: "Trips",
+      packages: "Packages",
+      destinations: "Destinations"
     },
     packages: {
       tag: "✈️ Featured Packages",
@@ -43,12 +44,10 @@ export const en = {
       title2: "?",
       subtitle: "We make your trip an unforgettable experience from the first moment until you return home",
       features: [
-        { title: "Safe Travel Guarantee", desc: "We provide comprehensive insurance and full protection throughout your trip with the highest safety standards" },
-        { title: "15 Years Experience", desc: "Extensive experience in tourism and the satisfaction of more than 50,000 happy customers" },
-        { title: "24/7 Support", desc: "A support team available around the clock to help you anytime, anywhere" },
-        { title: "Best Prices", desc: "We guarantee the best prices with the highest quality of service without any hidden fees" },
-        { title: "+120 Destinations", desc: "Diverse tourist packages covering more than 120 destinations around the world" },
-        { title: "Customized Experiences", desc: "We design your trip to suit your desires and budget for an unforgettable experience" }
+        { title: "Custom Trip Planning", desc: "We design your trip from A to Z with meticulous precision, tailored entirely to your budget, schedule, and personal dreams." },
+        { title: "VIP Concierge", desc: "Experience true luxury with our VIP concierge services. From private jets and yachts to exclusive event access, we make the impossible possible." },
+        { title: "Travel Insurance & Visas", desc: "Travel with peace of mind. We handle all your visa requirements and provide comprehensive travel insurance for a worry-free journey." },
+        { title: "24/7 Global Support", desc: "Our dedicated support team is available 24/7, anywhere in the world. Your safety, comfort, and satisfaction are our highest priorities." }
       ]
     },
     trips: {
@@ -64,7 +63,7 @@ export const en = {
       titleAccent: "3 Simple Steps",
       subtitle: "We make traveling easier and more enjoyable than ever before",
       steps: [
-        { num: "01", title: "Choose Your Destination", desc: "Browse hundreds of destinations and packages and choose what suits your dreams and budget" },
+        { num: "01", title: "Choose Your Destination", desc: "Browse dozens of Egyptian destinations and packages and choose what suits your dreams and budget" },
         { num: "02", title: "Customize Your Trip", desc: "We design every detail of the trip with you - hotels, tours, transport and meals" },
         { num: "03", title: "Travel & Enjoy", desc: "Receive all your tickets and travel documents and go worry-free - our team is always with you" }
       ]
@@ -73,13 +72,13 @@ export const en = {
       tag: "📸 Photo Gallery",
       title1: "Unforgettable ",
       titleAccent: "Moments",
-      subtitle: "Samples from our amazing clients' trips around the world",
+      subtitle: "Samples from our amazing clients' trips across Egypt",
       items: [
-        { label: "Maldives" },
-        { label: "Switzerland" },
-        { label: "Japan" },
-        { label: "Italy" },
-        { label: "Kenya" }
+        { label: "Luxor" },
+        { label: "Aswan" },
+        { label: "Cairo" },
+        { label: "Hurghada" },
+        { label: "Sharm El-Sheikh" }
       ]
     },
     apps: {
@@ -96,20 +95,9 @@ export const en = {
       getItOn: "Get it on",
       users: "Over 100,000 users"
     },
-    testimonials: {
-      tag: "💬 Client Reviews",
-      title1: "What Our ",
-      titleAccent: "Travelers Say",
-      items: [
-        { name: "Sarah Ahmed", role: "Business Manager", text: "The Maldives trip was a dream! The organization was perfect from the first moment to the last. Thank you Tour Egypt Club for this wonderful experience", destination: "Maldives" },
-        { name: "Mohamed Khaled", role: "Architect", text: "The Switzerland trip exceeded all my expectations. The scenery is fabulous and the service is 5 stars. This is my second time with you and it won't be the last!", destination: "Switzerland" },
-        { name: "Noura Ibrahim", role: "Doctor", text: "Japan during cherry blossom season was an indescribable experience. The team is very professional and every detail was meticulously arranged", destination: "Japan" },
-        { name: "Ahmed Reda", role: "Businessman", text: "Kenya safari was the best experience of my life. The animals, the nature, and the luxury tent - everything was amazing", destination: "Kenya" }
-      ]
-    },
     video: {
-      title: "See the world with different eyes",
-      subtitle: "Unforgettable moments and exciting adventures await you in the best tourist destinations."
+      title: "See Egypt with different eyes",
+      subtitle: "Unforgettable moments and exciting adventures await you in the best Egyptian destinations."
     },
     partners: {
       tag: "🌟 Our Partners",
@@ -124,210 +112,45 @@ export const en = {
       btn: "Subscribe Now"
     }
   },
-    planner: {
-      heroTag: "✈️ Plan Your Trip",
-      heroTitle1: "Find Your ",
-      heroTitleAccent: "Perfect Trip",
-      heroSubtitle: "Tell us where you're from and where you want to go, and we'll suggest the best destinations and packages for you",
-      from: "From",
-      to: "To",
-      fromPlaceholder: "e.g. Cairo, Riyadh...",
-      toPlaceholder: "e.g. Maldives, Paris...",
-      searchBtn: "Search Trips",
-      popular: "Popular",
-      searching: "Searching for the best destinations for you...",
-      resultsTitle: "Personalized Suggestions",
-      resultsSubtitle: "Based on your preferred destination, here are the best packages for you",
-      fromPrice: "Starts from",
-      exploreBtn: "Explore",
-      destinationsTag: "🌍 Our Destinations",
-      destinationsTitle1: "Explore ",
-      destinationsTitleAccent: "Available Destinations",
-      destinationsSubtitle: "Choose a destination from the list and start your dream trip",
-
-      // NEW SECTIONS (inspired by egymonuments.gov.eg)
-      categoriesTag: "🎯 Travel Categories",
-      categoriesTitle1: "Choose Your ",
-      categoriesTitleAccent: "Travel Style",
-      categoriesSubtitle: "Explore trips and packages that match your interests and preferences",
-
-      spotlightTag: "🌟 Featured Destinations",
-      spotlightTitle1: "Discover ",
-      spotlightTitleAccent: "Amazing Places",
-      spotlightSubtitle: "Hand-picked destinations for unforgettable experiences",
-
-      tipsTag: "💡 Smart Travel Guide",
-      tipsTitle1: "Everything You ",
-      tipsTitleAccent: "Need to Know",
-      tipsSubtitle: "Pro tips and essential guides for your next adventure",
-
-      seasonalTag: "📅 Best Time to Travel",
-      seasonalTitle1: "Pick the ",
-      seasonalTitleAccent: "Perfect Season",
-      seasonalSubtitle: "Discover when to visit each destination for the best experience",
-
-      routesTag: "🗺️ Popular Routes",
-      routesTitle1: "Multi-Destination ",
-      routesTitleAccent: "Adventures",
-      routesSubtitle: "Combine multiple destinations for the ultimate journey",
-
-      storiesTag: "💬 Traveler Stories",
-      storiesTitle1: "Inspired by ",
-      storiesTitleAccent: "Real Travelers",
-      storiesSubtitle: "Read how our travelers discovered their dream destinations",
-
-      heritageTag: "🏛️ World Heritage",
-      heritageTitle1: "UNESCO ",
-      heritageTitleAccent: "World Wonders",
-      heritageSubtitle: "Explore humanity's most extraordinary destinations",
-
-      eventsTag: "🎪 Events & Festivals",
-      eventsTitle1: "Plan Around ",
-      eventsTitleAccent: "Amazing Events",
-      eventsSubtitle: "Experience the world's most exciting festivals and events",
-
-      galleryTag: "🎬 Travel Gallery",
-      galleryTitle1: "Visual ",
-      galleryTitleAccent: "Inspiration",
-      gallerySubtitle: "Stunning moments captured by our travelers around the world",
-
-      faqTag: "❓ Travel Help",
-      faqTitle1: "Frequently ",
-      faqTitleAccent: "Asked Questions",
-      faqSubtitle: "Everything you need to know before booking your next trip",
-
-      mapTag: "🗺️ Explore the Map",
-      mapTitle1: "Discover ",
-      mapTitleAccent: "Interactive Destinations",
-      mapSubtitle: "Hover over pins to explore amazing travel destinations around the world",
-      mapExplore: "Explore",
-
-      hiddenTag: "💎 Hidden Treasures",
-      hiddenTitle1: "Off the ",
-      hiddenTitleAccent: "Beaten Path",
-      hiddenSubtitle: "Discover unique and extraordinary destinations that most travelers miss",
-      hiddenVisits: "visitors/year",
-      hiddenRare: "Rare Gem",
-
-      quizTag: "🧠 Travel Personality",
-      quizTitle1: "What Kind of ",
-      quizTitleAccent: "Traveler Are You?",
-      quizSubtitle: "Take our quick quiz and discover your travel personality type",
-      quizStart: "Start the Quiz",
-      quizRetry: "Take Again",
-      quizQuestion: "Question",
-      quizOf: "of",
-      // Results
-      quizResultBeach: "🏖️ Beach Lover",
-      quizResultBeachDesc: "You love sun, sand, and crystal-clear waters. Your ideal trip involves lounging on pristine beaches, swimming in turquoise seas, and watching golden sunsets.",
-      quizResultAdventure: "🧗 Adventure Seeker",
-      quizResultAdventureDesc: "You thrive on adrenaline and challenges. Your perfect trip includes hiking rugged mountains, diving deep oceans, and exploring uncharted territories.",
-      quizResultCulture: "🏛️ Culture Explorer",
-      quizResultCultureDesc: "You're fascinated by history, art, and traditions. Your dream trip involves visiting ancient monuments, museums, and immersing yourself in local cultures.",
-      quizResultLuxury: "👑 Luxury Traveler",
-      quizResultLuxuryDesc: "You appreciate the finer things in life. Your ideal vacation includes five-star resorts, gourmet dining, exclusive experiences, and premium service.",
-
-      // Stats Dashboard
-      statsTag: "📊 By the Numbers",
-      statsTitle1: "Our ",
-      statsTitleAccent: "Journey in Numbers",
-      statsSubtitle: "Real travel statistics that showcase our global impact",
-      statsTrips: "Trips Completed",
-      statsTravelers: "Happy Travelers",
-      statsCountries: "Countries",
-      statsPartners: "Partners",
-
-      // Climate Guide
-      climateTag: "🌤️ Climate Guide",
-      climateTitle1: "Best Time ",
-      climateTitleAccent: "to Visit",
-      climateSubtitle: "Check the weather and find the perfect season for each destination",
-      climateTemp: "°C",
-      climateBest: "Best Season",
-      climateSunny: "Sunny",
-      climateMild: "Mild",
-      climateRainy: "Rainy",
-      climateCold: "Cold",
-      climateWarm: "Warm",
-
-      // Budget Calculator
-      budgetTag: "💰 Budget Planner",
-      budgetTitle1: "Plan Your ",
-      budgetTitleAccent: "Trip Budget",
-      budgetSubtitle: "Estimate your travel costs with our smart interactive calculator",
-      budgetBudget: "Budget Level",
-      budgetDuration: "Duration",
-      budgetTravelers: "Travelers",
-      budgetTotal: "Estimated Total",
-      budgetPerPerson: "Per Person",
-      budgetBreakdown: "Cost Breakdown",
-      budgetAccommodation: "Accommodation",
-      budgetFlights: "Flights & Transport",
-      budgetFood: "Food & Activities",
-      budgetOther: "Other Expenses",
-      budgetLow: "Budget",
-      budgetMid: "Comfort",
-      budgetHigh: "Luxury",
-      budgetNights: "nights",
-      budgetPerson: "person",
-
-      // Scenic Routes
-      panoramaTag: "🛤️ Scenic Routes",
-      panoramaTitle1: "Most ",
-      panoramaTitleAccent: "Picturesque Routes",
-      panoramaSubtitle: "Discover the world's most breathtaking scenic travel routes",
-      panoramaDays: "days",
-      panoramaDiscover: "Explore Route",
-
-      // WanderWheel
-      wheelTag: "🎡 Wander Wheel",
-      wheelTitle1: "Spin Your ",
-      wheelTitleAccent: "Next Adventure",
-      wheelSubtitle: "Let fate decide your next dream destination",
-      wheelSpin: "Spin the Wheel",
-      wheelResult: "Your Destination:",
-      wheelTry: "Try Again",
-
-      // Destiny DNA
-      dnaTag: "🧬 Destination DNA",
-      dnaTitle1: "Discover Your ",
-      dnaTitleAccent: "Travel DNA",
-      dnaSubtitle: "Each destination has a unique genetic code of experiences",
-      dnaTrait1: "History",
-      dnaTrait2: "Nature",
-      dnaTrait3: "Food",
-      dnaTrait4: "Adventure",
-      dnaTrait5: "Relax",
-      dnaTrait6: "Nightlife",
-      dnaExplore: "Visit",
-
-      // Passport Stamps
-      stampTag: "📬 Passport Collection",
-      stampTitle1: "Collect Your ",
-      stampTitleAccent: "Travel Stamps",
-      stampSubtitle: "Flip through virtual passport pages from around the world",
-      stampExplore: "Explore",
-
-      // Color Vibes
-      vibeTag: "🌊 Color Vibes",
-      vibeTitle1: "Feel the ",
-      vibeTitleAccent: "Colors",
-      vibeSubtitle: "Every destination sings its own color melody",
-
-      // Sky Lens
-      lensTag: "📸 Sky Lens",
-      lensTitle1: "Capture the ",
-      lensTitleAccent: "World",
-      lensSubtitle: "Point, shoot, and discover your next view",
-      lensCapture: "📸 Capture!",
-      lensAgain: "📷 Retake",
-
-      travelNow: "Travel Now",
-      learnMore: "Learn More",
-      viewAll: "View All",
-      startPlanning: "Start Planning",
-    },
-    common: {
+  planner: {
+    heroTag: "✈️ Plan Your Trip",
+    heroTitle1: "Find Your ",
+    heroTitleAccent: "Perfect Trip",
+    heroSubtitle: "Tell us where you're from and where you want to go, and we'll suggest the best destinations and packages for you",
+    from: "From",
+    to: "To",
+    fromPlaceholder: "e.g. Cairo, Riyadh...",
+    toPlaceholder: "e.g. Sharm El-Sheikh, Luxor...",
+    searchBtn: "Search Trips",
+    popular: "Popular",
+    searching: "Searching for the best destinations for you...",
+    resultsTitle: "Personalized Suggestions",
+    resultsSubtitle: "Based on your preferred destination, here are the best packages for you",
+    fromPrice: "Starts from",
+    exploreBtn: "Explore",
+    destinationsTag: "🌍 Our Destinations",
+    destinationsTitle1: "Explore ",
+    destinationsTitleAccent: "Available Destinations",
+    destinationsSubtitle: "Choose a destination from the list and start your dream trip",
+    categoriesTag: "🎯 Travel Categories",
+    categoriesTitle1: "Choose Your ",
+    categoriesTitleAccent: "Travel Style",
+    categoriesSubtitle: "Explore trips and packages that match your interests and preferences",
+    spotlightTag: "🌟 Featured Destinations",
+    spotlightTitle1: "Discover ",
+    spotlightTitleAccent: "Amazing Places",
+    spotlightSubtitle: "Hand-picked destinations for unforgettable experiences",
+    panoramaTag: "🛤️ Scenic Routes",
+    panoramaTitle1: "Most ",
+    panoramaTitleAccent: "Picturesque Routes",
+    panoramaSubtitle: "Discover Egypt's most breathtaking scenic travel routes",
+    panoramaDays: "days",
+    panoramaDiscover: "Explore Route",
+    travelNow: "Travel Now",
+    noMatch: "No exact match for that destination yet — here is everything we currently offer",
+    panoramaStops: "stops"
+  },
+  common: {
     book: "Book Now",
     more: "Details",
     priceStarts: "Starts from",
@@ -340,84 +163,85 @@ export const en = {
     availableSeats: "Available Seats",
     lastSeats: "Last {n} seats!",
     reviews: "reviews",
-    group: "Group:"
+    group: "Group:",
+    priceOnRequest: "Price on request"
   },
   pages: {
     packages: {
       tag: "✈️ Travel Packages",
-      title: "Discover ",
-      titleAccent: "Our Featured Packages",
-      subtitle: "Find a complete travel package that suits your budget and preferences",
-      searchPlaceholder: "Search for package...",
+      title: "Discover our",
+      titleAccent: "Featured Packages",
+      subtitle: "Find a complete travel package that matches your budget and preferences",
+      searchPlaceholder: "Search packages...",
       resultsCount: "{count} packages available",
-      emptyTitle: "No results found",
+      emptyTitle: "No results",
       emptyDesc: "Try changing your search or category",
       filters: {
-        title: "Filter",
+        title: "Filters",
         search: "Search",
         categories: "Categories",
         sortBy: "Sort by",
         default: "Default",
-        priceAsc: "Price: Low to High",
-        priceDesc: "Price: High to Low", 
-        rating: "Highest Rated",
-        duration: "Duration: Shortest First",
-        reset: "Reset"
+        priceAsc: "Price: Lowest first",
+        priceDesc: "Price: Highest first",
+        rating: "Top Rated",
+        duration: "Duration: Shortest first",
+        reset: "Reset Filters"
       }
     },
     trips: {
       tag: "🗺️ Popular Trips",
-      title: "Discover ",
-      titleAccent: "Our Amazing Journeys",
+      title: "Discover our",
+      titleAccent: "Amazing Trips",
       subtitle: "Carefully organized tours for every destination and budget",
-      searchPlaceholder: "Search for trip...",
+      searchPlaceholder: "Search trips...",
       resultsCount: "{count} trips available",
       loading: "Loading...",
       emptyTitle: "No matching trips",
-      emptyDesc: "Try changing your filters",
+      emptyDesc: "Try changing the filters",
       filters: {
-        title: "Filter",
+        title: "Filters",
         search: "Search",
         type: "Trip Type",
         duration: "Duration",
         priceRange: "Max Price:",
         sortBy: "Sort by",
         default: "Default",
-        priceAsc: "Price: Low",
-        priceDesc: "Price: High",
-        rating: "Highest Rated",
-        seats: "Remaining Seats",
-        reset: "Reset",
+        priceAsc: "Price: Lowest",
+        priceDesc: "Price: Highest",
+        rating: "Top Rated",
+        seats: "Seats left",
+        reset: "Reset Filters",
         durationOptions: [
-          { id: "all", label: "All Durations" },
-          { id: "short", label: "Less than 5 days" },
+          { id: "all", label: "All durations" },
+          { id: "short", label: "Under 5 days" },
           { id: "medium", label: "5-7 days" },
-          { id: "long", label: "More than 7 days" }
+          { id: "long", label: "Over 7 days" }
         ]
       }
     },
     packageDetail: {
-      includedTrips: "Trips Included in This Package",
-      includedDesc: "List of trips and unique experiences included in this package. Click on any trip for details.",
-      itineraryTitle: "Trip Itinerary",
-      itineraryDesc: "Enjoy a carefully organized daily schedule.",
+      includedTrips: "Included trips in this package",
+      includedDesc: "List of unique trips and experiences included in this package. Tap any trip for details.",
+      itineraryTitle: "Package itinerary",
+      itineraryDesc: "Enjoy a carefully crafted daily schedule.",
       galleryTitle: "Photo Gallery",
-      includesTitle: "What's Included",
-      bookNow: "Book This Package Now",
-      perPerson: "per person",
-      bookingLabel: "Preferred Travel Date",
-      bookingPeople: "Number of People",
+      includesTitle: "What is included",
+      bookNow: "Book this package now",
+      perPerson: "Per person",
+      bookingLabel: "Preferred travel date",
+      bookingPeople: "Number of people",
       saveTrip: "Save",
       share: "Share",
       noTrips: "No trips added yet.",
-      noItinerary: "No trip itinerary available.",
-      noGallery: "No additional photos.",
+      noItinerary: "No itinerary available.",
+      noGallery: "No additional images.",
       hotelsTitle: "Nearby Hotels",
       hotelsDesc: "Best hotels near this destination",
       restaurantsTitle: "Nearby Restaurants",
       restaurantsDesc: "Best restaurants near this destination",
-      noHotels: "No nearby hotels found.",
-      noRestaurants: "No nearby restaurants found."
+      noHotels: "No hotels found nearby.",
+      noRestaurants: "No restaurants found nearby."
     },
     contact: {
       heroTag: "Contact Us",
@@ -432,8 +256,8 @@ export const en = {
       successBtn: "Send another message",
       infoCards: [
         { title: "Call Us", value: "+20 106 259 2809", sub: "Sat-Thu 9AM - 6PM" },
-        { title: "Email", value: "info@touregyptclub.com", sub: "We reply within 24 hours" },
-        { title: "Location", value: "Cairo, Egypt", sub: "Nile Tower, 12th Floor" },
+        { title: "Email", value: "sales@touregyptclub.com", sub: "We reply within 24 hours" },
+        { title: "Location", value: "Giza, Egypt", sub: "120 Al Haram St, El Talbia, Giza Governorate" },
         { title: "Working Hours", value: "Sat - Thu", sub: "9:00 AM - 6:00 PM" }
       ],
       labels: {
@@ -447,41 +271,27 @@ export const en = {
         name: "Your name...",
         phone: "Your phone...",
         email: "Your email...",
-        destination: "e.g. Maldives, Paris...",
+        destination: "e.g. Sharm El-Sheikh, Luxor...",
         message: "Write your message here..."
       },
       submit: "Send Message"
     },
     about: {
-       heroTag: "About Us",
-       heroTitle: "Our story of travel and inspiration",
-       heroSubtitle: "Since 2009 we've created unforgettable memories for travelers worldwide",
-       missionTitle: "Our Mission",
-       missionDesc: "Deliver exceptional travel experiences that exceed expectations through precise planning, premium service, and competitive prices.",
-       visionTitle: "Our Vision",
-       visionDesc: "To be the region's most trusted travel partner offering journeys that blend authenticity and modernity.",
-       valuesTag: "Our Values",
-       sectionTitle: "What makes us different?",
-       teamTag: "Our Team",
-       teamTitle: "Meet our talented crew",
-       stats: [
-         { value: "50,000+", label: "Happy Travelers" },
-         { value: "120+", label: "Destinations" },
-         { value: "15+", label: "Years Experience" },
-         { value: "98%", label: "Client Satisfaction" }
-       ],
-       values: [
-         { title: "Passion for Travel", desc: "We believe travel opens horizons and changes lives" },
-         { title: "Quality First", desc: "We deliver the highest quality standards in every detail" },
-         { title: "Precision & Professionalism", desc: "Every trip is carefully planned for a perfect experience" },
-         { title: "Open to the World", desc: "We open doors to the world's most beautiful destinations" }
-       ],
-       team: [
-         { name: "Ahmed Sami", role: "CEO", avatar: "https://i.pravatar.cc/120?img=12", exp: "20 years exp." },
-         { name: "Mona Karim", role: "Tourism Director", avatar: "https://i.pravatar.cc/120?img=23", exp: "15 years exp." },
-         { name: "Khaled Omar", role: "Operations Manager", avatar: "https://i.pravatar.cc/120?img=33", exp: "12 years exp." },
-         { name: "Reem Al-Ansari", role: "Customer Service Lead", avatar: "https://i.pravatar.cc/120?img=45", exp: "8 years exp." }
-       ]
+      heroTag: "About Us",
+      heroTitle: "Our story of travel and inspiration",
+      heroSubtitle: "Since 2009 we've created unforgettable memories for travelers across Egypt",
+      missionTitle: "Our Mission",
+      missionDesc: "Showcasing Egypt's timeless beauty — from the Pyramids of Giza to the Red Sea shores — through handcrafted tours that reveal the soul of this ancient land.",
+      visionTitle: "Our Vision",
+      visionDesc: "To be the gateway through which the world discovers Egypt's wonders, blending 7,000 years of heritage with world-class travel experiences.",
+      valuesTag: "Our Values",
+      sectionTitle: "What makes us different?",
+      values: [
+        { title: "Passion for Travel", desc: "We believe travel opens horizons and changes lives" },
+        { title: "Quality First", desc: "We deliver the highest quality standards in every detail" },
+        { title: "Precision & Professionalism", desc: "Every trip is carefully planned for a perfect experience" },
+        { title: "Gateway to Egypt", desc: "We open doors to Egypt's most beautiful destinations" }
+      ]
     },
     notFound: {
       title: "Page Not Found",
@@ -529,7 +339,14 @@ export const en = {
       bestSeason: "Best Season",
       avgTemp: "Average Temperature",
       groupSize: "Group Size",
-      language: "Language"
+      language: "Language",
+      goodToKnow: "Good to Know",
+      upgrades: "Available Upgrades",
+      optionalExperiences: "Optional Experiences",
+      comboTours: "Combine It With",
+      day: "Day {n}",
+      stop: "Stop {n}",
+      maxPeople: "Up to {n} people"
     },
     checkout: {
       pageTitle: "Complete Your Booking",
@@ -555,7 +372,7 @@ export const en = {
       phonePlaceholder: "Enter your phone number",
       guests: "Guests",
       tripDate: "Trip Date"
-    },
+    }
   },
   dashboard: {
     title: "Dashboard",
@@ -630,12 +447,12 @@ export const en = {
     ctaTitle: "Ready for your dream trip?",
     ctaDesc: "Contact us now and book your perfect package at the best prices",
     ctaBtn: "Start your journey now",
-    desc: "We offer the best travel and tourism experiences around the world. Unforgettable trips with the best prices and highest level of service.",
+    desc: "We offer the best travel and tourism experiences across Egypt. Unforgettable trips with the best prices and highest level of service.",
     links: "Quick Links",
     topDestinations: "Top Destinations",
-    destinations: ["Maldives", "Switzerland", "Italy", "Japan", "Kenya", "France"],
+    destinations: ["Sharm El-Sheikh", "Luxor", "Alexandria", "Aswan", "Hurghada", "Cairo"],
     contact: "Contact Us",
-    address: "Cairo, Egypt",
+    address: "120 Al Haram St, El Talbia, Giza, Egypt",
     rights: "All rights reserved to Tour Egypt Club",
     privacy: "Privacy Policy",
     terms: "Terms & Conditions"
