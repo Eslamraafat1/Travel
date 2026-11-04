@@ -1,1 +1,0 @@
-Provides localStorage-backed persistence for admin content overrides and trip/package data, plus bilingual field resolution for English/Arabic content.
