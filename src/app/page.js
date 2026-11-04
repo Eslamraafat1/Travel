@@ -17,6 +17,7 @@ import { getPopularTrips } from "@/lib/api/trips";
 import { useLanguage } from "@/context/LanguageContext";
 import { getMergedContent } from "@/lib/contentStore";
 import styles from "./page.module.css";
+import SmartImage from "@/components/SmartImage/SmartImage";
 
 // ---- Animated Counter ----
 function Counter({ target, suffix = "", duration = 2 }) {
@@ -186,9 +187,13 @@ export default function HomePage() {
                 mass: 0.8 
               }}
             >
-              <img 
-                src="https://images.unsplash.com/photo-1548786811-dd6e453ccca7?w=400&h=500&fit=crop" 
-                alt="Travel destination"
+              <SmartImage
+                src="https://images.unsplash.com/photo-1548786811-dd6e453ccca7?w=400&h=500&fit=crop"
+                alt=""
+                width={400}
+                height={500}
+                sizes="280px"
+                preload
               />
             </motion.div>
 
@@ -207,9 +212,12 @@ export default function HomePage() {
                   delay: 0.15 
                 }}
               >
-                <img 
-                  src="https://images.unsplash.com/photo-1548786811-dd6e453ccca7?w=200&h=250&fit=crop" 
-                  alt="Portrait"
+                <SmartImage
+                  src="https://images.unsplash.com/photo-1548786811-dd6e453ccca7?w=200&h=250&fit=crop"
+                  alt=""
+                  width={200}
+                  height={250}
+                  sizes="160px"
                 />
               </motion.div>
 
@@ -280,9 +288,12 @@ export default function HomePage() {
                   delay: 0.4 
                 }}
               >
-                <img 
-                  src="https://images.unsplash.com/photo-1548786811-dd6e453ccca7?w=300&h=400&fit=crop" 
-                  alt="Creative work"
+                <SmartImage
+                  src="https://images.unsplash.com/photo-1548786811-dd6e453ccca7?w=300&h=400&fit=crop"
+                  alt=""
+                  width={300}
+                  height={400}
+                  sizes="220px"
                 />
               </motion.div>
 
@@ -533,7 +544,7 @@ export default function HomePage() {
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.6, delay: i * 0.08 }}
               >
-                <img src={item.src} alt={item.label} />
+                <SmartImage src={item.src} alt={item.label} fill sizes="(max-width: 768px) 100vw, 33vw" />
                 <div className={styles.galleryOverlay}>
                   <h4><MapPin size={14} style={{ display: "inline", marginInlineEnd: "6px" }} />{item.label}</h4>
                 </div>
@@ -570,7 +581,7 @@ export default function HomePage() {
                   <Quote size={40} className={styles.quoteIcon} />
                   <p className={styles.testimonialText}>{testimonials[testimonialIdx].text}</p>
                   <div className={styles.testimonialFooter}>
-                    <img src={testimonials[testimonialIdx].avatar} alt={testimonials[testimonialIdx].name} className={styles.avatar} />
+                    <SmartImage src={testimonials[testimonialIdx].avatar} alt={testimonials[testimonialIdx].name} className={styles.avatar} width={56} height={56} />
                     <div>
                       <h4 className={styles.testimonialName}>{testimonials[testimonialIdx].name}</h4>
                       <p className={styles.testimonialRole}>{testimonials[testimonialIdx].role} • {testimonials[testimonialIdx].destination}</p>

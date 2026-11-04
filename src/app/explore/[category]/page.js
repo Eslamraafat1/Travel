@@ -430,8 +430,11 @@ function SkeletonGrid({ layout }) {
 export default function CategoryPage() {
   const { category } = useParams();
   const router = useRouter();
-  const [places, setPlaces] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // Results are tagged with the category they were loaded for, so "loading"
+  // is derived instead of being reset inside the effect.
+  const [loaded, setLoaded] = useState({ category: null, places: [] });
+  const loading = loaded.category !== category;
+  const places = loading ? [] : loaded.places;
   const [activeCuisine, setActiveCuisine] = useState("All");
   const heroRef = useRef(null);
   const sectionRef = useRef(null);
@@ -442,11 +445,12 @@ export default function CategoryPage() {
 
   useEffect(() => {
     if (!category) return;
-    setLoading(true);
+    let cancelled = false;
     searchPlaces({ category, near: "Cairo, Egypt", limit: 20 })
-      .then((data) => setPlaces(Array.isArray(data) ? data : data.places || []))
-      .catch(() => setPlaces([]))
-      .finally(() => setLoading(false));
+      .then((data) => Array.isArray(data) ? data : data.places || [])
+      .catch(() => [])
+      .then((list) => { if (!cancelled) setLoaded({ category, places: list }); });
+    return () => { cancelled = true; };
   }, [category]);
 
   useEffect(() => {

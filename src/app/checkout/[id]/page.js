@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, User, Users, Calendar, CreditCard, CheckCircle, ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
@@ -8,6 +8,7 @@ import Footer from "@/components/Footer/Footer";
 import { getTripById } from "@/lib/api/trips";
 import { useLanguage } from "@/context/LanguageContext";
 import styles from "../checkout.module.css";
+import SmartImage from "@/components/SmartImage/SmartImage";
 
 export default function CheckoutPage() {
   const { t, lang } = useLanguage();
@@ -43,6 +44,24 @@ export default function CheckoutPage() {
   }, [id, lang]);
 
   const update = (key, value) => setForm(prev => ({ ...prev, [key]: value }));
+
+  // Validate the fields of the current step before moving on. (The final
+  // submit can't do it: earlier steps are unmounted by then.)
+  const stepRef = useRef(null);
+  const goToStep = (next) => {
+    if (next > step) {
+      const fields = stepRef.current?.querySelectorAll("input, select, textarea") || [];
+      for (const field of fields) {
+        if (!field.checkValidity()) {
+          field.reportValidity();
+          field.focus();
+          return;
+        }
+      }
+    }
+    setStep(next);
+  };
+  const today = new Date().toISOString().slice(0, 10);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -106,7 +125,7 @@ export default function CheckoutPage() {
         <form onSubmit={handleSubmit}>
           <div className={styles.grid}>
             {/* Left — Form */}
-            <div>
+            <div ref={stepRef}>
               {/* Step 1: Personal Info */}
               <AnimatePresence mode="wait">
                 {step === 0 && (
@@ -120,20 +139,20 @@ export default function CheckoutPage() {
                       </h3>
                       <div className={styles.formGrid}>
                         <div className={`${styles.field} ${styles.formGridFull}`}>
-                          <label>{t('pages.checkout.fullName')}</label>
-                          <input type="text" placeholder={t('pages.checkout.namePlaceholder')} value={form.name} onChange={e => update("name", e.target.value)} required />
+                          <label htmlFor="checkout-name">{t('pages.checkout.fullName')}</label>
+                          <input id="checkout-name" name="name" autoComplete="name" type="text" placeholder={t('pages.checkout.namePlaceholder')} value={form.name} onChange={e => update("name", e.target.value)} required />
                         </div>
                         <div className={styles.field}>
-                          <label>{t('pages.checkout.email')}</label>
-                          <input type="email" placeholder={t('pages.checkout.emailPlaceholder')} value={form.email} onChange={e => update("email", e.target.value)} required />
+                          <label htmlFor="checkout-email">{t('pages.checkout.email')}</label>
+                          <input id="checkout-email" name="email" autoComplete="email" type="email" placeholder={t('pages.checkout.emailPlaceholder')} value={form.email} onChange={e => update("email", e.target.value)} required />
                         </div>
                         <div className={styles.field}>
-                          <label>{t('pages.checkout.phone')}</label>
-                          <input type="tel" placeholder={t('pages.checkout.phonePlaceholder')} value={form.phone} onChange={e => update("phone", e.target.value)} required />
+                          <label htmlFor="checkout-phone">{t('pages.checkout.phone')}</label>
+                          <input id="checkout-phone" name="phone" autoComplete="tel" type="tel" pattern="[+0-9 ()-]{7,20}" placeholder={t('pages.checkout.phonePlaceholder')} value={form.phone} onChange={e => update("phone", e.target.value)} required />
                         </div>
                       </div>
                     </div>
-                    <button type="button" className="btn-primary" onClick={() => setStep(1)} style={{ width: "100%", justifyContent: "center" }}>
+                    <button type="button" className="btn-primary" onClick={() => goToStep(1)} style={{ width: "100%", justifyContent: "center" }}>
                       {t('pages.checkout.bookingDetails')} <ArrowDir size={18} />
                     </button>
                   </motion.div>
@@ -151,28 +170,28 @@ export default function CheckoutPage() {
                       </h3>
                       <div className={styles.formGrid}>
                         <div className={styles.field}>
-                          <label>{t('pages.checkout.people')}</label>
-                          <select value={form.people} onChange={e => update("people", Number(e.target.value))}>
+                          <label htmlFor="checkout-people">{t('pages.checkout.people')}</label>
+                          <select id="checkout-people" value={form.people} onChange={e => update("people", Number(e.target.value))}>
                             {[...Array(Math.min(trip.availableSeats, 10))].map((_, i) => (
                               <option key={i} value={i + 1}>{i + 1} {t('pages.checkout.guests')}</option>
                             ))}
                           </select>
                         </div>
                         <div className={styles.field}>
-                          <label>{t('pages.checkout.date')}</label>
-                          <input type="date" value={form.date} onChange={e => update("date", e.target.value)} required />
+                          <label htmlFor="checkout-date">{t('pages.checkout.date')}</label>
+                          <input id="checkout-date" type="date" min={today} value={form.date} onChange={e => update("date", e.target.value)} required />
                         </div>
                         <div className={`${styles.field} ${styles.formGridFull}`}>
-                          <label>{t('pages.checkout.specialRequests')}</label>
-                          <textarea placeholder={t('pages.checkout.requestsPlaceholder')} value={form.requests} onChange={e => update("requests", e.target.value)} />
+                          <label htmlFor="checkout-requests">{t('pages.checkout.specialRequests')}</label>
+                          <textarea id="checkout-requests" placeholder={t('pages.checkout.requestsPlaceholder')} value={form.requests} onChange={e => update("requests", e.target.value)} />
                         </div>
                       </div>
                     </div>
                     <div style={{ display: "flex", gap: "12px" }}>
-                      <button type="button" className="btn-outline" onClick={() => setStep(0)} style={{ flex: 1, justifyContent: "center" }}>
+                      <button type="button" className="btn-outline" onClick={() => goToStep(0)} style={{ flex: 1, justifyContent: "center" }}>
                         <ArrowLeft size={18} /> {t('pages.checkout.personalInfo')}
                       </button>
-                      <button type="button" className="btn-primary" onClick={() => setStep(2)} style={{ flex: 1, justifyContent: "center" }}>
+                      <button type="button" className="btn-primary" onClick={() => goToStep(2)} style={{ flex: 1, justifyContent: "center" }}>
                         {t('pages.checkout.payment')} <ArrowDir size={18} />
                       </button>
                     </div>
@@ -206,7 +225,7 @@ export default function CheckoutPage() {
                       </div>
                     </div>
                     <div style={{ display: "flex", gap: "12px" }}>
-                      <button type="button" className="btn-outline" onClick={() => setStep(1)} style={{ flex: 1, justifyContent: "center" }}>
+                      <button type="button" className="btn-outline" onClick={() => goToStep(1)} style={{ flex: 1, justifyContent: "center" }}>
                         <ArrowLeft size={18} /> {t('pages.checkout.bookingDetails')}
                       </button>
                       <button type="submit" className="btn-primary" disabled={submitting} style={{ flex: 1, justifyContent: "center" }}>
@@ -221,7 +240,7 @@ export default function CheckoutPage() {
             {/* Right — Sidebar */}
             <div className={styles.sidebar}>
               <div className={styles.summaryCard}>
-                <img src={trip.image} alt={trip.title} className={styles.summaryImg} />
+                <SmartImage src={trip.image} alt={trip.title} className={styles.summaryImg} width={800} height={533} sizes="(max-width: 900px) 100vw, 380px" />
                 <div className={styles.summaryBody}>
                   <h3 className={styles.summaryTitle}>{trip.title}</h3>
                   <p className={styles.summaryDest}>

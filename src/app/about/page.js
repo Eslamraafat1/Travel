@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import { useLanguage } from "@/context/LanguageContext";
 import styles from "./about.module.css";
+import SmartImage from "@/components/SmartImage/SmartImage";
 
 const valueIcons = [
   { icon: <Heart size={24} />, color: "#ec4899" },
@@ -168,7 +169,7 @@ export default function AboutPage() {
                 whileHover={{ y: -8 }}
               >
                 <div className={styles.avatarWrapper}>
-                  <img src={member.avatar} alt={member.name} className={styles.avatar} />
+                  <SmartImage src={member.avatar} alt={member.name} className={styles.avatar} width={96} height={96} />
                   <div className={styles.avatarGlow} />
                 </div>
                 <h3 className={styles.memberName}>{member.name}</h3>

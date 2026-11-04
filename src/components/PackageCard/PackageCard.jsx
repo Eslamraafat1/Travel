@@ -4,6 +4,7 @@ import { Star, Clock, Users, MapPin, ArrowLeft, ArrowRight, Zap } from "lucide-r
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
 import styles from "./PackageCard.module.css";
+import SmartImage from "@/components/SmartImage/SmartImage";
 
 export default function PackageCard({ pkg, index = 0 }) {
   const { t, lang } = useLanguage();
@@ -17,6 +18,8 @@ export default function PackageCard({ pkg, index = 0 }) {
   return (
     <motion.div
       className={styles.card}
+      data-testid="package-card"
+      data-price={pkg.price}
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
@@ -25,7 +28,7 @@ export default function PackageCard({ pkg, index = 0 }) {
     >
       {/* Image */}
       <Link href={`/packages/${pkg.id}`} className={styles.imageWrapper}>
-        <img src={pkg.image} alt={pkg.title} className={styles.image} loading="lazy" />
+        <SmartImage src={pkg.image} alt={pkg.title} className={styles.image} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
         <div className={styles.imageOverlay} />
 
         {/* Top badges */}

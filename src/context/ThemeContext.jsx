@@ -1,28 +1,31 @@
 "use client";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useSyncExternalStore } from "react";
+import { readKey, subscribe, writeKey } from "@/lib/localStore";
+
+const STORAGE_KEY = "tourism-theme";
+const DEFAULT_THEME = "light";
+
+const getSnapshot = () => (readKey(STORAGE_KEY, DEFAULT_THEME) === "dark" ? "dark" : "light");
+const getServerSnapshot = () => DEFAULT_THEME;
+const getMounted = () => true;
+const getServerMounted = () => false;
+const noopSubscribe = () => () => {};
 
 const ThemeContext = createContext({
-  theme: "dark",
+  theme: DEFAULT_THEME,
   toggleTheme: () => {},
+  mounted: false,
 });
 
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState("light");
-  const [mounted, setMounted] = useState(false);
+  const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const mounted = useSyncExternalStore(noopSubscribe, getMounted, getServerMounted);
 
   useEffect(() => {
-    const saved = localStorage.getItem("tourism-theme") || "light";
-    setTheme(saved);
-    document.documentElement.setAttribute("data-theme", saved);
-    setMounted(true);
-  }, []);
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
 
-  const toggleTheme = () => {
-    const newTheme = theme === "dark" ? "light" : "dark";
-    setTheme(newTheme);
-    localStorage.setItem("tourism-theme", newTheme);
-    document.documentElement.setAttribute("data-theme", newTheme);
-  };
+  const toggleTheme = () => writeKey(STORAGE_KEY, theme === "dark" ? "light" : "dark");
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme, mounted }}>

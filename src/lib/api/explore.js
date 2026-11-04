@@ -1,27 +1,10 @@
 // ===================================================
 // EXPLORE / GUIDE API — Foursquare Places API v3
 // Docs: https://docs.foursquare.com/developer/reference/place-search
-// Free tier: 1000 calls/day. Set NEXT_PUBLIC_FSQ_KEY in .env.local
+// The browser calls our own route handler (/api/places), which adds the
+// server-only FSQ_KEY. Without a key (or on any error) the functions below
+// fall back to built-in demo data, so the UI always renders.
 // ===================================================
-
-const FSQ_BASE = "https://api.foursquare.com/v3";
-const FSQ_KEY = process.env.NEXT_PUBLIC_FSQ_KEY || "";
-
-// Egypt bounding box (ne/sw)
-const EGYPT_CENTER = "30.0444,31.2357"; // Cairo as default
-
-// Foursquare category IDs
-const FSQ_CATEGORIES = {
-  restaurants: "13065",   // Restaurant (parent)
-  hotels:      "19014",   // Hotel
-  trips:       "18000",   // Landmarks & Outdoors (tours start points)
-  activities:  "18026",   // Recreation
-  transport:   "19040",   // Travel & Transport
-  cafes:       "13032",   // Café / Coffee Shop
-  essentials:  "17000",   // Services (pharmacies, banks, hospitals combined)
-  malls:       "17106",   // Shopping Mall
-  parks:       "16032",   // Park
-};
 
 // Unsplash fallback images per category
 const FALLBACK_IMAGES = {
@@ -128,42 +111,25 @@ function normalizePlace(raw, category) {
   };
 }
 
-// ---- Core fetch ----
-async function fsqFetch(path, params = {}) {
-  if (!FSQ_KEY) {
-    console.warn("[explore] NEXT_PUBLIC_FSQ_KEY not set — using mock data");
-    return null;
-  }
-  const url = new URL(`${FSQ_BASE}${path}`);
+// ---- Core fetch (via /api/places) ----
+async function placesFetch(params) {
+  const qs = new URLSearchParams();
   Object.entries(params).forEach(([k, v]) => {
-    if (v !== undefined && v !== null) url.searchParams.set(k, String(v));
+    if (v !== undefined && v !== null && v !== "") qs.set(k, String(v));
   });
-  const res = await fetch(url.toString(), {
-    headers: {
-      Authorization: FSQ_KEY,
-      Accept: "application/json",
-    },
-    next: { revalidate: 3600 }, // cache 1h on Next.js 15+
-  });
-  if (!res.ok) {
-    console.error("[explore] FSQ error", res.status, await res.text());
+  try {
+    const res = await fetch(`/api/places?${qs}`, { headers: { Accept: "application/json" } });
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data?.configured === false ? null : data; // no key on the server -> demo data
+  } catch {
     return null;
   }
-  return res.json();
 }
 
 // ---- Search places by category ----
 export async function searchPlaces({ category, query = "", near = "Cairo, Egypt", limit = 20, cursor }) {
-  const catId = FSQ_CATEGORIES[category];
-  const data = await fsqFetch("/places/search", {
-    categories: catId,
-    query: query || undefined,
-    near,
-    limit,
-    cursor,
-    fields: "fsq_id,name,location,geocodes,rating,stats,price,hours,photos,tel,website,description,categories,distance,verified,chains,tastes,features,popularity",
-    sort: "RELEVANCE",
-  });
+  const data = await placesFetch({ op: "search", category, query, near, limit, cursor });
 
   if (!data) return getMockPlaces(category, limit);
 
@@ -177,9 +143,7 @@ export async function searchPlaces({ category, query = "", near = "Cairo, Egypt"
 
 // ---- Get single place detail ----
 export async function getPlaceDetail(fsqId, category) {
-  const data = await fsqFetch(`/places/${fsqId}`, {
-    fields: "fsq_id,name,location,geocodes,rating,stats,price,hours,photos,tel,website,description,categories,distance,verified,chains,tastes,features,popularity,hours_popular,attributes",
-  });
+  const data = String(fsqId).startsWith("mock-") ? null : await placesFetch({ op: "detail", id: fsqId });
 
   if (!data) return getMockPlaceDetail(fsqId, category);
   return normalizePlace(data, category);
@@ -187,7 +151,7 @@ export async function getPlaceDetail(fsqId, category) {
 
 // ---- Get tips/reviews for a place ----
 export async function getPlaceTips(fsqId, limit = 6) {
-  const data = await fsqFetch(`/places/${fsqId}/tips`, { limit, sort: "POPULAR" });
+  const data = String(fsqId).startsWith("mock-") ? null : await placesFetch({ op: "tips", id: fsqId, limit });
   if (!data) return getMockTips();
   return (data || []).map((tip) => ({
     id: tip.id,
@@ -211,7 +175,7 @@ export async function getRelatedPlaces(category, near = "Cairo, Egypt", limit = 
 }
 
 // ============================================================
-// MOCK DATA — used when FSQ_KEY is not set
+// MOCK DATA — used when FSQ_KEY is not set on the server
 // ============================================================
 const MOCK_NAMES = {
   restaurants: [

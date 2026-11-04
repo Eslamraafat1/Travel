@@ -26,7 +26,9 @@ export default function LoginPage() {
     try {
       const success = login(email, password);
       if (success) {
-        router.push("/");
+        // Return to the page that required login (same-origin paths only).
+        const next = new URLSearchParams(window.location.search).get("next");
+        router.push(next && next.startsWith("/") && !next.startsWith("//") ? next : "/");
       }
     } catch (err) {
       console.error(err);
@@ -65,13 +67,15 @@ export default function LoginPage() {
 
             <form onSubmit={handleSubmit} className={styles.form}>
               <div className={styles.fieldGroup}>
-                <label className={styles.label}>
+                <label className={styles.label} htmlFor="login-email">
                   Email
                 </label>
                 <div className={styles.inputWrapper}>
                   <Mail size={18} className={styles.inputIcon} />
                   <input
+                    id="login-email"
                     type="email"
+                    autoComplete="email"
                     className={styles.input}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -82,13 +86,15 @@ export default function LoginPage() {
               </div>
 
               <div className={styles.fieldGroup}>
-                <label className={styles.label}>
+                <label className={styles.label} htmlFor="login-password">
                   Password
                 </label>
                 <div className={styles.inputWrapper}>
                   <Lock size={18} className={styles.inputIcon} />
                   <input
+                    id="login-password"
                     type={showPassword ? "text" : "password"}
+                    autoComplete="current-password"
                     className={styles.input}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -99,6 +105,7 @@ export default function LoginPage() {
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
                     className={styles.togglePassword}
+                    aria-label={showPassword ? "Hide password" : "Show password"}
                   >
                     {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                   </button>
@@ -129,7 +136,7 @@ export default function LoginPage() {
               </div>
 
               <p className={styles.registerText}>
-                Don't have an account? 
+                Don&apos;t have an account? 
                 <Link href="/register" className={styles.registerLink}>
                   Sign Up
                 </Link>

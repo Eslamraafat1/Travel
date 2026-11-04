@@ -4,6 +4,7 @@ import { Star, Clock, MapPin, Users, Calendar, ArrowLeft, ArrowRight } from "luc
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
 import styles from "./TripCard.module.css";
+import SmartImage from "@/components/SmartImage/SmartImage";
 
 const difficultyColors = {
   easy: "#22c55e",
@@ -21,6 +22,8 @@ export default function TripCard({ trip, index = 0 }) {
   return (
     <motion.div
       className={styles.card}
+      data-testid="trip-card"
+      data-price={trip.price}
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
@@ -29,7 +32,7 @@ export default function TripCard({ trip, index = 0 }) {
     >
       {/* Image */}
       <Link href={`/trips/${trip.id}`} className={styles.imageWrapper}>
-        <img src={trip.image} alt={trip.title} className={styles.image} loading="lazy" />
+        <SmartImage src={trip.image} alt={trip.title} className={styles.image} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
         <div className={styles.overlay} />
         {urgency && (
           <span className={styles.urgencyBadge}>

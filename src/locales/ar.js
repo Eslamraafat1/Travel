@@ -39,7 +39,7 @@ export const ar = {
     whyUs: {
       tag: "⭐ لماذا نحن",
       title1: "لماذا تختار ",
-      titleAccent: "واندرلاست",
+      titleAccent: "Tour Egypt Club",
       title2: "؟",
       subtitle: "نجعل رحلتك تجربة لا تُنسى من اللحظة الأولى حتى عودتك إلى الوطن",
       features: [
@@ -86,7 +86,7 @@ export const ar = {
       tag: "📱 تطبيقنا",
       title1: "سافر معنا ",
       titleAccent: "في كل مكان",
-      subtitle: "حمّل تطبيق واندرلاست وابدأ رحلتك الآن مباشرة من هاتفك",
+      subtitle: "حمّل تطبيق Tour Egypt Club وابدأ رحلتك الآن مباشرة من هاتفك",
       feature1: "احجز في ثوانٍ",
       feature2: "تتبع رحلتك",
       feature3: "دعم فوري",
@@ -101,7 +101,7 @@ export const ar = {
       title1: "ماذا يقول ",
       titleAccent: "مسافرونا",
       items: [
-        { name: "سارة أحمد", role: "مديرة أعمال", text: "رحلة المالديف كانت حلماً! التنظيم كان مثالياً من أول لحظة لآخر لحظة. شكراً واندرلاست على هذه التجربة الرائعة", destination: "المالديف" },
+        { name: "سارة أحمد", role: "مديرة أعمال", text: "رحلة المالديف كانت حلماً! التنظيم كان مثالياً من أول لحظة لآخر لحظة. شكراً Tour Egypt Club على هذه التجربة الرائعة", destination: "المالديف" },
         { name: "محمد خالد", role: "مهندس معماري", text: "رحلة سويسرا فاقت كل توقعاتي. المناظر خلابة والخدمة 5 نجوم. هذه ثاني مرة معكم ولن تكون الأخيرة!", destination: "سويسرا" },
         { name: "نورة إبراهيم", role: "طبيبة", text: "اليابان في موسم الكرز كانت تجربة لا توصف. الفريق محترف جداً وكل تفصيلة كانت مرتبة بدقة", destination: "اليابان" },
         { name: "أحمد رضا", role: "رجل أعمال", text: "سفاري كينيا كانت أفضل تجربة في حياتي. الحيوانات والطبيعة والخيمة الفاخرة - كل شيء كان مذهلاً", destination: "كينيا" }
@@ -385,6 +385,29 @@ export const ar = {
         ]
       }
     },
+    packageDetail: {
+      includedTrips: "الرحلات المضمنة في هذه الباقة",
+      includedDesc: "قائمة بالرحلات والتجارب الفريدة المضمنة في هذه الباقة. اضغط على أي رحلة للتفاصيل.",
+      itineraryTitle: "برنامج الرحلة",
+      itineraryDesc: "استمتع بجدول يومي منظم بعناية.",
+      galleryTitle: "معرض الصور",
+      includesTitle: "ما يشمل",
+      bookNow: "احجز هذه الباقة الآن",
+      perPerson: "للفرد",
+      bookingLabel: "تاريخ السفر المفضل",
+      bookingPeople: "عدد الأشخاص",
+      saveTrip: "حفظ",
+      share: "مشاركة",
+      noTrips: "لم تتم إضافة رحلات بعد.",
+      noItinerary: "لا يوجد برنامج رحلة متاح.",
+      noGallery: "لا توجد صور إضافية.",
+      hotelsTitle: "فنادق قريبة",
+      hotelsDesc: "أفضل الفنادق القريبة من هذه الوجهة",
+      restaurantsTitle: "مطاعم قريبة", 
+      restaurantsDesc: "أفضل المطاعم القريبة من هذه الوجهة",
+      noHotels: "لم يتم العثور على فنادق قريبة.",
+      noRestaurants: "لم يتم العثور على مطاعم قريبة."
+    },
     contact: {
       heroTag: "اتصل بنا",
       heroTitle: "نحن هنا لمساعدتك",
@@ -397,8 +420,8 @@ export const ar = {
       successDesc: "سنتواصل معك خلال 24 ساعة",
       successBtn: "إرسال رسالة أخرى",
       infoCards: [
-        { title: "اتصل بنا", value: "+01234567890", sub: "السبت-الخميس 9ص - 6م" },
-        { title: "البريد الإلكتروني", value: "info@wanderlust.com", sub: "نرد خلال 24 ساعة" },
+        { title: "اتصل بنا", value: "+20 106 259 2809", sub: "السبت-الخميس 9ص - 6م" },
+        { title: "البريد الإلكتروني", value: "info@touregyptclub.com", sub: "نرد خلال 24 ساعة" },
         { title: "الموقع", value: "القاهرة، مصر", sub: "برج النيل، الطابق 12" },
         { title: "ساعات العمل", value: "السبت - الخميس", sub: "9:00 ص - 6:00 م" }
       ],
@@ -455,31 +478,9 @@ export const ar = {
       home: "العودة للرئيسية",
       packages: "تصفح الباقات"
     },
-    packageDetail: {
-      includedTrips: "الرحلات المضمنة في هذه الباقة",
-      includedDesc: "قائمة بالرحلات والتجارب الفريدة المضمنة في هذه الباقة. اضغط على أي رحلة للتفاصيل.",
-      itineraryTitle: "برنامج الرحلة",
-      itineraryDesc: "استمتع بجدول يومي منظم بعناية.",
-      galleryTitle: "معرض الصور",
-      includesTitle: "ما يشمل",
-      bookNow: "احجز هذه الباقة الآن",
-      perPerson: "للفرد",
-      bookingLabel: "تاريخ السفر المفضل",
-      bookingPeople: "عدد الأشخاص",
-      saveTrip: "حفظ",
-      share: "مشاركة",
-      noTrips: "لم تتم إضافة رحلات بعد.",
-      noItinerary: "لا يوجد برنامج رحلة متاح.",
-      noGallery: "لا توجد صور إضافية.",
-      hotelsTitle: "فنادق قريبة",
-      hotelsDesc: "أفضل الفنادق القريبة من هذه الوجهة",
-      restaurantsTitle: "مطاعم قريبة",
-      restaurantsDesc: "أفضل المطاعم القريبة من هذه الوجهة",
-      noHotels: "لم يتم العثور على فنادق قريبة.",
-      noRestaurants: "لم يتم العثور على مطاعم قريبة.",
-    },
     tripDetail: {
       overview: "نظرة عامة",
+      noTrips: "لم تتم إضافة رحلات بعد.",
       duration: "المدة",
       departureDate: "تاريخ المغادرة",
       availableSeats: "المقاعد المتاحة",
@@ -624,86 +625,8 @@ export const ar = {
     destinations: ["المالديف", "سويسرا", "إيطاليا", "اليابان", "كينيا", "فرنسا"],
     contact: "اتصل بنا",
     address: "القاهرة، مصر",
-    rights: "جميع الحقوق محفوظة لشركة واندرلاست",
+    rights: "جميع الحقوق محفوظة لشركة Tour Egypt Club",
     privacy: "سياسة الخصوصية",
     terms: "الشروط والأحكام"
-  },
-  pages: {
-    packages: {
-      tag: "✈️ باقات السفر",
-      title: "اكتشف ",
-      titleAccent: "باقاتنا المميزة",
-      subtitle: "اعثر على باقة سفر متكاملة تناسب ميزانيتك وتفضيلاتك",
-      searchPlaceholder: "ابحث عن باقة...",
-      resultsCount: "{count} باقة متاحة",
-      emptyTitle: "لا توجد نتائج",
-      emptyDesc: "جرب تغيير بحثك أو الفئة",
-      filters: {
-        title: "تصفية",
-        search: "بحث",
-        categories: "الفئات",
-        sortBy: "ترتيب حسب",
-        default: "الافتراضي",
-        priceAsc: "السعر: الأقل أولاً",
-        priceDesc: "السعر: الأعلى أولاً",
-        rating: "الأعلى تقييماً",
-        duration: "المدة: الأقصر أولاً",
-        reset: "إعادة تعيين"
-      }
-    },
-    trips: {
-      tag: "🗺️ رحلات رائجة",
-      title: "اكتشف ",
-      titleAccent: "رحلاتنا المذهلة",
-      subtitle: "جولات منظمة بعناية لكل وجهة وميزانية",
-      searchPlaceholder: "ابحث عن رحلة...",
-      resultsCount: "{count} رحلة متاحة",
-      loading: "جاري التحميل...",
-      emptyTitle: "لا توجد رحلات مطابقة",
-      emptyDesc: "جرب تغيير عوامل التصفية",
-      filters: {
-        title: "تصفية",
-        search: "بحث",
-        type: "نوع الرحلة",
-        duration: "المدة",
-        priceRange: "أقصى سعر:",
-        sortBy: "ترتيب حسب",
-        default: "الافتراضي",
-        priceAsc: "السعر: الأقل",
-        priceDesc: "السعر: الأعلى",
-        rating: "الأعلى تقييماً",
-        seats: "المقاعد المتبقية",
-        reset: "إعادة تعيين",
-        durationOptions: [
-          { id: "all", label: "جميع المدد" },
-          { id: "short", label: "أقل من 5 أيام" },
-          { id: "medium", label: "5-7 أيام" },
-          { id: "long", label: "أكثر من 7 أيام" }
-        ]
-      }
-    },
-    packageDetail: {
-      includedTrips: "الرحلات المضمنة في هذه الباقة",
-      includedDesc: "قائمة بالرحلات والتجارب الفريدة المضمنة في هذه الباقة. اضغط على أي رحلة للتفاصيل.",
-      itineraryTitle: "برنامج الرحلة",
-      itineraryDesc: "استمتع بجدول يومي منظم بعناية.",
-      galleryTitle: "معرض الصور",
-      includesTitle: "ما يشمل",
-      bookNow: "احجز هذه الباقة الآن",
-      perPerson: "للفرد",
-      bookingLabel: "تاريخ السفر المفضل",
-      bookingPeople: "عدد الأشخاص",
-      saveTrip: "حفظ",
-      share: "مشاركة",
-      noTrips: "لم تتم إضافة رحلات بعد.",
-      noItinerary: "لا يوجد برنامج رحلة متاح.",
-      noGallery: "لا توجد صور إضافية.",
-      hotelsTitle: "فنادق قريبة",
-      hotelsDesc: "أفضل الفنادق القريبة من هذه الوجهة",
-      restaurantsTitle: "مطاعم قريبة", 
-      restaurantsDesc: "أفضل المطاعم القريبة من هذه الوجهة",
-      noHotels: "لم يتم العثور على فنادق قريبة.",
-      noRestaurants: "لم يتم العثور على مطاعم قريبة."
-    }
   }
 };

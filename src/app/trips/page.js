@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, MapPin, Calendar, Clock, Users, Filter } from "lucide-react";
 import Navbar from "@/components/Navbar/Navbar";
@@ -24,7 +24,6 @@ export default function TripsPage() {
     { id: "long", label: "Over 7 days" },
   ];
   const [trips, setTrips] = useState([]);
-  const [filtered, setFiltered] = useState([]);
   const [activeType, setActiveType] = useState("all");
   const [activeDuration, setActiveDuration] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
@@ -37,7 +36,6 @@ export default function TripsPage() {
       try {
         const data = await getAllTrips("all", lang);
         setTrips(data);
-        setFiltered(data);
       } finally {
         setLoading(false);
       }
@@ -45,7 +43,8 @@ export default function TripsPage() {
     load();
   }, [lang]);
 
-  useEffect(() => {
+  // Derived state: recomputed when the data or a filter changes.
+  const filtered = useMemo(() => {
     let result = [...trips];
 
     if (activeType !== "all") result = result.filter((t) => t.type === activeType);
@@ -61,9 +60,9 @@ export default function TripsPage() {
     }
 
     if (searchQuery.trim()) {
-      const q = searchQuery.toLowerCase();
+      const q = searchQuery.trim().toLowerCase();
       result = result.filter(
-        (t) => t.title.includes(q) || t.destination.includes(q)
+        (t) => t.title?.toLowerCase().includes(q) || t.destination?.toLowerCase().includes(q)
       );
     }
 
@@ -74,7 +73,7 @@ export default function TripsPage() {
     else if (sortBy === "rating") result.sort((a, b) => b.rating - a.rating);
     else if (sortBy === "seats") result.sort((a, b) => a.availableSeats - b.availableSeats);
 
-    setFiltered(result);
+    return result;
   }, [trips, activeType, activeDuration, searchQuery, priceRange, sortBy]);
 
   return (
@@ -119,7 +118,7 @@ export default function TripsPage() {
 
               {/* Search */}
               <div className={styles.filterGroup}>
-                <label>{t('pages.trips.filters.search')}</label>
+                <label htmlFor="trips-search">{t('pages.trips.filters.search')}</label>
                 <div className={styles.searchBox}>
                   <Search size={16} className={styles.searchIcon} />
                   <input
@@ -169,7 +168,7 @@ export default function TripsPage() {
 
               {/* Price Range */}
               <div className={styles.filterGroup}>
-                <label>
+                <label htmlFor="trips-price-range">
                   {t('pages.trips.filters.priceRange')} <span className={styles.priceValue}>{priceRange.toLocaleString()} {t('common.currency')}</span>
                 </label>
                 <input
@@ -190,7 +189,7 @@ export default function TripsPage() {
 
               {/* Sort */}
               <div className={styles.filterGroup}>
-                <label>{t('pages.trips.filters.sortBy')}</label>
+                <label htmlFor="trips-sort">{t('pages.trips.filters.sortBy')}</label>
                 <select
                   id="trips-sort"
                   value={sortBy}

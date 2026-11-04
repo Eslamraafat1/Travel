@@ -211,7 +211,7 @@ export default function PackageDetailPage() {
                     <h2 className={styles.sectionTitle}>{t('pages.packageDetail.galleryTitle')}</h2>
                     <div className={styles.gallery}>
                       {pkg.gallery?.map((img, i) => (
-                        <img key={i} src={img} alt={`Gallery ${i}`} className={styles.galleryImg} />
+                        <img key={i} src={img} alt={`${pkg.title} — photo ${i + 1}`} className={styles.galleryImg} />
                       )) || <p>{t('pages.packageDetail.noGallery')}</p>}
                     </div>
                   </motion.div>

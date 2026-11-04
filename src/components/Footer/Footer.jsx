@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { Globe, Phone, Mail, MapPin, ArrowLeft, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { SITE } from "@/lib/site";
 import styles from "./Footer.module.css";
 
 const footerLinks = {
@@ -45,7 +46,7 @@ export default function Footer() {
             <div className={styles.brand}>
               <div className={styles.logo}>
                 <div className={styles.logoIcon}><Globe size={20} /></div>
-                <span className={styles.logoText}>Wander<span>lust</span></span>
+                <span className={styles.logoText} dir="ltr">Tour Egypt <span>Club</span></span>
               </div>
               <p className={styles.brandDesc}>
                 {t('footer.desc')}
@@ -102,11 +103,11 @@ export default function Footer() {
               <div className={styles.contactList}>
                 <div className={styles.contactItem}>
                   <Phone size={16} className={styles.contactIcon} />
-                  <span dir="ltr">+01234567890</span>
+                  <a href={`https://wa.me/${SITE.phone.replace("+", "")}`} dir="ltr">{SITE.phoneDisplay}</a>
                 </div>
                 <div className={styles.contactItem}>
                   <Mail size={16} className={styles.contactIcon} />
-                  <span>info@wanderlust.com</span>
+                  <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
                 </div>
                 <div className={styles.contactItem}>
                   <MapPin size={16} className={styles.contactIcon} />

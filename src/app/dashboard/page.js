@@ -42,184 +42,162 @@ const emptyPackage = {
   category: "beach",
 };
 
+// Builds the editable content for one language: saved override or locale default.
+function getLocaleVal(keypath, lng) {
+  const locale = lng === "ar" ? ar : en;
+  const keys = keypath.split(".");
+  let val = locale;
+  for (const k of keys) {
+    if (val && val[k] !== undefined) val = val[k];
+    else return "";
+  }
+  return typeof val === "string" ? val : val;
+}
+
+function buildContent(lng) {
+  const saved = getContentOverrides(lng);
+  const sh = saved.home || {};
+
+  const def = (path, fallback) => {
+    const v = getLocaleVal(path, lng);
+    return v || fallback;
+  };
+
+  // Helper: override or locale default
+  const or = (savedVal, localePath) => {
+    if (savedVal !== undefined && savedVal !== null && !(Array.isArray(savedVal) && savedVal.length === 0) && !(typeof savedVal === "object" && !Array.isArray(savedVal) && Object.keys(savedVal).length === 0)) {
+      return savedVal;
+    }
+    const localeVal = getLocaleVal(localePath, lng);
+    return localeVal || savedVal;
+  };
+
+  const slides = or(saved.hero?.slides, "hero.slides");
+  const emptySlide = { tag: "", title: "", titleAccent: "", sub: "" };
+  return {
+    hero: { slides: Array.isArray(slides) ? slides : [emptySlide, emptySlide, emptySlide] },
+    home: {
+      packages: {
+        tag: or(sh.packages?.tag, "home.packages.tag"),
+        title1: or(sh.packages?.title1, "home.packages.title1"),
+        titleAccent: or(sh.packages?.titleAccent, "home.packages.titleAccent"),
+        subtitle: or(sh.packages?.subtitle, "home.packages.subtitle"),
+        viewAll: or(sh.packages?.viewAll, "home.packages.viewAll"),
+      },
+      whyUs: {
+        tag: or(sh.whyUs?.tag, "home.whyUs.tag"),
+        title1: or(sh.whyUs?.title1, "home.whyUs.title1"),
+        titleAccent: or(sh.whyUs?.titleAccent, "home.whyUs.titleAccent"),
+        title2: or(sh.whyUs?.title2, "home.whyUs.title2"),
+        subtitle: or(sh.whyUs?.subtitle, "home.whyUs.subtitle"),
+        features: or(sh.whyUs?.features, "home.whyUs.features"),
+      },
+      trips: {
+        tag: or(sh.trips?.tag, "home.trips.tag"),
+        titleAccent: or(sh.trips?.titleAccent, "home.trips.titleAccent"),
+        title2: or(sh.trips?.title2, "home.trips.title2"),
+        subtitle: or(sh.trips?.subtitle, "home.trips.subtitle"),
+        viewAll: or(sh.trips?.viewAll, "home.trips.viewAll"),
+      },
+      stats: {
+        destinations: sh.stats?.destinations ?? 120,
+        travelers: sh.stats?.travelers ?? 50000,
+        years: sh.stats?.years ?? 15,
+      },
+      howItWorks: {
+        tag: or(sh.howItWorks?.tag, "home.howItWorks.tag"),
+        title1: or(sh.howItWorks?.title1, "home.howItWorks.title1"),
+        titleAccent: or(sh.howItWorks?.titleAccent, "home.howItWorks.titleAccent"),
+        subtitle: or(sh.howItWorks?.subtitle, "home.howItWorks.subtitle"),
+        steps: or(sh.howItWorks?.steps, "home.howItWorks.steps"),
+      },
+      gallery: {
+        tag: or(sh.gallery?.tag, "home.gallery.tag"),
+        title1: or(sh.gallery?.title1, "home.gallery.title1"),
+        titleAccent: or(sh.gallery?.titleAccent, "home.gallery.titleAccent"),
+        subtitle: or(sh.gallery?.subtitle, "home.gallery.subtitle"),
+        items: or(sh.gallery?.items, "home.gallery.items"),
+      },
+      testimonials: {
+        tag: or(sh.testimonials?.tag, "home.testimonials.tag"),
+        title1: or(sh.testimonials?.title1, "home.testimonials.title1"),
+        titleAccent: or(sh.testimonials?.titleAccent, "home.testimonials.titleAccent"),
+        items: or(sh.testimonials?.items, "home.testimonials.items"),
+      },
+      video: {
+        title: or(sh.video?.title, "home.video.title"),
+        subtitle: or(sh.video?.subtitle, "home.video.subtitle"),
+      },
+      apps: {
+        tag: or(sh.apps?.tag, "home.apps.tag"),
+        title1: or(sh.apps?.title1, "home.apps.title1"),
+        titleAccent: or(sh.apps?.titleAccent, "home.apps.titleAccent"),
+        subtitle: or(sh.apps?.subtitle, "home.apps.subtitle"),
+        feature1: or(sh.apps?.feature1, "home.apps.feature1"),
+        feature2: or(sh.apps?.feature2, "home.apps.feature2"),
+        feature3: or(sh.apps?.feature3, "home.apps.feature3"),
+        downloadOn: or(sh.apps?.downloadOn, "home.apps.downloadOn"),
+        appStore: or(sh.apps?.appStore, "home.apps.appStore"),
+        getItOn: or(sh.apps?.getItOn, "home.apps.getItOn"),
+        googlePlay: or(sh.apps?.googlePlay, "home.apps.googlePlay"),
+        users: or(sh.apps?.users, "home.apps.users"),
+      },
+      partners: {
+        tag: or(sh.partners?.tag, "home.partners.tag"),
+        title1: or(sh.partners?.title1, "home.partners.title1"),
+        titleAccent: or(sh.partners?.titleAccent, "home.partners.titleAccent"),
+      },
+      newsletter: {
+        title1: or(sh.newsletter?.title1, "home.newsletter.title1"),
+        titleAccent: or(sh.newsletter?.titleAccent, "home.newsletter.titleAccent"),
+        subtitle: or(sh.newsletter?.subtitle, "home.newsletter.subtitle"),
+        placeholder: or(sh.newsletter?.placeholder, "home.newsletter.placeholder"),
+        btn: or(sh.newsletter?.btn, "home.newsletter.btn"),
+      },
+    },
+    planner: {
+      heroTag: or(saved.planner?.heroTag, "planner.heroTag"),
+      heroTitle1: or(saved.planner?.heroTitle1, "planner.heroTitle1"),
+      heroTitleAccent: or(saved.planner?.heroTitleAccent, "planner.heroTitleAccent"),
+      heroSubtitle: or(saved.planner?.heroSubtitle, "planner.heroSubtitle"),
+      from: or(saved.planner?.from, "planner.from"),
+      to: or(saved.planner?.to, "planner.to"),
+      fromPlaceholder: or(saved.planner?.fromPlaceholder, "planner.fromPlaceholder"),
+      toPlaceholder: or(saved.planner?.toPlaceholder, "planner.toPlaceholder"),
+      searchBtn: or(saved.planner?.searchBtn, "planner.searchBtn"),
+      popular: or(saved.planner?.popular, "planner.popular"),
+      searching: or(saved.planner?.searching, "planner.searching"),
+      resultsTitle: or(saved.planner?.resultsTitle, "planner.resultsTitle"),
+      resultsSubtitle: or(saved.planner?.resultsSubtitle, "planner.resultsSubtitle"),
+      fromPrice: or(saved.planner?.fromPrice, "planner.fromPrice"),
+      exploreBtn: or(saved.planner?.exploreBtn, "planner.exploreBtn"),
+      destinationsTag: or(saved.planner?.destinationsTag, "planner.destinationsTag"),
+      destinationsTitle1: or(saved.planner?.destinationsTitle1, "planner.destinationsTitle1"),
+      destinationsTitleAccent: or(saved.planner?.destinationsTitleAccent, "planner.destinationsTitleAccent"),
+      destinationsSubtitle: or(saved.planner?.destinationsSubtitle, "planner.destinationsSubtitle"),
+    },
+  };
+}
+
 export default function DashboardPage() {
   const { t, lang } = useLanguage();
   const isRtl = lang === "ar";
   const [activeTab, setActiveTab] = useState("overview");
-  const [trips, setTrips] = useState([]);
-  const [packages, setPkgs] = useState([]);
+  // This page only renders on the client (behind RequireAuth), so the demo
+  // data can be read from localStorage in lazy initialisers.
+  const [trips, setTrips] = useState(() => getStoredTrips(mockTrips));
+  const [packages, setPkgs] = useState(() => getStoredPackages(mockPackages));
   const [modal, setModal] = useState(null);
   const [editItem, setEditItem] = useState(null);
   const [toast, setToast] = useState(null);
-  const [content, setContent] = useState({
-    hero: { slides: [{ tag: "", title: "", titleAccent: "", sub: "" }, { tag: "", title: "", titleAccent: "", sub: "" }, { tag: "", title: "", titleAccent: "", sub: "" }] },
-    home: {
-      packages: { tag: "", title1: "", titleAccent: "", subtitle: "", viewAll: "" },
-      whyUs: { tag: "", title1: "", titleAccent: "", title2: "", subtitle: "", features: [{ title: "", desc: "" }, { title: "", desc: "" }, { title: "", desc: "" }, { title: "", desc: "" }, { title: "", desc: "" }, { title: "", desc: "" }] },
-      trips: { tag: "", titleAccent: "", title2: "", subtitle: "", viewAll: "" },
-      stats: { destinations: 120, travelers: 50000, years: 15 },
-      howItWorks: { tag: "", title1: "", titleAccent: "", subtitle: "", steps: [{ num: "01", title: "", desc: "" }, { num: "02", title: "", desc: "" }, { num: "03", title: "", desc: "" }] },
-      gallery: { tag: "", title1: "", titleAccent: "", subtitle: "", items: [{ label: "", src: "" }, { label: "", src: "" }, { label: "", src: "" }, { label: "", src: "" }, { label: "", src: "" }] },
-      testimonials: { tag: "", title1: "", titleAccent: "", items: [{ name: "", role: "", text: "", destination: "" }, { name: "", role: "", text: "", destination: "" }, { name: "", role: "", text: "", destination: "" }, { name: "", role: "", text: "", destination: "" }] },
-      video: { title: "", subtitle: "" },
-      apps: { tag: "", title1: "", titleAccent: "", subtitle: "", feature1: "", feature2: "", feature3: "", downloadOn: "", appStore: "", getItOn: "", googlePlay: "", users: "" },
-      partners: { tag: "", title1: "", titleAccent: "" },
-      newsletter: { title1: "", titleAccent: "", subtitle: "", placeholder: "", btn: "" },
-    },
-    planner: {
-      heroTag: "", heroTitle1: "", heroTitleAccent: "", heroSubtitle: "",
-      from: "", to: "", fromPlaceholder: "", toPlaceholder: "",
-      searchBtn: "", popular: "", searching: "",
-      resultsTitle: "", resultsSubtitle: "", fromPrice: "", exploreBtn: "",
-      destinationsTag: "", destinationsTitle1: "", destinationsTitleAccent: "", destinationsSubtitle: "",
-    },
-  });
+  const [content, setContent] = useState(() => buildContent(lang));
   const [sectionsOpen, setSectionsOpen] = useState({});
   const [contentLang, setContentLang] = useState(lang);
 
-  function getLocaleVal(keypath) {
-    const locale = contentLang === "ar" ? ar : en;
-    const keys = keypath.split(".");
-    let val = locale;
-    for (const k of keys) {
-      if (val && val[k] !== undefined) val = val[k];
-      else return "";
-    }
-    return typeof val === "string" ? val : val;
-  }
-
-  function loadContent(lng) {
-    const saved = getContentOverrides(lng);
-    const sh = saved.home || {};
-
-    const def = (path, fallback) => {
-      const v = getLocaleVal(path);
-      return v || fallback;
-    };
-
-    // Helper: override or locale default
-    const or = (savedVal, localePath) => {
-      if (savedVal !== undefined && savedVal !== null && !(Array.isArray(savedVal) && savedVal.length === 0) && !(typeof savedVal === "object" && !Array.isArray(savedVal) && Object.keys(savedVal).length === 0)) {
-        return savedVal;
-      }
-      const localeVal = getLocaleVal(localePath);
-      return localeVal || savedVal;
-    };
-
-    const slides = or(saved.hero?.slides, "hero.slides");
-    setContent({
-      hero: { slides: Array.isArray(slides) ? slides : content.hero.slides },
-      home: {
-        packages: {
-          tag: or(sh.packages?.tag, "home.packages.tag"),
-          title1: or(sh.packages?.title1, "home.packages.title1"),
-          titleAccent: or(sh.packages?.titleAccent, "home.packages.titleAccent"),
-          subtitle: or(sh.packages?.subtitle, "home.packages.subtitle"),
-          viewAll: or(sh.packages?.viewAll, "home.packages.viewAll"),
-        },
-        whyUs: {
-          tag: or(sh.whyUs?.tag, "home.whyUs.tag"),
-          title1: or(sh.whyUs?.title1, "home.whyUs.title1"),
-          titleAccent: or(sh.whyUs?.titleAccent, "home.whyUs.titleAccent"),
-          title2: or(sh.whyUs?.title2, "home.whyUs.title2"),
-          subtitle: or(sh.whyUs?.subtitle, "home.whyUs.subtitle"),
-          features: or(sh.whyUs?.features, "home.whyUs.features"),
-        },
-        trips: {
-          tag: or(sh.trips?.tag, "home.trips.tag"),
-          titleAccent: or(sh.trips?.titleAccent, "home.trips.titleAccent"),
-          title2: or(sh.trips?.title2, "home.trips.title2"),
-          subtitle: or(sh.trips?.subtitle, "home.trips.subtitle"),
-          viewAll: or(sh.trips?.viewAll, "home.trips.viewAll"),
-        },
-        stats: {
-          destinations: sh.stats?.destinations ?? 120,
-          travelers: sh.stats?.travelers ?? 50000,
-          years: sh.stats?.years ?? 15,
-        },
-        howItWorks: {
-          tag: or(sh.howItWorks?.tag, "home.howItWorks.tag"),
-          title1: or(sh.howItWorks?.title1, "home.howItWorks.title1"),
-          titleAccent: or(sh.howItWorks?.titleAccent, "home.howItWorks.titleAccent"),
-          subtitle: or(sh.howItWorks?.subtitle, "home.howItWorks.subtitle"),
-          steps: or(sh.howItWorks?.steps, "home.howItWorks.steps"),
-        },
-        gallery: {
-          tag: or(sh.gallery?.tag, "home.gallery.tag"),
-          title1: or(sh.gallery?.title1, "home.gallery.title1"),
-          titleAccent: or(sh.gallery?.titleAccent, "home.gallery.titleAccent"),
-          subtitle: or(sh.gallery?.subtitle, "home.gallery.subtitle"),
-          items: or(sh.gallery?.items, "home.gallery.items"),
-        },
-        testimonials: {
-          tag: or(sh.testimonials?.tag, "home.testimonials.tag"),
-          title1: or(sh.testimonials?.title1, "home.testimonials.title1"),
-          titleAccent: or(sh.testimonials?.titleAccent, "home.testimonials.titleAccent"),
-          items: or(sh.testimonials?.items, "home.testimonials.items"),
-        },
-        video: {
-          title: or(sh.video?.title, "home.video.title"),
-          subtitle: or(sh.video?.subtitle, "home.video.subtitle"),
-        },
-        apps: {
-          tag: or(sh.apps?.tag, "home.apps.tag"),
-          title1: or(sh.apps?.title1, "home.apps.title1"),
-          titleAccent: or(sh.apps?.titleAccent, "home.apps.titleAccent"),
-          subtitle: or(sh.apps?.subtitle, "home.apps.subtitle"),
-          feature1: or(sh.apps?.feature1, "home.apps.feature1"),
-          feature2: or(sh.apps?.feature2, "home.apps.feature2"),
-          feature3: or(sh.apps?.feature3, "home.apps.feature3"),
-          downloadOn: or(sh.apps?.downloadOn, "home.apps.downloadOn"),
-          appStore: or(sh.apps?.appStore, "home.apps.appStore"),
-          getItOn: or(sh.apps?.getItOn, "home.apps.getItOn"),
-          googlePlay: or(sh.apps?.googlePlay, "home.apps.googlePlay"),
-          users: or(sh.apps?.users, "home.apps.users"),
-        },
-        partners: {
-          tag: or(sh.partners?.tag, "home.partners.tag"),
-          title1: or(sh.partners?.title1, "home.partners.title1"),
-          titleAccent: or(sh.partners?.titleAccent, "home.partners.titleAccent"),
-        },
-        newsletter: {
-          title1: or(sh.newsletter?.title1, "home.newsletter.title1"),
-          titleAccent: or(sh.newsletter?.titleAccent, "home.newsletter.titleAccent"),
-          subtitle: or(sh.newsletter?.subtitle, "home.newsletter.subtitle"),
-          placeholder: or(sh.newsletter?.placeholder, "home.newsletter.placeholder"),
-          btn: or(sh.newsletter?.btn, "home.newsletter.btn"),
-        },
-      },
-      planner: {
-        heroTag: or(saved.planner?.heroTag, "planner.heroTag"),
-        heroTitle1: or(saved.planner?.heroTitle1, "planner.heroTitle1"),
-        heroTitleAccent: or(saved.planner?.heroTitleAccent, "planner.heroTitleAccent"),
-        heroSubtitle: or(saved.planner?.heroSubtitle, "planner.heroSubtitle"),
-        from: or(saved.planner?.from, "planner.from"),
-        to: or(saved.planner?.to, "planner.to"),
-        fromPlaceholder: or(saved.planner?.fromPlaceholder, "planner.fromPlaceholder"),
-        toPlaceholder: or(saved.planner?.toPlaceholder, "planner.toPlaceholder"),
-        searchBtn: or(saved.planner?.searchBtn, "planner.searchBtn"),
-        popular: or(saved.planner?.popular, "planner.popular"),
-        searching: or(saved.planner?.searching, "planner.searching"),
-        resultsTitle: or(saved.planner?.resultsTitle, "planner.resultsTitle"),
-        resultsSubtitle: or(saved.planner?.resultsSubtitle, "planner.resultsSubtitle"),
-        fromPrice: or(saved.planner?.fromPrice, "planner.fromPrice"),
-        exploreBtn: or(saved.planner?.exploreBtn, "planner.exploreBtn"),
-        destinationsTag: or(saved.planner?.destinationsTag, "planner.destinationsTag"),
-        destinationsTitle1: or(saved.planner?.destinationsTitle1, "planner.destinationsTitle1"),
-        destinationsTitleAccent: or(saved.planner?.destinationsTitleAccent, "planner.destinationsTitleAccent"),
-        destinationsSubtitle: or(saved.planner?.destinationsSubtitle, "planner.destinationsSubtitle"),
-      },
-    });
-  }
-
-  useEffect(() => {
-    setTrips(getStoredTrips(mockTrips));
-    setPkgs(getStoredPackages(mockPackages));
-  }, []);
-
-  useEffect(() => {
-    loadContent(contentLang);
-  }, [contentLang]);
+  const switchContentLang = (lng) => {
+    setContentLang(lng);
+    setContent(buildContent(lng));
+  };
 
   const showToast = (msg, type = "success") => {
     setToast(msg);
@@ -476,8 +454,8 @@ export default function DashboardPage() {
                 <h1>{t('dashboard.editContent')}</h1>
                 <p>{t('dashboard.contentDesc')}</p>
                 <div className={styles.langToggle}>
-                  <button className={`${styles.langBtn} ${contentLang === "ar" ? styles.langBtnActive : ""}`} onClick={() => setContentLang("ar")}>العربية</button>
-                  <button className={`${styles.langBtn} ${contentLang === "en" ? styles.langBtnActive : ""}`} onClick={() => setContentLang("en")}>English</button>
+                  <button className={`${styles.langBtn} ${contentLang === "ar" ? styles.langBtnActive : ""}`} onClick={() => switchContentLang("ar")}>العربية</button>
+                  <button className={`${styles.langBtn} ${contentLang === "en" ? styles.langBtnActive : ""}`} onClick={() => switchContentLang("en")}>English</button>
                 </div>
               </div>
 

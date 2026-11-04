@@ -266,7 +266,7 @@ export default function TripDetailPage() {
                   <h2 className={styles.sectionTitle} style={{ marginTop: "40px" }}>{t('pages.tripDetail.gallery')}</h2>
                   <div className={styles.gallery}>
                     {trip.gallery.map((img, i) => (
-                      <img key={i} src={img} alt={`Gallery ${i}`}
+                      <img key={i} src={img} alt={`${trip.title} — photo ${i + 1}`}
                         className={styles.galleryImg}
                         onClick={() => setLightbox(img)}
                       />
@@ -403,7 +403,7 @@ export default function TripDetailPage() {
           <div className={styles.photoSliderTrack}>
             {[...trip.gallery, ...trip.gallery].map((img, i) => (
               <div key={i} className={styles.photoSlide} onClick={() => setLightbox(img)}>
-                <img src={img} alt={`Trip ${i}`} />
+                <img src={img} alt={`${trip.title} — photo ${(i % trip.gallery.length) + 1}`} />
                 <div className={styles.photoSlideOverlay}>
                   <MapPin size={14} /> {trip.destination}
                 </div>
@@ -439,7 +439,7 @@ export default function TripDetailPage() {
           <button className={styles.lightboxClose} onClick={() => setLightbox(null)}>
             <X size={24} />
           </button>
-          <img src={lightbox} alt="Gallery" onClick={e => e.stopPropagation()} />
+          <img src={lightbox} alt={trip.title} onClick={e => e.stopPropagation()} />
         </div>
       )}
     </main>

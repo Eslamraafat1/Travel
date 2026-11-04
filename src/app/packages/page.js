@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, Filter, SlidersHorizontal } from "lucide-react";
 import Navbar from "@/components/Navbar/Navbar";
@@ -13,7 +13,6 @@ import styles from "./packages.module.css";
 export default function PackagesPage() {
   const { t, lang } = useLanguage();
   const [packages, setPackages] = useState([]);
-  const [filtered, setFiltered] = useState([]);
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("default");
@@ -24,7 +23,6 @@ export default function PackagesPage() {
       try {
         const data = await getAllPackages("all", lang);
         setPackages(data);
-        setFiltered(data);
       } finally {
         setLoading(false);
       }
@@ -32,7 +30,8 @@ export default function PackagesPage() {
     load();
   }, [lang]);
 
-  useEffect(() => {
+  // Derived state: recomputed when the data or a filter changes.
+  const filtered = useMemo(() => {
     let result = [...packages];
 
     // Filter by category
@@ -42,12 +41,12 @@ export default function PackagesPage() {
 
     // Filter by search
     if (searchQuery.trim()) {
-      const q = searchQuery.toLowerCase();
+      const q = searchQuery.trim().toLowerCase();
       result = result.filter(
         (p) =>
-          p.title.includes(q) ||
-          p.destination.includes(q) ||
-          p.description.includes(q)
+          p.title?.toLowerCase().includes(q) ||
+          p.destination?.toLowerCase().includes(q) ||
+          p.description?.toLowerCase().includes(q)
       );
     }
 
@@ -57,7 +56,7 @@ export default function PackagesPage() {
     else if (sortBy === "rating") result.sort((a, b) => b.rating - a.rating);
     else if (sortBy === "duration") result.sort((a, b) => parseInt(a.duration) - parseInt(b.duration));
 
-    setFiltered(result);
+    return result;
   }, [packages, activeCategory, searchQuery, sortBy]);
 
   return (
@@ -102,6 +101,7 @@ export default function PackagesPage() {
               <Search size={18} className={styles.searchIcon} />
               <input
                 id="packages-search"
+                aria-label={t('pages.packages.searchPlaceholder')}
                 type="text"
                 placeholder={t('pages.packages.searchPlaceholder')}
                 value={searchQuery}
@@ -116,6 +116,8 @@ export default function PackagesPage() {
                 <button
                   key={cat.id}
                   id={`cat-${cat.id}`}
+                  type="button"
+                  aria-pressed={activeCategory === cat.id}
                   className={`${styles.catBtn} ${activeCategory === cat.id ? styles.catActive : ""}`}
                   onClick={() => setActiveCategory(cat.id)}
                 >
@@ -129,6 +131,7 @@ export default function PackagesPage() {
               <SlidersHorizontal size={16} />
               <select
                 id="packages-sort"
+                aria-label="Sort"
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
                 className={styles.sortSelect}
