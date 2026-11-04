@@ -213,6 +213,8 @@ The production site at **[touregyptclub.com](https://touregyptclub.com/)** is de
 | **[MONOLITH](https://github.com/Eslamraafat1/3D-Website-)** | 3D architecture studio site | [Live](https://3-d-website-seven-xi.vercel.app) |
 | **[Portfolio](https://github.com/Eslamraafat1/new-portfolio)** | bilingual Next.js portfolio | [Live](https://new-portfolio-ashy-xi.vercel.app) |
 
+**More client & personal work:** [The Untold Story](https://github.com/Eslamraafat1/Advertising) · [Harvest British College](https://github.com/Eslamraafat1/HarvestNew) · [Namaa](https://github.com/Eslamraafat1/Namaa) · [Physical therapy clinic](https://github.com/Eslamraafat1/Physical-therapy) · [Cord Academy](https://github.com/Eslamraafat1/Cord-academy) · [EVAY cars](https://github.com/Eslamraafat1/Car) · [VISTRA VR mall](https://github.com/Eslamraafat1/VR-Website) · [Prayer times](https://github.com/Eslamraafat1/Prayer-time)
+
 See everything on my [GitHub profile](https://github.com/Eslamraafat1) and [portfolio](https://new-portfolio-ashy-xi.vercel.app/).
 <!-- more-projects:end -->
 
